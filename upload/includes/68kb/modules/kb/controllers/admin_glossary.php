@@ -242,22 +242,6 @@ class Admin_glossary extends Admin_Controller {
 		{
 			return "g_definition";
 		}
-		elseif ($i == 2)
-		{
-			return "user_last_login";
-		}
-		elseif ($i == 3)
-		{
-			return 'group_name';
-		}
-		elseif ($i == 5)
-		{
-			return 'listing_modified';
-		}
-		elseif ($i == 6)
-		{
-			return "listing_price";
-		}
 	}
 }
 /* End of file admin_glossary.php */
