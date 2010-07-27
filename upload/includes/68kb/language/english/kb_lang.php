@@ -47,6 +47,7 @@ $lang['lang_submit'] = 'Submit';
 $lang['lang_articles'] = 'Articles';
 $lang['lang_manage_articles'] = 'Manage Articles';
 $lang['lang_add_article'] = 'Add Article';
+$lang['lang_edit_article'] = 'Edit Article';
 $lang['lang_date_added'] = 'Date Added';
 $lang['lang_date_edited'] = 'Date Edited';
 $lang['lang_last_updated'] = 'Last updated on';
@@ -344,11 +345,11 @@ $lang['can_search'] = 'Can Search';
 // ------------------------------------------------------------------------
 // Glossary
 // ------------------------------------------------------------------------
-$lang['kb_manage_glossary'] = 'Manage Glossary';
+$lang['lang_manage_glossary'] = 'Manage Glossary';
 $lang['lang_glossary'] = 'Glossary';
-$lang['kb_term'] = 'Term';
-$lang['kb_add_term'] = 'Add Term';
-$lang['kb_definition'] = 'Definition';
+$lang['lang_term'] = 'Term';
+$lang['lang_add_term'] = 'Add Term';
+$lang['lang_definition'] = 'Definition';
 $lang['kb_save'] = 'Save';
 $lang['kb_save_and_continue'] = 'Save and Continue Editing';
 

@@ -93,6 +93,120 @@ class Admin_articles extends Admin_Controller {
 		{
 			$data = array(
 				'article_uri' => $article_uri, 
+				'article_author' => (int) $this->session->userdata('user_id'), 
+				'article_title' => $this->input->post('article_title', TRUE),
+				'article_keywords' => $this->input->post('article_keywords', TRUE),
+				'article_short_desc' => $this->input->post('article_short_desc', TRUE),
+				'article_description' => $this->input->post('article_description', TRUE),
+				'article_display' => $this->input->post('article_display', TRUE),
+				'article_order' => $this->input->post('article_order', TRUE)
+			);
+			
+			$id = $this->articles_model->add_article($data);
+			
+			$this->session->set_flashdata('msg', lang('lang_settings_saved'));
+			
+			if (is_int($id))
+			{
+				// now add cat to product relationship
+				if (isset($_POST['cats']))
+				{
+					$this->articles_model->insert_cats($_POST['cats'], $id);
+				}
+				
+				if ($_FILES['userfile']['name'] != "") 
+				{
+					$target = ROOTPATH .'uploads/'.$id;
+					$this->_mkdir($target);
+					$config['upload_path'] = $target;
+					$config['allowed_types'] = $this->config->item('attachment_types');
+					$this->load->library('upload', $config);
+					if ( ! $this->upload->do_upload())
+					{
+						$this->session->set_flashdata('error', $this->upload->display_errors());
+						redirect('admin/kb/articles/edit/'.$id);
+					}
+					else
+					{
+						$upload = array('upload_data' => $this->upload->data());
+						$insert = array(
+							'article_id' => $id, 
+							'attach_name' => $upload['upload_data']['file_name'],
+							'attach_type' => $upload['upload_data']['file_type'],
+							'attach_size' => $upload['upload_data']['file_size']
+						);
+						$this->db->insert('attachments', $insert);
+						$data['attach'] = $this->article_model->get_attachments($id);
+					}
+				}
+			    if (isset($_POST['save']) && $_POST['save']<>"")
+			    {
+			    	redirect('admin/kb/articles/edit/'.$id);
+			    }
+			    else
+			    {
+			    	redirect('admin/kb/articles/');
+			    }
+			}
+			redirect('admin/kb/articles/');
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	* add article
+	*
+	*/
+	public function edit($id = '')
+	{
+		if ($id == '')
+		{
+			redirect('admin/kb/articles');
+		}
+		
+		$data['nav'] = 'articles';
+		
+		$this->template->title(lang('lang_edit_article'));
+		
+		// Get the categories
+		$this->load->library('categories/categories_library');
+		$this->load->model('categories/categories_model');
+		$data['tree'] = $this->categories_model->walk_categories(0, 0, 'checkbox', 0, '', TRUE);
+		$data['row'] = $this->articles_model->get_article($id);
+		$data['attach'] = $this->articles_model->get_attachments($id);
+		$data['cats'] = $this->articles_model->get_category_relationship($id);
+		$data['tree'] = $this->categories_model->walk_categories(0, 0, 'checkbox', 0, $data['cats'], TRUE);
+		
+		if($data['row']['article_author'] > 0)
+		{
+			$user = $this->users_model->get_user($data['row']['article_author']);
+			$data['username'] = $user['user_username'];
+		}
+		
+		$data['action'] = 'edit';
+		
+		$this->load->helper(array('form', 'url', 'html'));
+
+		$this->load->library('form_validation');
+		
+		$this->form_validation->set_rules('article_title', 'lang:kb_title', 'required');
+		$this->form_validation->set_rules('article_uri', 'lang:kb_uri', 'alpha_dash');
+		$this->form_validation->set_rules('article_keywords', 'lang:kb_keywords', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_short_desc', 'lang:kb_short_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_description', 'lang:kb_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_display', 'lang:kb_display', 'trim');
+		$this->form_validation->set_rules('article_order', 'lang:kb_weight', 'numeric');
+		$this->events->trigger('articles/validation');
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->template->build('admin/articles/form', $data);
+		}
+		else
+		{
+			$data = array(
+				'article_uri' => $article_uri, 
 				'article_author' => $this->session->userdata('userid'), 
 				'article_title' => $this->input->post('article_title', TRUE),
 				'article_keywords' => $this->input->post('article_keywords', TRUE),
@@ -275,23 +389,23 @@ class Admin_articles extends Admin_Controller {
 	{
 		if ($i == 0)
 		{
-			return "user_username";
+			return "article_title";
 		}
 		elseif ($i == 1)
 		{
-			return "user_join_date";
+			return "article_title";
 		}
 		elseif ($i == 2)
 		{
-			return "user_last_login";
+			return "article_date";
 		}
 		elseif ($i == 3)
 		{
-			return 'group_name';
+			return 'article_modified';
 		}
 		elseif ($i == 5)
 		{
-			return 'listing_modified';
+			return 'article_display';
 		}
 		elseif ($i == 6)
 		{

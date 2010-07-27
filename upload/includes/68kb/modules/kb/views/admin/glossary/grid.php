@@ -1,24 +1,21 @@
 <div class="grid_16">
 	<div id="content">
 		
-		<h2><?php echo lang('lang_manage_articles'); ?> <a class="addnew" href="<?php echo site_url('admin/kb/articles/add');?>"><?php echo lang('lang_add_article'); ?></a></h2>
+		<h2><?php echo lang('lang_manage_glossary'); ?> <a class="addnew" href="<?php echo site_url('admin/kb/glossary/add');?>"><?php echo lang('lang_add_term'); ?></a></h2>
 
 		<div id="dynamic">
 			<form id="gridform" action="<?php echo site_url('admin/kb/articles/update'); ?>" method="post">
 				<table cellpadding="0" cellspacing="0" border="0" id="grid">
 					<thead>
 						<tr>
-							<th class="largewidth"><?php echo lang('lang_title'); ?></th>
-							<th><?php echo lang('lang_categories'); ?></th>
-							<th><?php echo lang('lang_date_added'); ?></th>
-							<th><?php echo lang('lang_date_edited'); ?></th>
-							<th><?php echo lang('lang_display'); ?></th>
+							<th class="largewidth"><?php echo lang('lang_term'); ?></th>
+							<th><?php echo lang('lang_definition'); ?></th>
 							<th width="3%"><input type="checkbox" id="checkall" /></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="6" class="dataTables_empty"><img src="<?php echo $template; ?>/images/ajax-loader.gif" alt="Loading" /><?php echo lang('lang_js_processing'); ?></td>
+							<td colspan="3" class="dataTables_empty"><img src="<?php echo $template; ?>/images/ajax-loader.gif" alt="Loading" /><?php echo lang('lang_js_processing'); ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -31,7 +28,7 @@
 $(document).ready(function() {
 	oTable = $('#grid').dataTable( {
 		
-		"aoColumns": [null,null,null,null,null,
+		"aoColumns": [null,null,
 			{ "bSortable": false }
 		],
 		"bProcessing": true,
@@ -39,7 +36,7 @@ $(document).ready(function() {
 		"sPaginationType": "full_numbers",
 		"bStateSave": true,
 		"bJQueryUI": true,
-		"sAjaxSource": "<?php echo site_url('admin/kb/articles/grid'); ?>",
+		"sAjaxSource": "<?php echo site_url('admin/kb/glossary/grid'); ?>",
 		"fnServerData": function ( sSource, aoData, fnCallback ) {
 			$.ajax({ "dataType": 'json', "type": "POST", "url": sSource, "data": aoData, "success": fnCallback });
 		}

@@ -93,6 +93,37 @@ class Articles_model extends CI_model
 	}
 	
 	// ------------------------------------------------------------------------
+	
+	/**
+ 	* Get Product to Categories
+ 	* 
+	* @param	int
+ 	* @return 	bool
+ 	*/
+	public function get_category_relationship($article_id = '')
+	{
+		if( ! is_numeric($article_id))
+		{
+			return FALSE;
+		}
+			
+		$this->db->select('category_id_rel')->from('article2cat')->where('article_id_rel', (int) $article_id); 
+		$query = $this->db->get();
+		
+		if ($query->num_rows() == 0)
+		{
+			return FALSE;
+		}
+		
+		foreach ($query->result_array() as $row)
+		{
+			$arr[] = $row['category_id_rel'];
+		}
+		
+		return $arr;
+	}
+	
+	// ------------------------------------------------------------------------
 		
 	/**
 	* Delete Article
@@ -353,6 +384,27 @@ class Articles_model extends CI_model
 	
 	// ------------------------------------------------------------------------
 	
+	/** 
+	* Get Article
+	*
+	* @param	mixed
+	* @uses		_get_article_by_id
+	* @uses		_get_listing_by_uri
+	*/
+	public function get_article($query)
+	{
+		if (is_numeric($query)) 
+		{
+			return $this->_get_article_by_id($query);
+		}
+		else
+		{
+			return $this->_get_listing_by_query($query);
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
 	/**
 	 * Get Article By ID.
 	 *
@@ -362,14 +414,26 @@ class Articles_model extends CI_model
 	 * @param	int	the id
 	 * @return	array
 	 */
-	function get_article_by_id($id)
+	private function _get_article_by_id($id)
 	{
-		$id = (int)$id;
-		$this->db->from('articles')->where('article_id', $id);
+		$id = (int) $id;
+		
+		$this->db->from('articles')
+				->join('users', 'article_author = user_id', 'left')
+				->where('article_id', $id);
+				
 		$query = $this->db->get();
-		$data = $query->row();
+		
+		if ($query->num_rows() == 0) 
+		{
+			return FALSE;
+		}
+		
+		$data = $query->row_array();
+		
 		$query->free_result();
-		return  $data;
+		
+		return $data;
 	}
 	
 	// ------------------------------------------------------------------------

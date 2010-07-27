@@ -49,6 +49,25 @@ else
 		
 	</div>
 	<div class="grid_7 inline">
+		<?php if ($action == 'edit'): ?>
+		<fieldset>
+			<legend>General Details</legend>
+			<div class="user_box">
+				<a href="<?php echo site_url('admin/users/edit/'.$row['article_author']); ?>"><img width="48" height="48" src="<?php echo gravatar($row['user_email'], 'PG', 48); ?>'" class="user_gravatar" /></a>
+				<h3><a href="<?php echo site_url('admin/users/edit/'.$row['user_id']); ?>"><?php echo $row['user_username']; ?></a></h3>
+				<a href="mailto:<?php echo $row['user_email']; ?>"><?php echo $row['user_email']; ?></a><br />
+				<span class="date"><?php echo lang('lang_join_date'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_join_date']); ?></span>
+				<span class="date"><?php echo lang('lang_last_login'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_last_login']); ?></span><br />
+			</div>
+		</fieldset>
+		<div class="row2">
+			<label for="article_author"><?php echo lang('lang_username'); ?>:</label>
+			<input type="text" name="article_author" class="search" id="article_author" value="<?php echo set_value('article_author', $username); ?>" /> <span id="loader"><img src="<?php echo $template; ?>images/ajax-loader.gif" /></span>
+		</div>
+		<div id="display">
+		</div>
+		<?php endif; ?>
+		
 		<div class="row1">
 			<?php echo form_label(lang('lang_display'). ':', 'article_display'); ?>
 			<?php $options = array('yes' => lang('lang_yes'), 'no' => lang('lang_no')); ?>
@@ -95,3 +114,29 @@ else
 	</div>
 </div>
 </form>
+
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+	$(".search").keyup(function() {
+				var searchbox = $(this).val();
+				var dataString = 'searchword='+ searchbox;
+				if(searchbox != '') {
+					$.ajax({
+					type: "POST",
+						url: "<?php echo site_url('admin/users/search'); ?>",
+						data: dataString,
+						cache: false,
+						success: function(html) {
+						$("#display").html(html).show();
+					}
+				});
+				$('#loader').ajaxStart(function () {
+					$(this).fadeIn();
+				});
+				$('#loader').ajaxStop(function () {
+					$(this).fadeOut();
+				});
+			}return false;    
+	});
+});	
+</script>

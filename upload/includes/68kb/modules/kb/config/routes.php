@@ -12,3 +12,4 @@
  * @since		Version 2.0
  */
 $route['kb/admin/articles(:any)?'] = 'admin_articles$1';
+$route['kb/admin/glossary(:any)?'] = 'admin_glossary$1';
