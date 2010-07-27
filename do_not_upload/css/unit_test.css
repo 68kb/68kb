@@ -1,0 +1,145 @@
+body {
+	color: #000;
+	font: 0.75em "Helvetica Neue", Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#header {
+	background: #eee;
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
+
+#header h2 {
+	color: #900;
+	margin: 0;
+}
+
+#nav {
+	margin: 10px 20px;
+}
+
+code,pre {
+	background-color: #f9f9f9;
+	border: 1px solid #D0D0D0;
+	color: #002166;
+	display: block;
+	font-family: "Bitstream Vera Sans Mono", monospace;
+	font-size: 12px;
+	margin: 14px 5px;
+	padding: 12px 10px;
+}
+
+#message {
+	background: #FFD5D5 url(../images/icons/medium/warning.png) no-repeat scroll 5px 50%;
+	border: 1px solid #FFACAD;
+	color: #444;
+	font-size: 1.5em;
+	margin: 20px;
+	padding: 10px 5px 10px 50px;
+	text-shadow: 2px 2px #FFACAD;
+}
+
+#report {
+	margin: 0 20px 20px;
+	padding: 50px 0 0;
+	position: relative;
+}
+
+.test {
+	border-bottom: 1px solid #ddd;
+	padding: 5px 0;
+}
+
+.test h3 {
+	display: inline;
+	font-weight: 400;
+}
+
+.test.pass h3 {
+	color: #090;
+}
+
+.test.fail h3 {
+	color: #e00;
+}
+
+.test div.result {
+	color: #fff;
+	float: left;
+	font-weight: 700;
+	margin-right: 8px;
+	text-align: center;
+	width: 55px;
+}
+
+.test.fail div.result,.summary.fail {
+	background: #c00;
+	border: 1px solid #900;
+}
+
+.test.pass div.result,.summary.pass {
+	background: #0a0;
+	border: 1px solid #080;
+}
+
+.summary {
+	color: #fff;
+	font-size: 1.5em;
+	font-weight: 700;
+	margin: 10px 0;
+	padding: 10px;
+	position: absolute;
+	top: 0;
+}
+
+.test div.time {
+	background-color: #f9f9f9;
+	border: 1px solid #D0D0D0;
+	color: #666 !important;
+	float: left;
+	font: 1.15em 'Courier New', monospace;
+	margin-left: -65px;
+	text-align: center;
+	width: 55px;
+}
+
+.test .details {
+	padding-left: 65px;
+	padding-top: 5px;
+}
+
+.test.pass .details {
+	color: #999;
+}
+
+.test.fail .details {
+	color: #444;
+}
+
+.test.fail .details strong {
+	color: #900;
+}
+
+form {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+#running {
+	background-color: #fff;
+	border: #999 1px solid;
+	display: none;
+	line-height: 30px;
+	padding: 20px 20px 12px;
+	vertical-align: middle;
+}
+
+#running img {
+	height: 15px;
+	margin: 10px;
+	vertical-align: middle;
+	width: 15px;
+}
