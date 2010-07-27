@@ -56,6 +56,94 @@ class Admin_glossary extends Admin_Controller {
 	// ------------------------------------------------------------------------
 	
 	/**
+	* add term
+	*
+	*/
+	public function add()
+	{
+		$data['nav'] = 'glossary';
+		
+		$this->template->title(lang('lang_add_term'));
+		$data['action'] = 'add';
+		
+		$this->load->helper(array('form', 'url', 'html'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('g_term', 'lang:lang_title', 'required');
+		$this->form_validation->set_rules('g_definition', 'lang:lang_definition', 'required');
+		$this->events->trigger('glossary/validation');
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->template->build('admin/glossary/form', $data);
+		}
+		else
+		{
+			$data = array(
+				'g_term' => $this->input->post('g_term', TRUE),
+				'g_definition' => $this->input->post('g_definition', TRUE)
+			);
+			
+			if ($this->db->insert('glossary', $data)) 
+			{
+				$this->session->set_flashdata('msg', lang('lang_settings_saved'));
+				redirect('admin/kb/glossary/');
+			}
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	* edit term
+	*
+	*/
+	public function edit($id = '')
+	{
+		if ( ! is_numeric($id))
+		{
+			redirect('admin/kb/glossary');
+		}
+		$id = (int) $id;
+		
+		$data['nav'] = 'glossary';
+		
+		$this->db->from('glossary')->where('g_id', $id);
+		$query = $this->db->get();
+		$data['row'] = $query->row_array();
+		$query->free_result();
+		
+		$this->template->title(lang('lang_edit_term'));
+		
+		$data['action'] = 'add';
+		
+		$this->load->helper(array('form', 'url', 'html'));
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('g_term', 'lang:lang_title', 'required');
+		$this->form_validation->set_rules('g_definition', 'lang:lang_definition', 'required');
+		$this->events->trigger('glossary/validation');
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->template->build('admin/glossary/form', $data);
+		}
+		else
+		{
+			$data = array(
+				'g_term' => $this->input->post('g_term', TRUE),
+				'g_definition' => $this->input->post('g_definition', TRUE)
+			);
+			$this->db->where('g_id', $id);
+			if ($this->db->update('glossary', $data)) 
+			{
+				$this->session->set_flashdata('msg', lang('lang_settings_saved'));
+				redirect('admin/kb/glossary/');
+			}
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
 	* Grid
 	*
 	* This is used by the data table js. 

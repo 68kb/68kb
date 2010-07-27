@@ -349,6 +349,7 @@ $lang['lang_manage_glossary'] = 'Manage Glossary';
 $lang['lang_glossary'] = 'Glossary';
 $lang['lang_term'] = 'Term';
 $lang['lang_add_term'] = 'Add Term';
+$lang['lang_edit_term'] = 'Edit Term';
 $lang['lang_definition'] = 'Definition';
 $lang['kb_save'] = 'Save';
 $lang['kb_save_and_continue'] = 'Save and Continue Editing';
