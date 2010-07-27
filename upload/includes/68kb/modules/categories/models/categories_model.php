@@ -151,11 +151,11 @@ class Categories_model extends CI_Model
 		
 		if (isset($data['cat_uri']) && $data['cat_uri'] != '') 
 		{
-			$data['cat_uri'] = $this->ice_string->convert_accented_characters($data['cat_uri']);
+			$data['cat_uri'] = create_slug($data['cat_uri']);
 		}
 		else
 		{
-			$data['cat_uri'] = $this->ice_string->convert_accented_characters($data['cat_name']);
+			$data['cat_uri'] = create_slug($data['cat_name']);
 		}
 		
 		if (isset($data['cat_parent']) && $data['cat_parent'] > 0)
@@ -282,11 +282,11 @@ class Categories_model extends CI_Model
 	{	
 		if (isset($data['cat_uri']) && $data['cat_uri'] != '') 
 		{
-			$data['cat_uri'] = $this->ice_string->convert_accented_characters($data['cat_uri']);
+			$data['cat_uri'] = create_slug($data['cat_uri']);
 		}
 		else
 		{
-			$data['cat_uri'] = $this->ice_string->convert_accented_characters($data['cat_name']);
+			$data['cat_uri'] = create_slug($data['cat_name']);
 		}
 		
 		if (isset($data['cat_parent']) && $data['cat_parent'] > 0)

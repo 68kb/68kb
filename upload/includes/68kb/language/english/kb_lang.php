@@ -50,6 +50,11 @@ $lang['lang_add_article'] = 'Add Article';
 $lang['lang_date_added'] = 'Date Added';
 $lang['lang_date_edited'] = 'Date Edited';
 $lang['lang_last_updated'] = 'Last updated on';
+$lang['lang_select_all'] = 'Select All';
+$lang['lang_short_description'] = 'Short Description';
+$lang['lang_active'] = 'Active';
+$lang['lang_not_active'] = 'Not Active';
+
 
 $lang['kb_all_articles'] = 'All Articles';
 $lang['kb_article_not_available'] = 'Sorry this article is not available.';
@@ -68,9 +73,9 @@ $lang['kb_searchadvanced'] = 'Advanced Search';
 $lang['kb_title'] = 'Title';
 $lang['kb_views'] = 'Views';
 $lang['kb_status'] = 'Status';
-$lang['kb_short_description'] = 'Short Description';
 
-$lang['kb_attachment'] = 'Add Attachment';
+
+$lang['lang_attachment'] = 'Add Attachment';
 $lang['kb_attachments'] = 'Attachments';
 $lang['kb_attachment_add'] = 'After you save this article you can add attachments';
 $lang['kb_upload'] = 'Upload';

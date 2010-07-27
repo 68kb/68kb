@@ -40,6 +40,38 @@ class Articles_model extends CI_model
 	}
 	
 	// ------------------------------------------------------------------------
+	
+	/**
+	* Insert Article2Cats
+	* 
+	* Insert the selected categories
+	* into the article2cat table.
+	*
+	* @access	public
+	* @param	int - The article id
+	* @param	array - The array of cats.
+	* @return 	bool
+	*/
+	function insert_cats($cats, $id)
+	{
+		if (is_array($cats) && is_numeric($id))
+		{
+			// Delete all associations first
+			$this->db->delete('article2cat', array('article_id_rel' => $id));
+			foreach ($cats as $cat)
+			{
+				$data = array(
+						'article_id_rel' => (int) $id,
+						'category_id_rel' => (int) $cat
+					);
+				$this->db->insert('article2cat', $data);
+			}
+			return TRUE;
+		}
+		return FALSE;
+	}
+	
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Get Category By Article.
@@ -53,8 +85,8 @@ class Articles_model extends CI_model
 	function get_cats_by_article($id)
 	{
 		$this->db->from('article2cat');
-		$this->db->join('categories', 'article2cat.category_id = categories.cat_id', 'left');
-		$this->db->where('article_id', (int)$id);
+		$this->db->join('categories', 'category_id_rel = cat_id', 'left');
+		$this->db->where('article_id_rel', (int)$id);
 		$this->db->where('cat_display', 'yes');
 		$query = $this->db->get();
 		return $query;
@@ -184,11 +216,11 @@ class Articles_model extends CI_model
 	{
 		if (isset($data['article_uri']) && $data['article_uri'] != '') 
 		{
-			$data['article_uri'] = $this->format_uri($data['article_uri']);
+			$data['article_uri'] = create_slug($data['article_uri']);
 		}
 		else
 		{
-			$data['article_uri'] = $this->format_uri($data['article_title']);
+			$data['article_uri'] = create_slug($data['article_title']);
 		}
 		
 		//update the time stamps.
@@ -196,9 +228,9 @@ class Articles_model extends CI_model
 		$data['article_modified'] = time();
 		
 		$this->db->insert('articles', $data);
+		
 		if($this->db->affected_rows() > 0) 
 		{
-			$this->db->cache_delete_all();
 			return $this->db->insert_id();
 		} 
 		else 
@@ -237,61 +269,6 @@ class Articles_model extends CI_model
 		{
 			return true;
 		}
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	/**
-	* Format URI
-	* 
-	* Formats an articles uri.
-	* 
-	* @param	string $article_uri The uri name
-	* @uses 	check_uri
-	* @uses		remove_accents
-	* @uses		seems_utf8
-	* @uses		utf8_uri_encode
-	* @uses		format_uri
-	* @return	string A cleaned uri
-	*/
-	function format_uri($article_uri, $i=0, $cat_id=false)
-	{
-		$article_uri = strip_tags($article_uri);
-		// Preserve escaped octets.
-		$article_uri = preg_replace('|%([a-fA-F0-9][a-fA-F0-9])|', '---$1---', $article_uri);
-		// Remove percent signs that are not part of an octet.
-		$article_uri = str_replace('%', '', $article_uri);
-		// Restore octets.
-		$article_uri = preg_replace('|---([a-fA-F0-9][a-fA-F0-9])---|', '%$1', $article_uri);
-		
-		$article_uri = remove_accents($article_uri);
-		if (seems_utf8($article_uri)) 
-		{
-			if (function_exists('mb_strtolower')) 
-			{
-				$article_uri = mb_strtolower($article_uri, 'UTF-8');
-			}
-			$article_uri = utf8_uri_encode($article_uri, 200);
-		}
-
-		$article_uri = strtolower($article_uri);
-		$article_uri = preg_replace('/&.+?;/', '', $article_uri); // kill entities
-		$article_uri = preg_replace('/[^%a-z0-9 _-]/', '', $article_uri);
-		$article_uri = preg_replace('/\s+/', '-', $article_uri);
-		$article_uri = preg_replace('|-+|', '-', $article_uri);
-		$article_uri = trim($article_uri, '-');
-		
-		if ($i>0) 
-		{
-			$article_uri=$article_uri."-".$i;
-		}
-		
-		if ( ! $this->check_uri($article_uri, $cat_id)) 
-		{
-			$i++;
-			$article_uri=$this->format_uri($article_uri, $i);
-		}
-		return $article_uri;
 	}
 	
 	// ------------------------------------------------------------------------

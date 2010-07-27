@@ -13,11 +13,12 @@
 							<th><?php echo lang('lang_date_added'); ?></th>
 							<th><?php echo lang('lang_date_edited'); ?></th>
 							<th><?php echo lang('lang_display'); ?></th>
+							<th width="3%"><input type="checkbox" id="checkall" /></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="5" class="dataTables_empty"><img src="<?php echo $template; ?>/images/ajax-loader.gif" alt="Loading" /><?php echo lang('lang_js_processing'); ?></td>
+							<td colspan="6" class="dataTables_empty"><img src="<?php echo $template; ?>/images/ajax-loader.gif" alt="Loading" /><?php echo lang('lang_js_processing'); ?></td>
 						</tr>
 					</tbody>
 				</table>
@@ -30,7 +31,7 @@
 $(document).ready(function() {
 	oTable = $('#grid').dataTable( {
 
-		"aoColumns": [null,null,null,null],
+		"aoColumns": [null,null,null,null,null,null],
 		"bProcessing": true,
 		"bServerSide": true,
 		"sPaginationType": "full_numbers",

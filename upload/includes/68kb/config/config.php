@@ -16,6 +16,18 @@ $config['base_url'] .= preg_replace('@/+$@','',dirname($_SERVER['SCRIPT_NAME']))
 
 /*
 |--------------------------------------------------------------------------
+| Allow Add-Ons
+|--------------------------------------------------------------------------
+|
+| By setting this to FALSE you can prevent all add-ons from working. This
+| is useful if you are experiencing a problem and think it is caused by an
+| add-on.
+|
+*/
+$config['allow_addons'] = TRUE;
+
+/*
+|--------------------------------------------------------------------------
 | Index File
 |--------------------------------------------------------------------------
 |

@@ -32,6 +32,27 @@ class Alter_categories
 		
 		$CI->load->dbforge();
 		
+		if ($CI->db->field_exists('article_id', 'article2cat'))
+		{
+			$fields = array(
+				'article_id' => array(
+					'name' => 'article_id_rel',
+					'type' => 'int',
+					'constraint' => '20'
+				),
+			);
+			$CI->dbforge->modify_column('article2cat', $fields);
+			
+			$fields = array(
+				'category_id' => array(
+					'name' => 'category_id_rel',
+					'type' => 'int',
+					'constraint' => '20'
+				),
+			);
+			$CI->dbforge->modify_column('article2cat', $fields);
+		}
+		
 		if ( ! $CI->db->field_exists('cat_image', 'categories'))
 		{
 			// Get all the users

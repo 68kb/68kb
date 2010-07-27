@@ -44,7 +44,7 @@ class Home extends Admin_Controller {
 		$data['nav'] = 'home';
 		
 		// buid rss
-		$this->load->model('pages/pages_model');
+		//$this->load->model('pages/pages_model');
 		$data['news'] = ''; // $this->pages_model->get_rss_feed('http://68kb.com/blog/rss', 3);
 		
 		// get new comments since last login.

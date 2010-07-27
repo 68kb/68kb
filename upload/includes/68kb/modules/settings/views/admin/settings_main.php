@@ -20,11 +20,6 @@ jQuery(document).ready(function($) {
 					<?php if ($this->users_auth->check_role('can_manage_settings')) { ?>
 					<ul>
 						<li><?php echo anchor('admin/settings/general/', lang('lang_general_settings')) ?></li>
-						<li><?php echo anchor('admin/gateways', lang('lang_gateways')); ?></li>
-						<li><a href="<?php echo site_url('admin/settings/listings/') ?>"><?php echo lang('lang_checkout_settings'); ?></a></li>
-						<li><a href="<?php echo site_url('admin/settings/email/'); ?>"><?php echo lang('lang_email_settings'); ?></a></li>
-						<li><a href="<?php echo site_url('admin/listings/status_list/'); ?>"><?php echo lang('lang_listing_statuses'); ?></a></li>
-						<li><a href="<?php echo site_url('admin/orders/status_list'); ?>"><?php echo lang('lang_order_statuses'); ?></a></li>
 						<?php $this->events->trigger('admin/settings_main/left'); ?>
 					</ul>
 					<?php } else { ?>

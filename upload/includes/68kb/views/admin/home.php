@@ -60,11 +60,11 @@
 		<?php $this->events->trigger('admin/home/stats');?>
 	</table>
 	
-	<?php if ($ice_news): ?>
+	<?php if ($news): ?>
 	<div class="qsearch">
 		<h3>68kb News <a href="http://68kb.com/blog/rss"><img src="<?php echo $template;?>images/icons/small/rss.png" alt="RSS Feed" /></a></h3>
 		<div id="blogrss" class="rssnews">
-			<?php foreach ($ice_news as $news_item) { ?>
+			<?php foreach ($news as $news_item) { ?>
 				<h4><a href="<?php echo $news_item->get_permalink(); ?>" target='_blank'><?php echo $news_item->get_title(); ?></a></h4>
 				<?php
 				$desc = str_replace('[...]', '', $news_item->get_description());

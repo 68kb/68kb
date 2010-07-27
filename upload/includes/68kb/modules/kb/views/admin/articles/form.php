@@ -34,55 +34,45 @@ else
 		</div>
 		
 		<div class="row1">
-			<?php echo form_label(lang('lang_description'). ':', 'cat_description'); ?>
+			<?php echo form_label(lang('lang_short_description'). ':', 'article_short_desc'); ?>
 			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
-			<?php echo form_textarea('cat_description', set_value('cat_description', $cat['cat_description']), 'id="cat_description" class="inputtext"'); ?>
+			<?php echo form_textarea('article_short_desc', set_value('article_short_desc', @$row['article_short_desc']), 'id="article_short_desc" class="inputtext"'); ?>
 		</div>
 		
 		<div class="row2">
-			<?php echo form_label(lang('lang_promo'). ':', 'cat_promo'); ?>
+			<?php echo form_label(lang('lang_description'). ':', 'article_description'); ?>
 			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
-			<?php echo form_textarea('cat_promo', set_value('cat_promo', $cat['cat_promo']), 'id="cat_promo" class="inputtext"'); ?>
-			<p><?php echo lang('lang_promo_desc'); ?></p>
+			<?php echo form_textarea('article_description', set_value('article_description', @$row['article_description']), 'id="article_description" class="inputtext"'); ?>
 		</div>
 
-		<input type="hidden" name="cat_id" value="<?php echo $cat['cat_id']; ?>" />
+		<input type="hidden" name="article_id" value="<?php echo @$row['article_id']; ?>" />
 		
 	</div>
 	<div class="grid_7 inline">
 		<div class="row1">
-			<?php echo form_label(lang('lang_display'). ':', 'cat_display'); ?>
+			<?php echo form_label(lang('lang_display'). ':', 'article_display'); ?>
 			<?php $options = array('yes' => lang('lang_yes'), 'no' => lang('lang_no')); ?>
-			<?php echo form_dropdown('cat_display', $options, set_value('cat_display', $cat['cat_display'])); ?>
+			<?php echo form_dropdown('article_display', $options, set_value('article_display', @$row['article_display'])); ?>
 		</div>
 		<div class="row2">
-			<?php echo form_label(lang('lang_allow_ads'). ':', 'cat_allowads'); ?>
-			<?php $options = array('yes' => lang('lang_yes'), 'no' => lang('lang_no')); ?>
-			<?php echo form_dropdown('cat_allowads', $options, set_value('cat_allowads', $cat['cat_allowads'])); ?>
-		</div>
-		<div class="row1">
-			<?php echo form_label(lang('lang_parent_cat'). ':', 'cat_parent'); ?>
-			<?php 
-			$cat_options['0'] = lang('lang_no_parent');
-			foreach($tree as $row)
-			{
-				$indent = ($row['cat_parent'] != 0) ? repeater('&nbsp;&raquo;&nbsp;', $row['depth']) : '';
-				$cat_options[$row['cat_id']] = $indent.$row['cat_name']; 
-			}	
-			echo form_dropdown('cat_parent', $cat_options, $cat['cat_parent'], 'id="cat_parent"');
-			?>
-		</div>
-		<div class="row2">
-			<?php echo form_label(lang('lang_site_meta_keywords'). ':', 'cat_keywords'); ?>
-			<?php echo form_input('cat_keywords', set_value('cat_keywords', $cat['cat_keywords']), 'size="25"'); ?>
+			<?php echo form_label(lang('lang_site_meta_keywords'). ':', 'article_keywords'); ?>
+			<?php echo form_input('article_keywords', set_value('article_keywords', @$row['article_keywords']), 'size="25"'); ?>
 			<?php echo tooltip(lang('lang_keywords_desc')); ?>
 		</div>
 		
 		<div class="row1">
-			<?php echo form_label(lang('lang_weight'). ':', 'cat_order'); ?>
-			<?php echo form_input('cat_order', set_value('cat_order', $cat['cat_order']), 'size="25"'); ?>
+			<?php echo form_label(lang('lang_weight'). ':', 'article_order'); ?>
+			<?php echo form_input('article_order', set_value('article_order', @$row['article_order']), 'size="25"'); ?>
 			<?php echo tooltip(lang('lang_weight_desc')); ?>
 		</div>
+		
+		<fieldset id="categories">
+			<legend><?php echo lang('lang_categories'); ?></legend>
+			<div class="multiple">
+				<ul><li><label><input type="checkbox" id="checkbox" /> <em><?php echo lang('lang_select_all'); ?></em></label></li></ul>
+				<?php echo $tree; ?>
+			</div>
+		</fieldset>
 		
 		<?php if(isset($cat['cat_image']) && $cat['cat_image'] <> '') { ?>
 		<div class="row1">
@@ -94,7 +84,7 @@ else
 		<?php } ?>
 		
 		<div class="row2">
-			<?php echo form_label(lang('lang_cat_image'). ':', 'userfile'); ?>
+			<?php echo form_label(lang('lang_attachment'). ':', 'userfile'); ?>
 			<?php echo form_upload('userfile', '', 'id="userfile"'); ?>
 		</div>
 		
