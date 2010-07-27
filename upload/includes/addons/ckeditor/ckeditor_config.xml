@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ckeditor">
+	<title>ckeditor</title>
+	<description>Enables ckeditor.</description>
+	<version>v1.0.0</version>
+	<order>100</order>
+</module>

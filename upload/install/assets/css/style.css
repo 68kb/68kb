@@ -1,0 +1,210 @@
+@charset "utf-8";
+/**
+ * @name 		PyroCMS Installer Stylesheet
+ * @author 		Yorick Peterse - PyroCMS development team
+ * @copyright 	Yorick Peterse - PyroCMS development team
+ * @package 	PyroCMS
+ * @subpackage 	Installer
+ *
+ * @since 		v0.9.6.2
+ */
+/* General */
+body {
+	background:		#fff url("../images/bg.jpg") repeat-x 0px 0px;
+	font-family:	Helvetica,Verdana,Arial,sans-serif;
+}
+#wrapper
+{
+	height:		auto;
+	margin:		0 auto;
+	margin-top:	30px;
+	width:		600px;
+}
+/* Helpers */
+.white 			{color:#fff!important;text-decoration:underline!important;} /* Should only be used for links inside error messages (since blue text on a red background is ugly as fuck) */
+.red 			{color:red;}
+.green			{color:#3FB53F;}
+.orange			{color:#F18431;}
+.clear 			{clear:both;}
+/* Notifications */
+#notification
+{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	color:#fff;
+	text-align:center;
+}
+#notification p {padding:10px;}
+.error 			{background:#E53939;}
+.success 		{background:#67BA2E;}
+/* Typography */
+h1 				{font-size:36px;}
+h2 				{font-size:24px;margin-bottom:15px;}
+h3 				{font-size:18px;margin-bottom:15px;}
+p  				{font-size:14px;margin-bottom:15px;line-height:18px;}
+em 				{font-style:italic;}
+strong 			{font-weight:bold;}
+small 			{font-size:12px;}
+/* Top */
+#logo
+{
+	margin-bottom:20px;
+}
+#header 
+{
+	background: 			url("../images/header/header.jpg") repeat-x 0px 0px;
+	border: 			1px solid #35AED7;
+	border-bottom:			none;
+	height:					40px;
+	text-shadow:			1px 1px #474747;
+	-moz-border-radius: 	10px 10px 0px 0px;
+	-webkit-border-radius:	10px 10px 0px 0px;
+}
+#header ul
+{
+	margin-left:10px;
+}
+#header ul li
+{
+	float:left;
+}
+#header ul li a, #header ul li span
+{
+	color:			 #fff;
+	display:		 block;
+	font-size:		 14px;
+	height:			 27px;
+	padding-top:	 13px;
+	text-decoration: none;
+	text-align:		 center;
+	width:			 95px;
+}
+#header ul li #current
+{
+	
+	font-weight:		bold;
+}
+#header ul li a:hover
+{
+	background: 		url("../images/header/header_hover.jpg") repeat-x 0px 0px;
+}
+/* Center */
+#content
+{
+	background:				#fff;
+	border:					1px solid #bbb;
+	border-top: 			none;
+	margin-bottom:15px;
+	padding:				20px 15px 15px 15px;
+	-moz-border-radius: 	0px 0px 10px 10px;
+	-webkit-border-radius:	0px 0px 10px 10px;
+}
+#content ul
+{
+	margin-bottom:		15px;
+}
+#content ul li
+{
+	font-size:			14px;
+	margin:				0px 0px 10px 10px;
+}
+#content a 
+{
+	color:				#1E95BD;
+	text-decoration:	none;
+}
+#content a:hover
+{
+	text-decoration:	underline;
+}
+#content p.text
+{
+	width: 470px;
+}
+#content img.icon
+{
+	float:			right; 
+	margin-right: 	5px;
+}
+/* Permission lists */
+#content .perm_list li
+{
+	height:			20px;
+	margin-bottom:	5px;
+	padding-left:	25px;
+}
+#content #perm_folders li 	{background: url("../images/icons/folder.png") no-repeat top left;}
+#content #perm_files li 	{background: url("../images/icons/file.png") no-repeat top left;}
+/* Next step button */
+#next_step
+{
+	border-top:1px solid #ccc;
+}
+#next_step a, #submit
+{
+	background:				#35AED7 url("../images/btn/btn.jpg") repeat-x 0px 0px;
+	border:		 			1px solid #35AED7;
+	color:					#fff;
+	display:				block;
+	float:					right;
+	font-size:				14px;
+	height:					30px;
+	margin-top:				15px;
+	text-decoration:		none;
+	text-align:				center;
+	width:					80px;
+	-moz-border-radius: 	5px;
+	-webkit-border-radius:	5px;
+}
+#next_step a
+{
+	height: 				25px;
+	padding-top: 			5px;
+}
+#next_step a:hover, #submit:hover
+{
+	background:				url("../images/btn/btn_hover.jpg") repeat-x 0px 0px;
+	text-decoration:		none;
+}
+#next_step a:active, #submit:active
+{
+	background:				url("../images/btn/btn_active.jpg") repeat-x 0px 0px;
+}
+/* Form stuff */
+#install_frm h3
+{
+	border-bottom:	1px solid #ccc;
+	margin: 		30px 0px 20px 0px;
+	padding-bottom:	10px;
+}
+#install_frm p label
+{
+	float:			left;
+	padding-top:	7px;
+	width:			150px;
+}
+#install_frm input[type=text], #install_frm input[type=password] {
+	border:			1px solid #ccc;
+	height:			18px;
+	padding:		7px 5px 3px 5px;
+	width:			305px;
+}
+#install_frm p select {
+	margin:			7px 5px 3px 5px;
+}
+#install_frm p #dummy_data,#install_frm p #create_db
+{
+	margin:			8px 10px 0px 0px;
+}
+
+/* Flags */
+#flags {
+	margin-right: 1px;
+	margin-top: -5px;
+	}
+
+	#flags img {
+		margin-left: 5px;
+		float:right;
+	}

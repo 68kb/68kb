@@ -1,0 +1,173 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 12px/1.5 "Lucida Grande",Helvetica,Arial,sans-serif;
+}
+
+#facebox #preview td {
+	border: none;
+	padding: 3px;
+}
+
+#facebox h2 {
+	background: #EEE;
+	clear: both;
+	color: #444;
+	font-size: 125%;
+	font-weight: 700;
+	margin-bottom: 0;
+	padding: 10px 5px 10px 20px;
+	text-shadow: 2px 2px #FFF;
+}
+
+#facebox .icon_success {
+	background: #EEE url(../images/icons/medium/check.png) no-repeat scroll 5px 50%;
+	padding: 10px 5px 10px 50px;
+}
+
+#facebox {
+	border: 1px solid #DDD;
+}
+
+#image_manager {
+	margin: 10px;
+}
+
+#tabs {
+	background-color: #F9F9F9;
+	border-bottom-color: #DFDFDF;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	font-weight: 700;
+	height: 2.5em;
+	margin: 0;
+	padding: 5px;
+	position: relative;
+}
+
+#tabs ul {
+	bottom: -1px;
+	font-weight: 400;
+	left: 0;
+	margin: 0 5px;
+	position: absolute;
+}
+
+#tabs li {
+	display: inline;
+	line-height: 200%;
+	list-style: none outside none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	white-space: nowrap;
+}
+
+#tabs li a {
+	background-color: #F9F9F9;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-color: #F9F9F9 #F9F9F9 #DFDFDF;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #02475A;
+	display: block;
+	float: left;
+	line-height: 28px;
+	padding: 0 7px;
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+}
+
+a.preview {
+	background: url(../images/icons/small/magnify.png) no-repeat;
+	color: #999;
+	font-size: 11px;
+	margin: 0 0 0 20px;
+	padding: 3px 0 0 20px;
+	text-decoration: none;
+}
+
+#photos {
+	height: 200px;
+	overflow: auto;
+	width: 100%;
+}
+
+.photo {
+	border: 1px solid #ebebeb;
+	float: left;
+	margin: 3px 3px 10px;
+	padding: 3px;
+	text-align: center;
+}
+
+.photo img {
+	border: 0;
+	padding: 3px;
+	text-decoration: none;
+}
+
+.photo-wrap {
+	text-align: center;
+}
+
+.photo-wrap a {
+	border: 0;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+fieldset {
+	border: 1px solid #EBEBEB;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
+fieldset label {
+	padding: 5px;
+}
+
+#edit .photo img {
+	border: 0;
+	cursor: default;
+	padding: 3px;
+	text-decoration: none;
+}
+
+input.button {
+	-moz-border-radius: 4px;
+	background: none repeat scroll 0 0 #FFF;
+	border: 1px solid #C3C3C3;
+	color: #464646;
+	display: inline-block;
+	font-size: 11px;
+	line-height: 16px;
+	margin: 3px 1px 4px;
+	min-width: 26px;
+	padding: 1px 4px;
+	text-align: center;
+}
+
+input.button:hover {
+	background: #ebebeb;
+	text-decoration: none;
+}
+
+#tabs li a:hover,#tabs li a.current {
+	-moz-border-radius: 4px 4px 0 0;
+	background-color: #FFF;
+	border-color: #DFDFDF #DFDFDF #FFF;
+	border-style: solid;
+	border-width: 1px;
+	color: #111;
+	font-weight: 400;
+	padding-left: 6px;
+	padding-right: 6px;
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="debug">
+	<title>Debug</title>
+	<description>Includes script debugging.</description>
+	<version>v1.0.0</version>
+	<order>100</order>
+</module>
