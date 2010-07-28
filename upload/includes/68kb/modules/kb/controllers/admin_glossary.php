@@ -144,6 +144,30 @@ class Admin_glossary extends Admin_Controller {
 	// ------------------------------------------------------------------------
 	
 	/**
+	* Delete Article
+	* 
+	* @access	public
+	*/
+	function update()
+	{
+		$newstatus = $this->input->post('newstatus', TRUE);
+		
+		foreach ($this->input->post('g_id') AS $g_id)
+		{
+			if ($newstatus == 'delete')
+			{
+				$g_id = (int) $g_id;
+				$this->db->delete('glossary', array('g_id' => $g_id));
+			}
+		}
+		
+		$this->session->set_flashdata('msg', lang('lang_settings_saved'));
+		redirect('admin/kb/glossary/');
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
 	* Grid
 	*
 	* This is used by the data table js. 

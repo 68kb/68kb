@@ -4,7 +4,7 @@
 		<h2><?php echo lang('lang_manage_glossary'); ?> <a class="addnew" href="<?php echo site_url('admin/kb/glossary/add');?>"><?php echo lang('lang_add_term'); ?></a></h2>
 
 		<div id="dynamic">
-			<form id="gridform" action="<?php echo site_url('admin/kb/articles/update'); ?>" method="post">
+			<form id="gridform" action="<?php echo site_url('admin/kb/glossary/update'); ?>" method="post">
 				<table cellpadding="0" cellspacing="0" border="0" id="grid">
 					<thead>
 						<tr>
@@ -19,6 +19,14 @@
 						</tr>
 					</tbody>
 				</table>
+				
+				<div class="status">
+					<select name="newstatus">
+						<option value="" selected><?php echo lang('lang_change_status'); ?></option>
+						<option value="delete"><?php echo lang('lang_delete'); ?></option>
+					</select>
+					<input type="submit" value="Update" />
+				</div>
 			</form>
 		</div>
 	</div>
