@@ -44,7 +44,7 @@ class Users extends Front_Controller
 			redirect('users/login');
 		}
 		
-		redirect('users/account');
+		redirect('users/account_modify');
 	}
 	
 	// ------------------------------------------------------------------------
@@ -55,6 +55,9 @@ class Users extends Front_Controller
 		{
 			redirect('users/login');
 		}
+		
+		redirect('users/account_modify');
+		
 		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
 		
 		$this->template->title(lang('lang_my_account'));
@@ -115,90 +118,6 @@ class Users extends Front_Controller
 		$data['extra'] = $extra;
 		
 		$this->template->build('profile', $data);
-	}
-	
-	// ------------------------------------------------------------------------
-	
-	public function listings()
-	{
-		if ( ! $this->users_auth->logged_in())
-		{
-			redirect('users/login');
-		}
-		
-		$user_id = (int) $this->session->userdata('user_id');
-		
-		$this->load->model('listings/listings_model');
-		
-		$this->load->library('pagination');
-		
-		$config['per_page'] = $this->settings->get_setting('site_max_search');
-		$config['num_links'] = 5;
-		
-		$search_options['listing_owner_id'] = $user_id;
-		
-		$config['total_rows'] = $this->listings_model->get_search_results($search_options, 'listing_added', 'desc', 0, 0, TRUE, TRUE, FALSE);
-
-		$data['paging'] = $this->pagination->get_pagination($config['total_rows'], $config['per_page']);
-		$offset = $this->pagination->offset;
-		
-		$data['listings'] = $this->listings_model->get_search_results($search_options, 'listing_added', 'desc', $offset, $config['per_page'], FALSE, TRUE, FALSE);
-		
-		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
-		
-		$this->template->title(lang('lang_my_listings'));
-		
-		$this->template->set_breadcrumb(lang('lang_my_account'), 'users/account');
-		$this->template->set_breadcrumb(lang('lang_my_listings'), 'users/listings');
-		
-		$this->template->build('listings', $data);
-	}
-	
-	public function orders($order_id = '')
-	{
-		if ( ! $this->users_auth->logged_in())
-		{
-			redirect('users/login');
-		}
-		
-		$user_id = (int) $this->session->userdata('user_id');
-		
-		$this->load->model('orders/orders_model');
-		$this->load->model('cart/cart_model');
-		$this->load->model('listings/listings_model');
-		
-		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
-		
-		$this->template->title(lang('lang_order_history'));
-		
-		$this->template->set_breadcrumb(lang('lang_my_account'), 'users/account');
-		$this->template->set_breadcrumb(lang('lang_order_history'), 'users/orders');
-		
-		if (is_numeric($order_id))
-		{
-			$data['cart'] = $this->cart_model->get_completed_cart($order_id);
-
-			// Get a fresh order with new status
-			$data['order'] = $this->orders_model->get_order_by_id($order_id);
-		}
-		else
-		{
-			$this->load->library('pagination');
-
-			$config['per_page'] = $this->settings->get_setting('site_max_search');
-			$config['num_links'] = 5;
-
-			$search_options['listing_owner_id'] = $user_id;
-
-			$config['total_rows'] = $this->orders_model->get_users_orders($user_id, TRUE);
-
-			$data['paging'] = $this->pagination->get_pagination($config['total_rows'], $config['per_page']);
-			$offset = $this->pagination->offset;
-
-			$data['orders'] = $this->orders_model->get_users_orders($user_id);
-		}
-		
-		$this->template->build('orders', $data);
 	}
 	
 	// ------------------------------------------------------------------------
