@@ -155,7 +155,7 @@
 	}
 	
 	// Third_party path
-	define('EXTPATH', APPPATH.'third_party');
+	define('EXTPATH', APPPATH.'third_party/');
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

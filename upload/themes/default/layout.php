@@ -18,7 +18,7 @@
 	</div>
 	<div class="grid_6" id="login">
 		<p>
-			<a href="/login">Login</a> | <a href="/register">Register</a>
+			<a href="<?php echo site_url('users/login') ?>">Login</a> | <a href="<?php echo site_url('users/register') ?>">Register</a>
 		</p>
 	</div>
 	<div class="clear"></div>
@@ -27,10 +27,10 @@
 		<div id="slatenav">
 			<ul>
 				<li><a href="index.php" title="css menus" class="current">Home</a></li>
-				<li><a href="http://www.13styles.com/css-menus/slate/" title="css menus">Categories</a></li>
-				<li><a href="http://www.13styles.com/css-menus/slate/" title="css menus">Glossary</a></li>
-				<li><a href="http://www.13styles.com/css-menus/slate/" title="css menus">Advanced Search</a></li>
-				<li><a href="http://www.13styles.com/css-menus/slate/" title="css menus">Contact Us</a></li>
+				<li><a href="<?php echo site_url('categories'); ?>" title="css menus">Categories</a></li>
+				<li><a href="<?php echo site_url('glossary'); ?>" title="css menus">Glossary</a></li>
+				<li><a href="<?php echo site_url('search'); ?>" title="css menus">Advanced Search</a></li>
+				<li><a href="<?php echo site_url('contact'); ?>" title="css menus">Contact Us</a></li>
 			</ul>
 		</div>
 	</div>

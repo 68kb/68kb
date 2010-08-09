@@ -190,20 +190,26 @@ class Search_model extends CI_Model
 		if (isset($search_options['category']))
 		{
 			$category = $search_options['category'];
-			$fields = $this->get_fields($category);
+			if ($this->events->active('fields'))
+			{
+				$fields = $this->get_fields($category);
+			}
 		}
 		
-		$this->db->from('listings')
-				->join('listing_status', 'listing_status = status_id', 'inner')
-				->join('listing_fields', 'listing_id = listing_field_id', 'inner')
-				->join('users', 'user_id = listing_owner_id', 'left');
+		$this->db->from('articles')
+				->join('article_fields', 'article_id = article_field_id', 'inner');
 		
-		$where = 'status_show_listing = "y" AND listing_expiration > '. time();
+		$where = 'article_display = "y"';
+		
+		if (isset($search_options['category']) OR isset($search_options['article_category']))
+		{
+			$this->db->join('article2cat', 'article_id = article_id_rel', 'right');
+		}
 		
 		// Call any hooks and add them to the where clause.
-		if ($this->events->active_hook('get_listings_where'))
+		if ($this->events->active_hook('get_articles_where'))
 		{
-			$where .= $this->events->trigger('get_listings_where', $search_options);
+			$where .= $this->events->trigger('get_articles_where', $search_options);
 		}
 		
 		// Validate that the search_options can be searched.
@@ -277,28 +283,35 @@ class Search_model extends CI_Model
 					}
 				}
 			}
+			
 			if (isset($search_options['keywords'])) // Keyword searching
 			{
 				$keywords = $this->security->xss_clean($search_options['keywords']);
-				$trimmed_array = explode(" ", $keywords);
-				foreach ($trimmed_array as $trimm)
+				$keywords = strip_tags(stripslashes($keywords));
+				$words_array = explode(" ", $keywords);
+	
+				foreach ($words_array as $trimm)
 				{
-					$where .= " AND (listing_title LIKE '%".$this->db->escape_like_str($trimm)."%' OR listing_description LIKE '%".$this->db->escape_like_str($trimm)."%')";
+					$where .= " AND (
+						article_title LIKE '%".$this->db->escape_like_str($trimm)."%' OR 
+						article_short_desc LIKE '%".$this->db->escape_like_str($trimm)."%' OR 
+						article_description LIKE '%".$this->db->escape_like_str($trimm)."%'
+					)";
 				}
 			}
 			
-			if (isset($search_options['listing_category']))
+			if (isset($search_options['article_category']))
 			{
-				if (is_array($search_options['listing_category']))
+				if (is_array($search_options['article_category']))
 				{
-					$this->db->where_in('listing_category', $search_options['listing_category']);
+					$this->db->where_in('category_id_rel', $search_options['article_category']);
 				}
 			}
 			elseif (isset($category))
 			{
 				if (is_numeric($category))
 				{
-					$where .= ' AND listing_category = '. (int) $category;
+					$where .= ' AND category_id_rel = '. (int) $category;
 				}
 			}
 		}

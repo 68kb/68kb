@@ -677,13 +677,25 @@ class Categories_model extends CI_Model
 	 */
 	function get_cats_by_article($id)
 	{
-		$this->db->select('*');
 		$this->db->from('article2cat');
 		$this->db->join('categories', 'category_id_rel = cat_id', 'left');
 		$this->db->where('article_id_rel', (int) $id);
 		$this->db->where('cat_display', 'yes');
 		$query = $this->db->get();
-		return $query;
+		
+		if ($query->num_rows() == 0)
+		{
+			return FALSE;
+		}
+		$this->load->helper('string');
+		
+		$output = '';
+		foreach($query->result_array() as $row) 
+		{ 
+			$output .= ' '. anchor('categories/'.$row['cat_uri'], $row['cat_name']).',';
+		}
+		
+		return reduce_multiples($output, ',', TRUE);
 	}
 }
 	

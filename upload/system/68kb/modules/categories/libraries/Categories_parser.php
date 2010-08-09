@@ -178,9 +178,9 @@ class Categories_parser
 				'cat_parent' 		=> 0, 
 				'sort_column'		=> 'cat_order', 
 				'sort_order' 		=> 'desc', 
-				'show_total' 		=> 0, 
-				'show_image' 		=> 0, 
-				'show_description'	=> 0, 
+				'show_total' 		=> 'no', 
+				'show_image' 		=> 'yes', 
+				'show_description'	=> 'no', 
 				'cols' 				=> 2, 
 				'table_attr' 		=> 'width="100%" class="cat_table"', 
 				'row_start' 		=> '', 
@@ -261,7 +261,7 @@ class Categories_parser
 			$td = '';
 			
 			// Show the category image.
-			if ($options['show_image'] == 1)
+			if ($options['show_image'] == 'yes')
 			{
 				$this->_ci->benchmark->mark('cat_pi_show_images_start');
 				if ($row['cat_image'] <> '')
@@ -290,7 +290,7 @@ class Categories_parser
 			$td .= '<a class="cat_name" href="'.site_url('categories/'.$row['cat_uri']).'">'.$row['cat_name'].'</a>';
 			
 			// Show the total listings in this category and all children
-			if ($options['show_total'] == 1)
+			if ($options['show_total'] == 'yes')
 			{
 				$this->_ci->benchmark->mark('cat_pi_total_listings_start');
 				$total = $this->_ci->categories_model->total_listings($row['cat_id']);
@@ -299,7 +299,7 @@ class Categories_parser
 			}
 			
 			// Show the description
-			if ($options['show_description'] == 1) 
+			if ($options['show_description'] == 'yes') 
 			{
 				$td .= '<br />'. $row['cat_description'];
 			}

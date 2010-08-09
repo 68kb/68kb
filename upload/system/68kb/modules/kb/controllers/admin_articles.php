@@ -92,7 +92,6 @@ class Admin_articles extends Admin_Controller {
 		else
 		{
 			$data = array(
-				'article_uri' => $article_uri, 
 				'article_author' => (int) $this->session->userdata('user_id'), 
 				'article_title' => $this->input->post('article_title', TRUE),
 				'article_keywords' => $this->input->post('article_keywords', TRUE),
@@ -103,6 +102,11 @@ class Admin_articles extends Admin_Controller {
 			);
 			
 			$id = $this->articles_model->add_article($data);
+			
+			// Insert any fields
+			$fields = array('article_field_id' => $id);
+			//$fields_data = array_merge($fields, $fields_array);
+			$this->articles_model->add_fields($fields);
 			
 			$this->session->set_flashdata('msg', lang('lang_settings_saved'));
 			

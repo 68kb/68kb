@@ -150,7 +150,7 @@ class Articles_parser
 		{
 			$this->_ci->load->library('pagination');
 
-			$config['per_page'] = 1; //$this->_ci->settings->get_setting('site_max_search');
+			$config['per_page'] = $this->_ci->settings->get_setting('site_max_search');
 			$config['num_links'] = 5;
 			
 			$this->_paging = $this->_ci->pagination->get_pagination($config['total_rows'], $config['per_page']);
@@ -163,11 +163,12 @@ class Articles_parser
 		}
 		
 		$query = $this->_ci->db->get();
-
+		
 		// no records so we can't continue
 		if ($query->num_rows() == 0) 
 		{
-			return array();
+			$this->_ci->db->flush_cache();
+			return FALSE;
 		}
 	
 		$data = $query->result_array();

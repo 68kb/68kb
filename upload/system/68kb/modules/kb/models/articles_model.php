@@ -628,9 +628,14 @@ class Articles_model extends CI_model
 				$pos = strpos(strtolower($content), strtolower($row->g_term));
 				if ($pos !== FALSE) 
 				{
-					$sDef = $this->_dot($row->g_definition,75);
-					$sDef = str_replace('"', '\'', $sDef);
-					$replacement = ' <a href="'.site_url('glossary/term/'.$row->g_term).'" class="tooltip" title="'.$row->g_term.' - '.$sDef.'">'.$row->g_term.'</a> ';
+					$definition = $this->_dot($row->g_definition,75);
+					$definition = str_replace('"', '\'', $definition);
+					
+					// Fix per http://github.com/68designs/68KB/issues#issue/6
+					$html_stuff = array("<p>", "</p>");
+					$definition = str_replace($html_stuff, "", $definition);
+					
+					$replacement = ' <a href="'.site_url('glossary/term/'.$row->g_term).'" class="tooltip" title="'.$row->g_term.' - '.$definition.'">'.$row->g_term.'</a> ';
 					$content = preg_replace('/[\b|\s]('.$row->g_term.')[\b|^\s]/i', $replacement, $content, 1);
 				}
 			}
@@ -659,6 +664,30 @@ class Articles_model extends CI_model
 			$str = substr_replace($str, $dots, $len - $dotlen);
 		}
 		return $str;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Add Listing Fields
+	 * 
+	 * @param	array
+	 * @return	mixed
+	 */
+	public function add_fields($data)
+	{
+		$this->db->insert('article_fields', $data);
+		
+		if ($this->db->affected_rows() == 0) 
+		{
+			return FALSE;
+		} 
+		
+		$field_id = $this->db->insert_id();
+		
+		$this->events->trigger('articles_model/add_fields', $field_id);
+		
+		return $field_id;
 	}
 }
 

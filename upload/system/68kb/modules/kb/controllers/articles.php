@@ -79,8 +79,11 @@ class Articles extends Front_Controller
 			{
 				$data['article']['article_description'] = $this->events->trigger('article/description', $arr);
 			}
-			
+
+			// Format dates
+			$data['article']['article_date'] = format_date($data['article']['article_date']);
 			$data['article']['article_modified'] = format_date($data['article']['article_modified']);
+			
 			$data['article_cats'] = $this->categories_model->get_cats_by_article($data['article']['article_id']);
 			$data['attach'] = $this->articles_model->get_attachments($data['article']['article_id']);
 			$data['author'] = $this->users_model->get_user($data['article']['article_author']);

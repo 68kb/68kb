@@ -56,7 +56,12 @@ $cats = $this->config->item('categories', 'triggers');
 $route[$cats] = "categories";
 $route[$cats.'/(:any)'] = "categories/$1";
 
+// Articles
 $route['article/(:any)'] = "kb/articles/$1";
+
+// Glossary
+$route['glossary'] = "kb/glossary";
+$route['glossary/(:any)'] = "kb/glossary/$1";
 
 // Defaults
 $route['default_controller'] = "home";

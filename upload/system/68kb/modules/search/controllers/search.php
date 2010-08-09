@@ -38,7 +38,7 @@ class Search extends Front_Controller
 		// Load the needed libs
 		$this->load->model('search_model');
 		$this->load->model('categories/categories_model');
-		$this->load->model('listings/listings_model');
+		$this->load->model('kb/articles_model');
 		$this->load->helper(array('form', 'url', 'html', 'date'));
 	}
 	
@@ -73,7 +73,7 @@ class Search extends Front_Controller
 	 */
 	public function do_search()
 	{
-		$this->load->model('listings/listings_model');
+		$this->load->model('kb/articles_model');
 		
 		$this->load->library('pagination');
 		
@@ -94,14 +94,14 @@ class Search extends Front_Controller
 			$options['category'] = $category;
 			
 			// Now any children
-			$this->load->library('categories_library');
+			$this->load->library('categories/categories_library');
 			$this->categories_library->clear_ids();
 			$this->categories_library->get_child_ids($category);
 			$search_cats = $this->categories_library->get_ids();
 			
 			if ( ! empty($search_cats))
 			{
-				$options['listing_category'] = $search_cats;
+				$options['article_category'] = $search_cats;
 			}
 		}
 		
@@ -213,7 +213,27 @@ class Search extends Front_Controller
 		$offset = $this->pagination->offset;
 		
 		// Do the query
-		$data['listings'] = $this->listings_model->get_search_results($search_where, 'listing_added', 'desc', $offset, $config['per_page']);
+		$this->db->from('articles')
+				->join('article_fields', 'article_id = article_field_id', 'inner')
+				->where($search_where)
+				->limit($config['per_page'], $offset);
+				
+		$query = $this->db->get();
+		
+		if ($query->num_rows() == 0) 
+		{
+			return FALSE;
+		}
+		
+		$data['articles'] = $query->result_array();
+		// Get any other thing they may want.
+		$i = 0;
+		foreach ($data['articles'] AS $row)
+		{
+			// Generate the URL
+			$data['articles'][$i]['article_url'] = site_url('article/'.$row['article_uri']);
+			$i++;
+		}
 		
 		$this->template->set_breadcrumb(lang('lang_search'), 'search');
 		

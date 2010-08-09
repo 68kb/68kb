@@ -360,7 +360,7 @@ class Events
 			}
 		}
 		
-		if (is_array($return_data))
+		if (is_array($return_data) && ! empty($return_data))
 		{
 			if ( ! $this->_is_multi($return_data))
 			{

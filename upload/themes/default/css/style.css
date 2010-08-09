@@ -70,10 +70,240 @@ ul.articles li {
 	padding:0 0 5px 20px;
 }
 
+.glossary_terms td {
+	margin: 0;
+	padding: 0;
+}
+.glossary_terms a {
+	padding: 5px;
+	background: #ebebeb;
+	border: 1px solid #ccc;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-left: 10px;
+}
+
+.info {
+	font-size:10px;
+	padding:15px 15px 30px 0;
+}
+.info p {
+	color:#28313A;
+	line-height:normal;
+	margin:0;
+	padding-top:15px;
+}
+.cat_table {
+	border-bottom: 1px solid #ccc;
+}
+.cat_table td {
+	padding: 5px;
+}
+.footer {
+	border-top: 1px solid #ccc;
+	padding: 10px 0;
+}
 .footer p {
 	text-align: center;
 	font-size: 10px;
 }
+
+/* @group Forms */
+
+.input, textarea {
+	background-image: url(images/form_bg.jpg);
+	background-repeat: repeat-x;
+	border: 1px solid #ccc;
+	color: #333333;
+	font-size: 11px;
+	margin-right: 4px;
+	padding: 5px;
+	width: 400px;
+}
+
+.input {
+	background-image: url(images/form_bg.jpg);
+	background-repeat: repeat-x;
+	border: 1px solid #ccc;
+	color: #333333;
+	font-size: 11px;
+	margin-right: 4px;
+	padding: 5px;
+}
+
+#form h2 {
+	background: url(images/th.jpg) repeat-x;
+	color: #FFF;
+	font-weight: bold;
+	border-bottom: 1px solid #D6D5D6;
+	text-indent: 5px;
+	padding: 5px;
+	font-size: 108%;
+	text-align: left;
+}
+
+#form .fieldgrp {
+	margin-bottom: 0.5em;
+	width: 100%;
+}
+
+#form .field {
+	float: left;
+	font-size: 95%;
+	width: 380px;
+}
+
+#form .field input {
+	border: 2px solid #CCCCCC;
+	margin: 0px;
+}
+
+#form .field textarea {
+	border: 2px solid #CCCCCC;
+	margin: 0 0 0px;
+}
+
+#form input {
+	border: 2px solid #CCCCCC;
+	margin: 0 0 5px;
+	padding: 2px;
+}
+
+#form textarea {
+	border: 2px solid #CCCCCC;
+	margin: 0 0 10px;
+}
+
+#form select {
+	border: 2px solid #CCCCCC;
+	margin: 0 0 10px;
+	padding: 1px;
+}
+
+#form label.top {
+	display: block;
+}
+
+#form label {
+	color: #333333;
+	font-size: 102%;
+	font-weight: bold;
+	line-height: 22px;
+	padding: 0 10px 0 0;
+	text-align: right;
+}
+
+#form label.onehpx {
+	width: 120px;
+}
+
+#form input.error {
+	background-color: #DEEFFF;
+	color: #000000;
+	border: 1px solid #EA5200;
+}
+label {
+	font-weight:bold;
+}
+
+label.error {
+	background: url("../images/cross.png") no-repeat 0px 0px;
+	padding-left: 18px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #EA5200;
+	float: none;
+	display: inline;
+}
+
+#form label.checked {
+	background: url("../images/check.png") no-repeat 0px 0px;
+	float: none;
+	display: inline;
+}
+fieldset {
+	background-color:#FAFAFA;
+	border:1px solid #CCCCCC;
+	margin-bottom:6px;
+	padding:4px;
+}
+fieldset legend {
+	color:#2B2B2B;
+	font-size:12pt;
+	font-weight:bold;
+	padding:0.1em 0.3em;
+}
+
+.continue input {
+	float: right;
+	border: 3px double #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+	padding: 0.25em;
+}
+
+.submit input {
+	border: 3px double #999;
+	border-left-color: #ccc;
+	border-top-color: #ccc;
+	color: #333;
+	padding: 0.25em;
+}
+
+fieldset p {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+fieldset p label {
+	float: left;
+}
+td {
+	vertical-align: top;
+	padding: 5px 10px;
+}
+td.formleft, td.formright {
+	border-bottom:1px solid #D7D7D7;
+	color:#888888;
+	padding:5px;
+}
+/* @end */
+
+/* @group Pagination */
+
+.pagination {
+	background-color: #fff;
+	color: #333333;
+	padding: 5px;
+	margin-top: 10px;
+}
+
+.pagination .dimmed {
+	background-color: #eee;
+	border: 1px solid #aaa;
+	color: #111;
+	padding: 3px 6px 3px 6px;
+	font-weight: bold;
+}
+
+.pagination .pages {
+	float: right;
+}
+
+.pagination a {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	color: #111;
+	padding: 3px 6px 3px 6px;
+}
+
+/* @end */
+
 /* ---------------------- Blueslate nav ---------------------- */
 .blue #slatenav{position:relative;display:block;height:42px;font-size:11px;font-weight:bold;background:transparent url(../images/blueslate_background.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;text-transform:uppercase;}
 .blue #slatenav ul{margin:0px;padding:0;list-style-type:none;width:auto;}
