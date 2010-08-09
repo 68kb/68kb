@@ -1,0 +1,107 @@
+@import url("960/reset.css");
+@import url("960/text.css");
+@import url("960/960.css");
+
+body {
+	font:12px/1.5 "Lucida Grande",Helvetica,Arial,sans-serif;
+	padding-top: 15px;
+}
+a {
+	color:#00597F;
+	text-decoration:none;
+}
+a:hover {
+	color: #333;
+	text-decoration:underline;
+}
+
+#logo {
+	background:url("../images/logo.png") no-repeat scroll 0 0 transparent;
+	font:30px/2.2 "lucida grande",arial,helvetica,sans-serif;
+	height:55px;
+	text-indent:-99999px;
+}
+
+#login {
+	text-align: right;
+}
+
+.body, #sidebar {
+	padding: 10px 0;
+}
+
+#sidebar .item {
+	background: #F2F2F2;
+	border: 1px solid #ccc;
+	padding: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+#sidebar h3 {
+	font-size: 13px;
+	margin: 0 0 10px;
+	border-bottom: 1px solid #ccc;
+}
+#sidebar ul {
+	margin:0;
+	padding:0;
+}
+#sidebar li {
+	line-height:22px;
+	list-style-type:none;
+	margin-left: 10px;
+}
+#sidebar li li {
+	background:url("../images/cat-join.gif") no-repeat scroll left center transparent;
+	padding:0 4px 5px 25px;
+	margin: 0;
+}
+
+ul.articles {
+	list-style:none outside none;
+	margin:0;
+	padding:0;
+}
+ul.articles li {
+	background:url("../images/page_white.png") no-repeat scroll 0 1.6px transparent;
+	line-height:18px;
+	margin:0;
+	padding:0 0 5px 20px;
+}
+
+.footer p {
+	text-align: center;
+	font-size: 10px;
+}
+/* ---------------------- Blueslate nav ---------------------- */
+.blue #slatenav{position:relative;display:block;height:42px;font-size:11px;font-weight:bold;background:transparent url(../images/blueslate_background.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;text-transform:uppercase;}
+.blue #slatenav ul{margin:0px;padding:0;list-style-type:none;width:auto;}
+.blue #slatenav ul li{display:block;float:left;margin:0 1px 0 0;}
+.blue #slatenav ul li a{display:block;float:left;color:#D5F1FF;text-decoration:none;padding:14px 22px 0 22px;height:28px;}
+.blue #slatenav ul li a:hover,.blue #slatenav ul li a.current{color:#fff;background:transparent url(../images/blueslate_backgroundOVER.gif) no-repeat top center;}
+/* ---------------------- END Blueslate nav ---------------------- */
+
+/* ---------------------- Greenslate nav ---------------------- */
+.green #slatenav{position:relative;display:block;height:42px;font-size:11px;font-weight:bold;background:transparent url(../images/greenslate_background.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;text-transform:uppercase;}
+.green #slatenav ul{margin:0px;padding:0;list-style-type:none;width:auto;}
+.green #slatenav ul li{display:block;float:left;margin:0 1px 0 0;}
+.green #slatenav ul li a{display:block;float:left;color:#EEFFDF;text-decoration:none;padding:14px 22px 0 22px;height:28px;}
+.green #slatenav ul li a:hover,.green #slatenav ul li a.current{color:#fff;background:transparent url(../images/greenslate_backgroundOVER.gif) no-repeat top center;}
+/* ---------------------- END Greenslate nav ---------------------- */
+
+/* ---------------------- Redslate nav ---------------------- */
+.red #slatenav{position:relative;display:block;height:42px;font-size:11px;font-weight:bold;background:transparent url(../images/redslate_background.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;text-transform:uppercase;}
+.red #slatenav ul{margin:0px;padding:0;list-style-type:none;width:auto;}
+.red #slatenav ul li{display:block;float:left;margin:0 1px 0 0;}
+.red #slatenav ul li a{display:block;float:left;color:#FECCC3;text-decoration:none;padding:14px 22px 0 22px;height:28px;}
+.red #slatenav ul li a:hover,.red #slatenav ul li a.current{color:#fff;background:transparent url(../images/redslate_backgroundOVER.gif) no-repeat top center;}
+/* ---------------------- END Redslate nav ---------------------- */
+
+/* ---------------------- Purpleslate nav ---------------------- */
+.purple #slatenav{position:relative;display:block;height:42px;font-size:11px;font-weight:bold;background:transparent url(../images/purpleslate_background.gif) repeat-x top left;font-family:Arial,Verdana,Helvitica,sans-serif;text-transform:uppercase;}
+.purple #slatenav ul{margin:0px;padding:0;list-style-type:none;width:auto;}
+.purple #slatenav ul li{display:block;float:left;margin:0 1px 0 0;}
+.purple #slatenav ul li a{display:block;float:left;color:#FBDAFA;text-decoration:none;padding:14px 22px 0 22px;height:28px;}
+.purple #slatenav ul li a:hover,.purple #slatenav ul li a.current{color:#fff;background:transparent url(../images/purpleslate_backgroundOVER.gif) no-repeat top center;}
+/* ---------------------- END Purpleslate nav ---------------------- */

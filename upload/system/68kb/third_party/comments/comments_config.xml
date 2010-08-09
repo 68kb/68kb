@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="comments">
+	<title>Comments</title>
+	<description>Article Comments.</description>
+	<version>v1.0.0</version>
+	<order>100</order>
+</module>

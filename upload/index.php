@@ -1,4 +1,5 @@
 <?php
+
 /*
  *---------------------------------------------------------------
  * PHP ERROR REPORTING LEVEL
@@ -10,62 +11,65 @@
  *
  */
 	error_reporting(E_ALL);
-	ini_set("display_errors", 1);
 
 /*
-|---------------------------------------------------------------
-| INCLUDES FOLDER NAME
-|---------------------------------------------------------------
-|
-| This is the location of the includes folder.
-|
-| NO TRAILING SLASH!
-|
-*/
-	$includes_folder = "includes";
-		
-/*
-|---------------------------------------------------------------
-| SYSTEM FOLDER NAME
-|---------------------------------------------------------------
-|
-| This variable must contain the name of your "system" folder.
-| Include the path if the folder is not in the same  directory
-| as this file.
-|
-| NO TRAILING SLASH!
-|
-*/
-	$system_path = "includes/system";
+ *---------------------------------------------------------------
+ * SYSTEM FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" folder.
+ * Include the path if the folder is not in the same  directory
+ * as this file.
+ *
+ */
+	$system_path = "./system/codeigniter";
 
 /*
-|---------------------------------------------------------------
-| APPLICATION FOLDER NAME
-|---------------------------------------------------------------
-|
-| If you want this front controller to use a different "application"
-| folder then the default one you can set its name here. The folder
-| can also be renamed or relocated anywhere on your server.
-| For more info please see the user guide:
-| http://codeigniter.com/user_guide/general/managing_apps.html
-|
-|
-| NO TRAILING SLASH!
-|
-*/
-	$application_folder = "includes/68kb";
+ *---------------------------------------------------------------
+ * APPLICATION FOLDER NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * folder then the default one you can set its name here. The folder 
+ * can also be renamed or relocated anywhere on your server.  If
+ * you do, use a full server path. For more info please see the user guide:
+ * http://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ *
+ */
+	$application_folder = "./system/68kb";
 
 /*
-|---------------------------------------------------------------
-| EXTENSIONS FOLDER NAME
-|---------------------------------------------------------------
-|
-| This is the location of the extensions folder.
-|
-| NO TRAILING SLASH!
-|
-*/
-	$extensions_folder = "includes/addons";
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a 
+ * specific controller class/function here.  For most applications, you
+ * WILL NOT set your routing here, but it's an option for those 
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT:  If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller.  Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ *
+ */
+ 	// The directory name, relative to the "controllers" folder.  Leave blank
+ 	// if your controller is not in a sub-folder within the "controllers" folder
+	// $routing['directory'] = '';
+	
+	// The controller class file name.  Example:  Mycontroller.php
+	// $routing['controller'] = '';
+	
+	// The controller function you wish to be called. 
+	// $routing['function']	= '';
+
 
 /*
  * -------------------------------------------------------------------
@@ -98,7 +102,7 @@
  *  Resolve the system path for increased reliability
  * ---------------------------------------------------------------
  */
-	if (function_exists('realpath') AND @realpath($system_path) !== FALSE)
+	if (realpath($system_path) !== FALSE)
 	{
 		$system_path = realpath($system_path).'/';
 	}
@@ -106,10 +110,10 @@
 	// ensure there's a trailing slash
 	$system_path = rtrim($system_path, '/').'/';
 
-	// Is the sytsem path correct?
+	// Is the system path correct?
 	if ( ! is_dir($system_path))
 	{
-		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));
+		exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));	
 	}
 
 /*
@@ -119,7 +123,7 @@
  */		
 	// The name of THIS file
 	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-	
+
 	// The PHP file extension
 	define('EXT', '.php');
 
@@ -130,10 +134,10 @@
 	define('FCPATH', str_replace(SELF, '', __FILE__));
 	
 	// Name of the "system folder"
-	define('SYSDIR', end(explode('/', trim(BASEPATH, '/'))));		
-	
-	// Root path
-	define('ROOTPATH', pathinfo(__FILE__, PATHINFO_DIRNAME).'/');
+	define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));		
+
+	// Path to this directory
+	define('ROOTPATH', dirname(realpath(__FILE__)).'/');
 	
 	// The path to the "application" folder
 	if (is_dir($application_folder))
@@ -150,36 +154,8 @@
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
 	
-	// The path to the "includes" folder
-	if (is_dir($includes_folder))
-	{
-		define('INCPATH', $includes_folder.'/');
-	}
-	else
-	{		
-		if ( ! is_dir($includes_folder.'/'))
-		{
-			exit("Your includes folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);	
-		}
-	
-		define('INCPATH', $includes_folder.'/');
-	}
-	
-	// The path to the "addons" folder
-	if (is_dir($extensions_folder))
-	{
-		define('EXTPATH', $extensions_folder.'/');
-	}
-	else
-	{		
-		if ( ! is_dir($extensions_folder.'/'))
-		{
-			exit("Your addons folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);	
-		}
-	
-		define('EXTPATH', $extensions_folder.'/');
-	}
-	
+	// Third_party path
+	define('EXTPATH', APPPATH.'third_party');
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
