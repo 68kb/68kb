@@ -38,7 +38,7 @@ class Glossary extends Front_Controller
 	*/
 	function index()
 	{
-		$this->template->title($this->lang->line('kb_glossary'));
+		$this->template->title($this->lang->line('lang_glossary'));
 		
 		$this->db->from('glossary')->orderby('g_term', 'asc');
 		$query = $this->db->get();
@@ -83,7 +83,7 @@ class Glossary extends Front_Controller
 		$data['glossary'] = $query;
 		$data['letter'] = range('a', 'z');
 		
-		$this->template->title($this->lang->line('kb_glossary'));
+		$this->template->title($this->lang->line('lang_glossary'));
 		
 		$this->template->build('glossary', $data);
 	}

@@ -209,23 +209,26 @@ class Modules
 		$file_ext = strpos($file, '.') ? $file : $file.EXT;
 
 		$lang && $lang .= '/';
-		$path = ltrim(implode('/', $segments).'/', '/');
+		$path = implode('/', $segments).'/';
 		$module ? $modules[$module] = $path : $modules = array();
 
-		if ( ! empty($segments)) {
+		if ( ! empty($segments)) 
+		{
 			$modules[array_shift($segments)] = ltrim(implode('/', $segments).'/','/');
 		}
 
-		foreach (Modules::$locations as $location => $offset) {
-
-			foreach($modules as $module => $subpath) {
+		foreach (Modules::$locations as $location => $offset) 
+		{
+			foreach($modules as $module => $subpath) 
+			{
 				$fullpath = $location.$module.'/'.$base.$lang.$subpath;
 				if (is_file($fullpath.$file_ext)) return array($fullpath, $file);
 			}
 		}
 
 		/* is the file in an application directory? */
-		if ($base == 'models/') {
+		if ($base == 'models/') 
+		{
 			if (is_file(APPPATH.$base.$path.$file_ext)) return array(APPPATH.$base.$path, $file);
 			show_error("Unable to locate the models file: {$path}{$file_ext}");
 		}
@@ -235,13 +238,13 @@ class Modules
 			{
 				return array(APPPATH.$base.$path, $file);
 			}
-			elseif (is_file('/'.$base.$file_ext)) 
+			elseif (is_file($base.$file_ext)) 
 			{
-				echo $base.$file_ext;
+				return array($base, $file);
 			}
-			elseif (is_file('/'.$path.$file_ext)) 
+			elseif (is_file($path.$file_ext)) 
 			{
-				return array('/'.$path, $file);
+				return array($path, $file);
 			}
 			elseif (is_file(ROOTPATH.'themes/'.$path.$file_ext))
 			{

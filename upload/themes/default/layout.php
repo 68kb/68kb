@@ -17,21 +17,13 @@
 		<h1><a href="http://68kb.com">Your Site</a></h1>
 	</div>
 	<div class="grid_6" id="login">
-		<p>
-			<a href="<?php echo site_url('users/login') ?>">Login</a> | <a href="<?php echo site_url('users/register') ?>">Register</a>
-		</p>
+		<?php $this->load->view($site_theme.'/inc/user_nav'); ?>
 	</div>
 	<div class="clear"></div>
 	
 	<div class="grid_12 blue">
 		<div id="slatenav">
-			<ul>
-				<li><a href="index.php" title="css menus" class="current">Home</a></li>
-				<li><a href="<?php echo site_url('categories'); ?>" title="css menus">Categories</a></li>
-				<li><a href="<?php echo site_url('glossary'); ?>" title="css menus">Glossary</a></li>
-				<li><a href="<?php echo site_url('search'); ?>" title="css menus">Advanced Search</a></li>
-				<li><a href="<?php echo site_url('contact'); ?>" title="css menus">Contact Us</a></li>
-			</ul>
+			<?php $this->load->view($site_theme.'/inc/top_nav'); ?>
 		</div>
 	</div>
 	<div class="clear"></div>

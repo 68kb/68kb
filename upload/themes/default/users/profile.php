@@ -1,8 +1,4 @@
 <div id="profile" class="<?php echo url_title($user['group_name']) ?>">
-
-	<span class="small_frame right">
-		<img src="{ice:users:gravatar email="<?php echo $user['user_email']; ?>"}" width="60" height="60" alt="<?php echo $user['user_username']; ?>" class="avatar" />
-	</span>
 	
 	<h1><?php echo $user['user_username']; ?></h1>
 	

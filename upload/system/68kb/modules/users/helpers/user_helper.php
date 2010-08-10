@@ -40,9 +40,9 @@ if ( ! function_exists('ice_get_user_data'))
  * @param		int
  * @return 		bool
  */
-if ( ! function_exists('ice_user_logged_in'))
+if ( ! function_exists('kb_user_logged_in'))
 {
-	function ice_user_logged_in()
+	function kb_user_logged_in()
 	{
 		$CI =& get_instance();
 	

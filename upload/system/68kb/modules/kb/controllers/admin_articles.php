@@ -76,13 +76,13 @@ class Admin_articles extends Admin_Controller {
 
 		$this->load->library('form_validation');
 		
-		$this->form_validation->set_rules('article_title', 'lang:kb_title', 'required');
-		$this->form_validation->set_rules('article_uri', 'lang:kb_uri', 'alpha_dash');
-		$this->form_validation->set_rules('article_keywords', 'lang:kb_keywords', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_short_desc', 'lang:kb_short_description', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_description', 'lang:kb_description', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_display', 'lang:kb_display', 'trim');
-		$this->form_validation->set_rules('article_order', 'lang:kb_weight', 'numeric');
+		$this->form_validation->set_rules('article_title', 'lang:lang_title', 'required');
+		$this->form_validation->set_rules('article_uri', 'lang:lang_uri', 'alpha_dash');
+		$this->form_validation->set_rules('article_keywords', 'lang:lang_keywords', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_short_desc', 'lang:lang_short_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_description', 'lang:lang_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_display', 'lang:lang_display', 'trim');
+		$this->form_validation->set_rules('article_order', 'lang:lang_weight', 'numeric');
 		$this->events->trigger('articles/validation');
 		
 		if ($this->form_validation->run() == FALSE)
@@ -194,13 +194,13 @@ class Admin_articles extends Admin_Controller {
 
 		$this->load->library('form_validation');
 		
-		$this->form_validation->set_rules('article_title', 'lang:kb_title', 'required');
-		$this->form_validation->set_rules('article_uri', 'lang:kb_uri', 'alpha_dash');
-		$this->form_validation->set_rules('article_keywords', 'lang:kb_keywords', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_short_desc', 'lang:kb_short_description', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_description', 'lang:kb_description', 'trim|xss_clean');
-		$this->form_validation->set_rules('article_display', 'lang:kb_display', 'trim');
-		$this->form_validation->set_rules('article_order', 'lang:kb_weight', 'numeric');
+		$this->form_validation->set_rules('article_title', 'lang:lang_title', 'required');
+		$this->form_validation->set_rules('article_uri', 'lang:lang_uri', 'alpha_dash');
+		$this->form_validation->set_rules('article_keywords', 'lang:lang_keywords', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_short_desc', 'lang:lang_short_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_description', 'lang:lang_description', 'trim|xss_clean');
+		$this->form_validation->set_rules('article_display', 'lang:lang_display', 'trim');
+		$this->form_validation->set_rules('article_order', 'lang:lang_weight', 'numeric');
 		$this->events->trigger('articles/validation');
 		
 		if ($this->form_validation->run() == FALSE)

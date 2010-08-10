@@ -128,6 +128,7 @@ class Categories extends Front_Controller
 		}
 		else 
 		{
+			$this->template->title(lang('lang_categories'));
 			$data['cat_name'] = lang('lang_categories');
 			$data['breadcrumb'] = $this->categories_model->breadcrumb(0);
 			$data['listings'] = '';
