@@ -336,13 +336,13 @@ class Articles_model extends CI_model
 	 * @param	bool
 	 * @return	mixed
 	 */
-	function get_articles_by_catid($id, $limit=0, $current_row = 0, $show_count=FALSE)
+	function get_articles_by_catid($id, $limit = 0, $current_row = 0, $show_count = TRUE)
 	{
 		$id = (int)$id;
 		$this->db->from('articles');
-		$this->db->join('article2cat', 'articles.article_id = article2cat.article_id', 'left');
-		$this->db->where('category_id', $id);
-		$this->db->where('article_display', 'Y');
+		$this->db->join('article2cat', 'article_id = article_id_rel', 'left');
+		$this->db->where('category_id_rel', $id);
+		$this->db->where('article_display', 'y');
 		if ($show_count)
 		{
 			return $this->db->count_all_results();

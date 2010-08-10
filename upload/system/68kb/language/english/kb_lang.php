@@ -56,7 +56,7 @@ $lang['lang_select_all'] = 'Select All';
 $lang['lang_short_description'] = 'Short Description';
 $lang['lang_active'] = 'Active';
 $lang['lang_not_active'] = 'Not Active';
-
+$lang['lang_no_articles'] = 'No articles in this category';
 
 $lang['lang_all_articles'] = 'All Articles';
 $lang['lang_article_not_available'] = 'Sorry this article is not available.';

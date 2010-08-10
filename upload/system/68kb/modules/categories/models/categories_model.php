@@ -562,7 +562,7 @@ class Categories_model extends CI_Model
 	* @param	int $lev The current level
 	* @return	array
 	*/
-	public function total_listings($cat_id, $lev = 0) 
+	public function total_articles($cat_id, $lev = 0) 
 	{
 		$cat_id = (int) $cat_id;
 		
@@ -576,18 +576,17 @@ class Categories_model extends CI_Model
 			return 0; 
 		}
 
-		$this->db->select('listing_id')
-					->from('listings')
-					->join('listing_status', 'listing_status = status_id', 'inner')
-					->where('listing_expiration >', time())
-					->where_in('listing_category', $search_cats);
+		$this->db->select('article_id')
+					->from('articles')
+					->join('article2cat', 'article_id = article_id_rel', 'inner')
+					->where_in('category_id_rel', $search_cats);
 
-		$where = 'status_show_listing = "y" AND listing_expiration > '. time();
+		$where = 'article_display = "y"';
 
 		// Call any hooks and add them to the where clause.
-		if ($this->events->active_hook('get_listings_where'))
+		if ($this->events->active_hook('get_articles_where'))
 		{
-			$where .= $this->events->trigger('get_listings_where');
+			$where .= $this->events->trigger('get_articles_where');
 		}
 
 		$this->db->where($where);

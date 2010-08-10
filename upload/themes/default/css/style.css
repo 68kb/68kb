@@ -71,6 +71,21 @@ ul.articles li {
 	padding:0 0 5px 20px;
 }
 
+hr {
+	border: none;
+	border-top: 1px solid #ccc;
+	background: #fff;
+	height: 1px;
+}
+#home h3 {
+	color:#626262;
+	font-size:14px;
+	line-height:1.3;
+	margin:0 0 10px;
+}
+#home li {
+	line-height:18px;
+}
 .glossary_terms td {
 	margin: 0;
 	padding: 0;
@@ -97,9 +112,7 @@ dd {
 	margin:0;
 	padding-top:15px;
 }
-.cat_table {
-	border-bottom: 1px solid #ccc;
-}
+
 .cat_table td {
 	padding: 5px;
 }

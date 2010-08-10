@@ -45,13 +45,13 @@ class Articles_parser
 	* @param	array
 	* @return 	mixed
 	*/
-	function get()
+	function get($data = array())
 	{
 		// Set the default options
-		$defaults = array('limit' => '', 'owner' => '', 'category' => '', 'class' => '', 'extra_field' => '', 'sort_order' => 'random', 'sort_column' => 'article_title', 'cache' => 0, 'exclude' => '');	
+		$defaults = array('limit' => '', 'owner' => '', 'category' => '', 'class' => '', 'extra_field' => '', 'sort_order' => 'asc', 'sort_column' => 'article_title', 'cache' => 0, 'exclude' => '');	
 		
-		$options = $this->_ci->settings->get_params($this->_data['attributes'], $defaults);
-		
+		$options = $this->_ci->settings->get_params($data['attributes'], $defaults);
+
 		// Do the listings query
 		$this->_ci->db->start_cache();
 		$this->_ci->db->from('articles')
@@ -119,9 +119,9 @@ class Articles_parser
 		$allowed_order_by = array('asc', 'desc', 'random');
 		
 		$sort_order = 'asc';
-		if ( ! in_array(strtolower($options['sort_order']), $allowed_order_by)) 
+		if (in_array(strtolower($options['sort_order']), $allowed_order_by)) 
 		{
-			$sort_order = 'desc';
+			$sort_order = $options['sort_order'];
 		}
 		
 		// This sets the allowed order by clauses. Prevents invalid query.
@@ -163,7 +163,7 @@ class Articles_parser
 		}
 		
 		$query = $this->_ci->db->get();
-		
+
 		// no records so we can't continue
 		if ($query->num_rows() == 0) 
 		{

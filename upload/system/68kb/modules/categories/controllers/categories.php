@@ -106,9 +106,10 @@ class Categories extends Front_Controller
 			
 			$data['category_id'] = $data['category']['cat_id'];
 			
-			$data['cat_allowads'] = $data['category']['cat_allowads'];
+			$this->load->model('kb/articles_model');
+			$data['has_articles'] = $this->articles_model->get_articles_by_catid($data['category_id']);
 			
-			$data['cat_promo'] = $data['category']['cat_promo'];
+			$data['cat_description'] = $data['category']['cat_description'];
 			
 			$data['sub_cats'] = $this->categories_model->get_sub_categories($data['category_id']);
 			
@@ -131,7 +132,7 @@ class Categories extends Front_Controller
 			$this->template->title(lang('lang_categories'));
 			$data['cat_name'] = lang('lang_categories');
 			$data['breadcrumb'] = $this->categories_model->breadcrumb(0);
-			$data['listings'] = '';
+			$data['has_articles'] = 0;
 			$data['cat_allowads'] = 'no';
 		}
 		

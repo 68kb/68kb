@@ -181,6 +181,7 @@ class Categories_parser
 				'show_total' 		=> 'no', 
 				'show_image' 		=> 'yes', 
 				'show_description'	=> 'no', 
+				'heading'			=> '',
 				'cols' 				=> 2, 
 				'table_attr' 		=> 'width="100%" class="cat_table"', 
 				'row_start' 		=> '', 
@@ -292,10 +293,11 @@ class Categories_parser
 			// Show the total listings in this category and all children
 			if ($options['show_total'] == 'yes')
 			{
-				$this->_ci->benchmark->mark('cat_pi_total_listings_start');
-				$total = $this->_ci->categories_model->total_listings($row['cat_id']);
+				$this->_ci->benchmark->mark('cat_pi_total_articles_start');
+				$this->_ci->load->library('categories/categories_library');
+				$total = $this->_ci->categories_model->total_articles($row['cat_id']);
 				$td .= ' <span class="total">('.$total.')</span>';
-				$this->_ci->benchmark->mark('cat_pi_total_listings_end');
+				$this->_ci->benchmark->mark('cat_pi_total_articles_end');
 			}
 			
 			// Show the description
@@ -312,13 +314,19 @@ class Categories_parser
 		}
 	
 		$new_list = $this->_ci->table->make_columns($cats, $options['cols']);
-
- 		$table = $this->_ci->table->generate($new_list);
+		
+		$output = '';
+		if ($options['heading'] <> '')
+		{
+			$output .= '<h2>'.$options['heading'].'</h2>';
+		}
+		
+ 		$output .= $this->_ci->table->generate($new_list);
 
 		// finally clear the template incase it is used twice.
 		$this->_ci->table->clear();
 		
-		return $table;
+		return $output;
 	}
 	
 	// ------------------------------------------------------------------------
