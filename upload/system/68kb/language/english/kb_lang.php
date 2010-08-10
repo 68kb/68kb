@@ -307,25 +307,15 @@ $lang['lang_user_login_error'] = 'I am sorry, but your username or password is i
 $lang['lang_not_allowed'] = 'You are not allowed to perform this action';
 $lang['can_view_site'] = 'Can view site';
 $lang['can_access_admin'] = 'Can Access Admin';
-$lang['can_manage_orders'] = 'Can Manage Orders';
-$lang['can_delete_orders'] = 'Can Delete Orders';
-$lang['can_manage_listings'] = 'Can Manage Listings';
-$lang['can_delete_listings'] = 'Can Delete Listings';
-$lang['can_manage_products'] = 'Can Manage Products';
-$lang['can_manage_coupons'] = 'Can Manage Coupons';
+$lang['can_manage_articles'] = 'Can Manage Articles';
+$lang['can_delete_articles'] = 'Can Delete Articles';
 $lang['can_manage_users'] = 'Can Manage Users';
 $lang['can_manage_categories'] = 'Can Manage Categories';
 $lang['can_delete_categories'] = 'Can Delete Categories';
-$lang['can_manage_fields'] = 'Can Manage Fields';
 $lang['can_manage_settings'] = 'Can Manage Settings';
 $lang['can_manage_utilities'] = 'Can Manage Utilities';
 $lang['can_manage_themes'] = 'Can Manage Themes';
-$lang['can_manage_content'] = 'Can Manage Content';
 $lang['can_manage_modules'] = 'Can Manage Modules';
-$lang['can_use_modules'] = 'Can Use Modules';
-$lang['can_place_ads'] = 'Can Place Ads';
-$lang['manually_approve_ads'] = 'Manually Approve Ads';
-$lang['can_search'] = 'Can Search';
 
 // ------------------------------------------------------------------------
 // Glossary

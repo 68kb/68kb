@@ -113,25 +113,15 @@ class Admin extends Admin_Controller {
 				'group_description' 			=> $this->input->post('group_description', TRUE),
 				'can_view_site' 				=> $this->input->post('can_view_site', TRUE),
 				'can_access_admin' 				=> $this->input->post('can_access_admin', TRUE),
-				'can_manage_orders' 			=> $this->input->post('can_manage_orders', TRUE),
-				'can_delete_orders' 			=> $this->input->post('can_delete_orders', TRUE),
-				'can_manage_listings' 			=> $this->input->post('can_manage_listings', TRUE),
-				'can_delete_listings' 			=> $this->input->post('can_delete_listings', TRUE),
-				'can_manage_products' 			=> $this->input->post('can_manage_products', TRUE),
-				'can_manage_coupons' 			=> $this->input->post('can_manage_coupons', TRUE),
+				'can_manage_articles' 			=> $this->input->post('can_manage_articles', TRUE),
+				'can_delete_articles' 			=> $this->input->post('can_delete_articles', TRUE),
 				'can_manage_users' 				=> $this->input->post('can_manage_users', TRUE),
 				'can_manage_categories' 		=> $this->input->post('can_manage_categories', TRUE),
 				'can_delete_categories' 		=> $this->input->post('can_delete_categories', TRUE),
-				'can_manage_fields' 			=> $this->input->post('can_manage_fields', TRUE),
 				'can_manage_settings' 			=> $this->input->post('can_manage_settings', TRUE),
 				'can_manage_utilities' 			=> $this->input->post('can_manage_utilities', TRUE),
 				'can_manage_themes' 			=> $this->input->post('can_manage_themes', TRUE),
-				'can_manage_content' 			=> $this->input->post('can_manage_content', TRUE),
-				'can_manage_modules' 			=> $this->input->post('can_manage_modules', TRUE),
-				'can_use_modules' 				=> $this->input->post('can_use_modules', TRUE),
-				'can_place_ads' 				=> $this->input->post('can_place_ads', TRUE),
-				'manually_approve_ads' 			=> $this->input->post('manually_approve_ads', TRUE),
-				'can_search'				 	=> $this->input->post('can_search', TRUE)
+				'can_manage_modules' 			=> $this->input->post('can_manage_modules', TRUE)
 			);
 			
 			$user_group = $this->usergroups_model->add_group($insert);
@@ -194,25 +184,15 @@ class Admin extends Admin_Controller {
 					'group_description' 			=> $this->input->post('group_description', TRUE),
 					'can_view_site' 				=> $this->input->post('can_view_site', TRUE),
 					'can_access_admin' 				=> $this->input->post('can_access_admin', TRUE),
-					'can_manage_orders' 			=> $this->input->post('can_manage_orders', TRUE),
-					'can_delete_orders' 			=> $this->input->post('can_delete_orders', TRUE),
-					'can_manage_listings' 			=> $this->input->post('can_manage_listings', TRUE),
-					'can_delete_listings' 			=> $this->input->post('can_delete_listings', TRUE),
-					'can_manage_products' 			=> $this->input->post('can_manage_products', TRUE),
-					'can_manage_coupons' 			=> $this->input->post('can_manage_coupons', TRUE),
+					'can_manage_articles' 			=> $this->input->post('can_manage_articles', TRUE),
+					'can_delete_articles' 			=> $this->input->post('can_delete_articles', TRUE),
 					'can_manage_users' 				=> $this->input->post('can_manage_users', TRUE),
 					'can_manage_categories' 		=> $this->input->post('can_manage_categories', TRUE),
 					'can_delete_categories' 		=> $this->input->post('can_delete_categories', TRUE),
-					'can_manage_fields' 			=> $this->input->post('can_manage_fields', TRUE),
 					'can_manage_settings' 			=> $this->input->post('can_manage_settings', TRUE),
 					'can_manage_utilities' 			=> $this->input->post('can_manage_utilities', TRUE),
 					'can_manage_themes' 			=> $this->input->post('can_manage_themes', TRUE),
-					'can_manage_content' 			=> $this->input->post('can_manage_content', TRUE),
-					'can_manage_modules' 			=> $this->input->post('can_manage_modules', TRUE),
-					'can_use_modules' 				=> $this->input->post('can_use_modules', TRUE),
-					'can_place_ads' 				=> $this->input->post('can_place_ads', TRUE),
-					'manually_approve_ads' 			=> $this->input->post('manually_approve_ads', TRUE),
-					'can_search'				 	=> $this->input->post('can_search', TRUE),
+					'can_manage_modules' 			=> $this->input->post('can_manage_modules', TRUE)
 				);
 			}
 			

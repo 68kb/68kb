@@ -36,7 +36,7 @@ else
 		<div class="row1">
 			<?php echo form_label(lang('lang_short_description'). ':', 'article_short_desc'); ?>
 			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
-			<?php echo form_textarea('article_short_desc', set_value('article_short_desc', @$row['article_short_desc']), 'id="article_short_desc" class="inputtext"'); ?>
+			<?php echo form_textarea('article_short_desc', set_value('article_short_desc', @$row['article_short_desc']), 'id="article_short_desc" class="shortdesc"'); ?>
 		</div>
 		
 		<div class="row2">
@@ -50,18 +50,8 @@ else
 	</div>
 	<div class="grid_7 inline">
 		<?php if ($action == 'edit'): ?>
-		<fieldset>
-			<legend>General Details</legend>
-			<div class="user_box">
-				<a href="<?php echo site_url('admin/users/edit/'.$row['article_author']); ?>"><img width="48" height="48" src="<?php echo gravatar($row['user_email'], 'PG', 48); ?>'" class="user_gravatar" /></a>
-				<h3><a href="<?php echo site_url('admin/users/edit/'.$row['user_id']); ?>"><?php echo $row['user_username']; ?></a></h3>
-				<a href="mailto:<?php echo $row['user_email']; ?>"><?php echo $row['user_email']; ?></a><br />
-				<span class="date"><?php echo lang('lang_join_date'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_join_date']); ?></span>
-				<span class="date"><?php echo lang('lang_last_login'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_last_login']); ?></span><br />
-			</div>
-		</fieldset>
 		<div class="row2">
-			<label for="article_author"><?php echo lang('lang_username'); ?>:</label>
+			<label for="article_author"><?php echo lang('lang_author'); ?>:</label>
 			<input type="text" name="article_author" class="search" id="article_author" value="<?php echo set_value('article_author', $username); ?>" /> <span id="loader"><img src="<?php echo $template; ?>images/ajax-loader.gif" /></span>
 		</div>
 		<div id="display">

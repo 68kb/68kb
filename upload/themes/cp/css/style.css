@@ -471,6 +471,11 @@ input.inputtext {
 	padding: 5px
 }
 
+textarea.shortdesc {
+	width: 95%;
+	padding: 2px 5px;
+	height: 100px;
+}
 textarea.inputtext {
 	width: 95%;
 	padding: 2px 5px
