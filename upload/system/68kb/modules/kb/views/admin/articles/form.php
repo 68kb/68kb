@@ -83,16 +83,37 @@ else
 			</div>
 		</fieldset>
 		
-		<?php if(isset($cat['cat_image']) && $cat['cat_image'] <> '') { ?>
-		<div class="row1">
-			<?php
-				echo img($this->config->item('cat_image_path') . $cat['cat_image']) .'<br />';
-				echo '<a href="'.site_url('admin/categories/delete_image/'.$cat['cat_id']).'">'.lang('lang_delete').'</a>';
-			?>
-		</div>
-		<?php } ?>
+		<a name="attachments"></a>
+		<?php if(isset($attach) && is_array($attach)): ?>
+			<fieldset>
+				<legend><?php echo lang('lang_attachments'); ?></legend>
+					<table width="100%" class="main" id="attach">
+						<tr>
+							<th><?php echo lang('lang_title'); ?></th>
+							<th>File</th>
+							<th>Type</th>
+							<th>Size</th>
+							<th>Delete</th>
+						</tr>
+						<?php  foreach($attach as $item): ?>
+							<tr>
+								<td><?php echo $item['attach_title']; ?></td>
+								<td><?php echo $item['attach_file']; ?></td>
+								<td><?php echo $item['attach_type']; ?></td>
+								<td><?php echo $item['attach_size']; ?></td>
+								
+								<td><?php echo '<a href="'.site_url('admin/kb/articles/upload_delete/'.$item['attach_id']).'">'.lang('lang_delete').'</a>'; ?></td>
+							</tr>
+				<?php endforeach; ?>
+					</table>
+			</fieldset>
+		<?php endif; ?>
 		
 		<div class="row2">
+			<p>
+				<?php echo form_label(lang('lang_attachment_title'). ':', 'attach_title'); ?>
+				<?php echo form_input('attach_title', set_value('attach_title'), 'size="25"'); ?>
+			</p>
 			<?php echo form_label(lang('lang_attachment'). ':', 'userfile'); ?>
 			<?php echo form_upload('userfile', '', 'id="userfile"'); ?>
 		</div>

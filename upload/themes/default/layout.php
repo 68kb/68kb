@@ -28,10 +28,20 @@
 	</div>
 	<div class="clear"></div>
 	
-	<div class="grid_9 body">
+	<div class="grid_8 body">
 		<?php echo $body; ?>
 	</div>
-	<div class="grid_3" id="sidebar">
+	<div class="grid_4" id="sidebar">
+		<div class="item">
+			<h3>Search</h3>
+			{kb:search:form class="search_form" show_categories="no"}
+				<input type="text" name="keywords" value="Search" onfocus="if (this.value==this.defaultValue) this.value='';" />
+				{kb:cats}
+				<input type="submit" name="submit" value="Seach!" />
+			{/kb:search:form}
+			<?php echo anchor('search', 'Advanced Search'); ?>
+		</div>
+		
 		<div class="item">
 			<h3>Categories</h3>
 			{kb:categories:cat_list}

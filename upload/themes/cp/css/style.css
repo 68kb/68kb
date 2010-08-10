@@ -769,6 +769,13 @@ table,.none td {
 	border: 0
 }
 
+#attach td {
+	border:1px solid #DBDBDB;
+	line-height:26px;
+	padding:0 12px;
+	text-align:left;
+	vertical-align:top;
+}
 .status {
 	padding: 5px 0
 }

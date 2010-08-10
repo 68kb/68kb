@@ -398,8 +398,6 @@ class Create_settings
 	{
 		$CI =& get_instance();
 		
-		$CI->dbforge->drop_table('settings');
-		
 		if ( ! $CI->db->table_exists('settings'))
 		{
 			$fields = array(

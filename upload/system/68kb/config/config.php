@@ -40,6 +40,18 @@ $config['index_page'] = "index.php";
 
 /*
 |--------------------------------------------------------------------------
+| Allowed upload types
+|--------------------------------------------------------------------------
+|
+| The mime types corresponding to the types of files you allow to be uploaded. 
+| Usually the file extension can be used as the mime type. Separate multiple 
+| types with a pipe.
+|
+*/
+$config['allowed_types'] = 'pdf|txt|zip|gif|jpg|png';
+
+/*
+|--------------------------------------------------------------------------
 | URI PROTOCOL
 |--------------------------------------------------------------------------
 |

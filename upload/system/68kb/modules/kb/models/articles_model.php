@@ -208,11 +208,11 @@ class Articles_model extends CI_model
 		$article_id = (int)$article_id;
 		if (isset($data['article_uri']) && $data['article_uri'] != '') 
 		{
-			$data['article_uri'] = $this->format_uri($data['article_uri'], 0, $article_id);
+			$data['article_uri'] = create_slug($data['article_uri']);
 		}
 		else
 		{
-			$data['article_uri'] = $this->format_uri($data['article_title'], 0, $article_id);
+			$data['article_uri'] = create_slug($data['article_title']);
 		}
 		if ( ! isset($data['article_modified']) ) 
 		{
@@ -450,9 +450,27 @@ class Articles_model extends CI_model
 	function get_attachments($id)
 	{
 		$id = (int)$id;
+		
 		$this->db->from('attachments')->where('article_id', $id);
+		
 		$query = $this->db->get();
-		return  $query;
+		
+		if ($query->num_rows() == 0) 
+		{
+			return FALSE;
+		}
+		
+		$data = $query->result_array();
+		
+		$i = 0;
+		foreach ($data as $item)
+		{
+			$data[$i]['download_path'] = 'uploads/'.$id.'/'.$item['attach_file'];
+			$i++;
+		}
+		$query->free_result();
+		
+		return $data;
 	}
 	
 	// ------------------------------------------------------------------------

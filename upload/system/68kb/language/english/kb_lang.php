@@ -79,6 +79,7 @@ $lang['lang_status'] = 'Status';
 
 $lang['lang_attachment'] = 'Add Attachment';
 $lang['lang_attachments'] = 'Attachments';
+$lang['lang_attachment_title'] = 'Attachment Title';
 $lang['lang_attachment_add'] = 'After you save this article you can add attachments';
 $lang['lang_upload'] = 'Upload';
 $lang['lang_show'] = 'Show';

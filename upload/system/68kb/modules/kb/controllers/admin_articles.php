@@ -62,7 +62,7 @@ class Admin_articles extends Admin_Controller {
 	public function add()
 	{
 		$data['nav'] = 'articles';
-		
+
 		$this->template->title(lang('lang_add_article'));
 		
 		// Get the categories
@@ -123,7 +123,7 @@ class Admin_articles extends Admin_Controller {
 					$target = ROOTPATH .'uploads/'.$id;
 					$this->_mkdir($target);
 					$config['upload_path'] = $target;
-					$config['allowed_types'] = $this->config->item('attachment_types');
+					$config['allowed_types'] = $this->config->item('allowed_types');
 					$this->load->library('upload', $config);
 					if ( ! $this->upload->do_upload())
 					{
@@ -135,12 +135,13 @@ class Admin_articles extends Admin_Controller {
 						$upload = array('upload_data' => $this->upload->data());
 						$insert = array(
 							'article_id' => $id, 
-							'attach_name' => $upload['upload_data']['file_name'],
+							'attach_title' => $this->input->post('attach_title', TRUE),
+							'attach_file' => $upload['upload_data']['file_name'],
 							'attach_type' => $upload['upload_data']['file_type'],
 							'attach_size' => $upload['upload_data']['file_size']
 						);
 						$this->db->insert('attachments', $insert);
-						$data['attach'] = $this->article_model->get_attachments($id);
+						$data['attach'] = $this->articles_model->get_attachments($id);
 					}
 				}
 			    if (isset($_POST['save']) && $_POST['save']<>"")
@@ -164,10 +165,12 @@ class Admin_articles extends Admin_Controller {
 	*/
 	public function edit($id = '')
 	{
-		if ($id == '')
+		if ($id == '' OR ! is_numeric($id))
 		{
 			redirect('admin/kb/articles');
 		}
+		
+		$id = (int) $id;
 		
 		$data['nav'] = 'articles';
 		
@@ -209,9 +212,15 @@ class Admin_articles extends Admin_Controller {
 		}
 		else
 		{
+			$owner = 1;
+			if ($user = $this->users_model->get_user($this->input->post('article_author', TRUE)))
+			{
+				$owner = $user['user_id'];
+			}
+			
 			$data = array(
-				'article_uri' => $article_uri, 
-				'article_author' => $this->session->userdata('userid'), 
+				'article_uri' => $this->input->post('article_uri', TRUE),
+				'article_author' => $owner, 
 				'article_title' => $this->input->post('article_title', TRUE),
 				'article_keywords' => $this->input->post('article_keywords', TRUE),
 				'article_short_desc' => $this->input->post('article_short_desc', TRUE),
@@ -220,54 +229,128 @@ class Admin_articles extends Admin_Controller {
 				'article_order' => $this->input->post('article_order', TRUE)
 			);
 			
-			$id = $this->articles_model->add_article($data);
+			$this->articles_model->edit_article($id, $data);
 			
 			$this->session->set_flashdata('msg', lang('lang_settings_saved'));
 			
-			if (is_int($id))
+			// now add cat to product relationship
+			if (isset($_POST['cats']))
 			{
-				// now add cat to product relationship
-				if (isset($_POST['cats']))
-				{
-					$this->articles_model->insert_cats($_POST['cats'], $id);
-				}
-				
-				if ($_FILES['userfile']['name'] != "") 
-				{
-					$target = ROOTPATH .'uploads/'.$id;
-					$this->_mkdir($target);
-					$config['upload_path'] = $target;
-					$config['allowed_types'] = $this->config->item('attachment_types');
-					$this->load->library('upload', $config);
-					if ( ! $this->upload->do_upload())
-					{
-						$this->session->set_flashdata('error', $this->upload->display_errors());
-						redirect('admin/kb/articles/edit/'.$id);
-					}
-					else
-					{
-						$upload = array('upload_data' => $this->upload->data());
-						$insert = array(
-							'article_id' => $id, 
-							'attach_name' => $upload['upload_data']['file_name'],
-							'attach_type' => $upload['upload_data']['file_type'],
-							'attach_size' => $upload['upload_data']['file_size']
-						);
-						$this->db->insert('attachments', $insert);
-						$data['attach'] = $this->article_model->get_attachments($id);
-					}
-				}
-			    if (isset($_POST['save']) && $_POST['save']<>"")
-			    {
-			    	redirect('admin/kb/articles/edit/'.$id);
-			    }
-			    else
-			    {
-			    	redirect('admin/kb/articles/');
-			    }
+				$this->articles_model->insert_cats($_POST['cats'], $id);
 			}
+			
+			if ($_FILES['userfile']['name'] != "") 
+			{
+				$target = ROOTPATH .'uploads/'.$id;
+				$this->_mkdir($target);
+				$config['upload_path'] = $target;
+				$config['allowed_types'] = $this->config->item('allowed_types');
+				$this->load->library('upload', $config);
+				if ( ! $this->upload->do_upload())
+				{
+					$this->session->set_flashdata('error', $this->upload->display_errors());
+					redirect('admin/kb/articles/edit/'.$id);
+				}
+				else
+				{
+					$upload = array('upload_data' => $this->upload->data());
+					$insert = array(
+						'article_id' => $id, 
+						'attach_title' => $this->input->post('attach_title', TRUE),
+						'attach_file' => $upload['upload_data']['file_name'],
+						'attach_type' => $upload['upload_data']['file_type'],
+						'attach_size' => $upload['upload_data']['file_size']
+					);
+					$this->db->insert('attachments', $insert);
+					$data['attach'] = $this->articles_model->get_attachments($id);
+				}
+			}
+		    
+			if (isset($_POST['save']) && $_POST['save']<>"")
+		    {
+		    	redirect('admin/kb/articles/edit/'.$id);
+		    }
+			
 			redirect('admin/kb/articles/');
 		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	* Delete an Uploaded file.
+	* 
+	*/
+	public function upload_delete($id = '')
+	{
+		$this->load->helper('file');
+		if ( ! is_numeric($id))
+		{
+			redirect('admin/kb/articles/');
+		}
+		$id = (int) $id;
+		
+		$this->db->select('attach_id, article_id, attach_file')->from('attachments')->where('attach_id', $id);
+		$query = $this->db->get();
+		if ($query->num_rows() > 0)
+		{
+			$row = $query->row();
+			$article_id = $row->article_id;
+			unlink(ROOTPATH .'uploads/'.$row->article_id.'/'.$row->attach_file);
+			$this->db->delete('attachments', array('attach_id' => $id));
+			redirect('admin/kb/articles/edit/'.$article_id.'/#attachments');
+		}
+		else
+		{
+			redirect('admin/kb/articles/');
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	* Attempt to make a directory to house uploaded files.
+	* 
+	* @access	private
+	*/
+	private function _mkdir($target) 
+	{
+		// from php.net/mkdir user contributed notes
+		if (file_exists($target)) 
+		{
+			if ( ! @is_dir($target))
+			{
+				return FALSE;
+			}
+			else
+			{
+				return TRUE;
+			}
+		}
+
+		// Attempting to create the directory may clutter up our display.
+		if (@mkdir($target)) 
+		{
+			$stat = @stat(dirname($target));
+			$dir_perms = $stat['mode'] & 0007777;  // Get the permission bits.
+			@chmod($target, $dir_perms);
+			return TRUE;
+		} 
+		else 
+		{
+			if (is_dir(dirname($target)))
+			{
+				return FALSE;
+			}
+		}
+
+		// If the above failed, attempt to create the parent node, then try again.
+		if ($this->_mkdir(dirname($target)))
+		{
+			return $this->_mkdir($target);
+		}
+
+		return FALSE;
 	}
 	
 	// ------------------------------------------------------------------------

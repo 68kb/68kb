@@ -37,6 +37,7 @@ a:hover {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+	margin: 0 10px 10px;
 }
 #sidebar h3 {
 	font-size: 13px;
@@ -271,6 +272,9 @@ td.formleft, td.formright {
 	border-bottom:1px solid #D7D7D7;
 	color:#888888;
 	padding:5px;
+}
+.search_form input {
+	margin: 0 0 10px 0;
 }
 /* @end */
 
