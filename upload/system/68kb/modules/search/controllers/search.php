@@ -77,12 +77,6 @@ class Search extends Front_Controller
 		
 		$this->load->library('pagination');
 		
-		if ( ! $this->users_auth->check_role('can_search')) 
-		{
-			$this->session->set_flashdata('error', lang('lang_search_not_allowed'));
-			redirect('search/no_results');
-		}
-		
 		$options = array();
 		
 		// Setup the categories first.

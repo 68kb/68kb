@@ -36,13 +36,6 @@ if ($this->events->active_hook('category/form')) {
 			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
 			<?php echo form_textarea('cat_description', set_value('cat_description', $cat['cat_description']), 'id="cat_description" class="inputtext"'); ?>
 		</div>
-		
-		<div class="row2">
-			<?php echo form_label(lang('lang_promo'). ':', 'cat_promo'); ?>
-			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
-			<?php echo form_textarea('cat_promo', set_value('cat_promo', $cat['cat_promo']), 'id="cat_promo" class="inputtext"'); ?>
-			<p><?php echo lang('lang_promo_desc'); ?></p>
-		</div>
 
 		<input type="hidden" name="cat_id" value="<?php echo $cat['cat_id']; ?>" />
 		

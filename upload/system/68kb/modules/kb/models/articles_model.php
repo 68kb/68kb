@@ -352,7 +352,17 @@ class Articles_model extends CI_model
 			$this->db->limit($limit, $current_row);
 		}
 		$query = $this->db->get();
-		return $query;
+		
+		if ($query->num_rows() == 0)
+		{
+			return FALSE;
+		}
+		
+		$data = $query->result_array();
+		
+		$query->free_result();
+		
+		return $data;
 	}
 	
 	// ------------------------------------------------------------------------
@@ -537,13 +547,23 @@ class Articles_model extends CI_model
 	function get_latest($number=25)
 	{
 		$number = (int)$number;
-		$this->db->select('article_uri,article_title')
-					->from('articles')
-					->where('article_display', 'Y')
-					->orderby('article_date', 'DESC')
-					->limit($number);
+		$this->db->from('articles')
+				->where('article_display', 'y')
+				->orderby('article_date', 'DESC')
+				->limit($number);
+				
 		$query = $this->db->get();
-		return $query;
+		
+		if ($query->num_rows() == 0)
+		{
+			return FALSE;
+		}
+		
+		$data = $query->result_array();
+		
+		$query->free_result();
+		
+		return $data;
 	}
 	
 	// ------------------------------------------------------------------------

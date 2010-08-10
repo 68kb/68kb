@@ -59,6 +59,10 @@ $route[$cats.'/(:any)'] = "categories/$1";
 // Articles
 $route['article/(:any)'] = "kb/articles/$1";
 
+// RSS
+$route['rss'] = "kb/rss";
+$route['rss/(:any)'] = "kb/rss/$1";
+
 // Glossary
 $route['glossary'] = "kb/glossary";
 $route['glossary/(:any)'] = "kb/glossary/$1";
