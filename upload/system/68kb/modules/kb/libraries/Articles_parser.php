@@ -194,6 +194,7 @@ class Articles_parser
 		
 		$query->free_result();
 		
+		$this->_ci->db->stop_cache();
 		$this->_ci->db->flush_cache();
 		
 		return $data;

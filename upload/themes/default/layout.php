@@ -44,7 +44,7 @@
 		
 		<div class="item">
 			<h3>Categories</h3>
-			{kb:categories:cat_list}
+			{kb:categories:cat_list show_total="yes"}
 		</div>
 	</div>
 	<div class="clear"></div>

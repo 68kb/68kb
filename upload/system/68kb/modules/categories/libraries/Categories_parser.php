@@ -137,7 +137,6 @@ class Categories_parser
 		
 			if ($query->num_rows() == 0) 
 			{
-				
 				return FALSE;
 			} 
 		
@@ -149,12 +148,14 @@ class Categories_parser
 		$i = 0;
 		foreach ($cats as $row)
 		{
+			// Show the total listings in this category and all children
 			if ($options['show_total'] == 'yes')
 			{
-				$this->_ci->benchmark->mark('cat_pi_total_listings_start');
-				$total = $this->_ci->cache->model('categories_model', 'total_listings', array($row['cat_id']), $options['cache']);
+				$this->_ci->benchmark->mark('cat_pi_total_articles_start');
+				$this->_ci->load->library('categories/categories_library');
+				$total = $this->_ci->categories_model->total_articles($row['cat_id']);
 				$cats[$i]['total'] = ' <span class="total">('.$total.')</span>';
-				$this->_ci->benchmark->mark('cat_pi_total_listings_end');
+				$this->_ci->benchmark->mark('cat_pi_total_articles_end');
 			}
 			else
 			{
