@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Modules : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+		<style type="text/css" media="screen">
+			code {
+				white-space: pre;
+			}
+
+		</style>
+		
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					<a href="../developer/modules.html">Modules &amp; Plugins</a> &rarr; 
+					Creating Plugins
+				</div>
+				
+
+				<h1>Creating Plugins</h1>
+
+				<p>Plugins allow you to add in additional features and should be designed to be simple and easy to use.</p> 
+
+				<ul>
+					<li><a href="#how_plugins_work">How Plugins Work</a></li>
+					<li><a href="#naming_conventions">Naming Conventions</a></li>
+					<li><a href="#writing_plugins">Writing Plugins</a></li>
+					<li><a href="#extending_plugins">Extending Plugins</a></li>
+					<li><a href="#using_a_plugin">Using a Plugin</a></li>
+
+					<li><a href="#allowing_parameters">Allowing Parameters</a></li>
+				</ul>
+
+				<h2 id="how_plugins_work">How Plugins Work</h2>
+
+				<p>Plugins are always auto loaded as long as they match the naming convention. Any time you want to use a plugin you would just call it like a normal php function.</p>
+
+				<p class="top"><a href="#top">Back to Top</a></p>
+
+				<h2 id="naming_conventions">Naming Conventions</h2>
+
+
+				<p>Plugin files and functions must follow a very specific naming convention in order to be located by iClassEngine. </p>
+
+				<p>The name of the file should be <dfn>pluginname_pi.php</dfn> where pluginname is the name of your plugin.</p>
+
+				<p>The function names should be the <dfn>pluginname_plugin()</dfn>. Although you can technically use any name you wish keeping it in this format will prevent any plugins from using the same function name.</p>
+
+				<p class="top"><a href="#top">Back to Top</a></p>
+
+
+				<h2 id="writing_plugins">Writing Plugins</h2>
+
+				<p>Plugins are basically just php function files. So you can include any php code as you wish.</p>
+
+				<p>If you wish to interact with the core you should insert this:</p>
+
+				<code>$CI =& get_instance();</code>
+
+				<p>This will give you access to the entire framework code and can then use database queries, libraries, models, etc. Just keep in mind instead of using <dfn>$this-></dfn> it would be <dfn>$CI-></dfn></p>
+
+
+				<p>It is recommended to checkout some of the included plugins so you can see how they work.</p>
+
+				<p class="top"><a href="#top">Back to Top</a></p>
+				
+				<h2 id="extending_plugins">Exending Plugins</h2>
+				
+				<p>We include a few plugins in the core and if you wish to extend these just duplicate the plugin in the extensions/plugins directory. This allows you to change it to suit your site and not get over written during upgrades.</p>
+				
+				<p class="top"><a href="#top">Back to Top</a></p>
+				
+				<h2 id="using_a_plugin">Using a Plugin</h2>
+
+				<p>Plugins are called the way you would a standard PHP function.</p>
+
+				<p class="top"><a href="#top">Back to Top</a></p>
+
+				<h2 id="allowing_parameters">Allowing Parameters</h2>
+
+
+				<p>If you wish to allow parameters you can do so in several ways:</p>
+
+				<h3>#1. - Small Number</h3>
+
+				<p>If you have a small number of parameters then it would probably be best to have them included with the function. Here is an example: </p>
+
+				<code>function my_plugin($param = '', $param2 = '', $param3 = '') </code>
+
+				<p>The downside to this method is if the user only wants to use param3 then they would have empty sections in the plugin call:</p>
+
+				<code>&lt;?php my_plugin(&#x27;&#x27;, &#x27;&#x27;, &#x27;param3 option&#x27;); ?&gt;</code>
+
+
+				<h3>#2. - Large Number</h3>
+
+				<p>This method is best if you are going to allow a lot of different parameters. An example of this is the <a href="plugin-articles.html">articles plugin</a>. The plugin function would include code like this:</p> 
+
+<code>function my_plugin($params)
+{
+	// Default Options
+	$param = 10;
+	$param2 = 5;
+	$param3 = 'test';
+	$param4 = '';
+
+	// Parse what they are requesting
+	parse_str($params, $options);
+
+	// Validate the formatting
+	foreach ($options as $_key => $_value) 
+	{
+		switch ($_key) 
+		{
+			case 'param':
+			case 'param2':
+				$$_key = (int) $_value;
+				break;
+			case 'param3':
+				$$_key = (string) $_value;
+				break;
+			case 'param4':
+				$$_key = $_value;
+				break;
+		}
+	}
+}
+</code>
+				<p>With this method when the user will call the plugin it would something like this: </p>
+
+				<code>&lt;?php my_plugin(&#x27;param=10&amp;param2=5&amp;param3=mytest&amp;param4=whatever&#x27;); ?&gt; </code>
+
+
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

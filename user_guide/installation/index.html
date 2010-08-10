@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Installation : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Installation
+				</div>
+				
+				<h1>Installation Instructions</h1>
+					
+					<p>These instructions will guide you go through the steps to install 68KB. We also include an <a href="advanced-install.html">Advanced 5 minute install</a>.</p>
+
+					
+					<h3>Step 1.  Download and extract the files</h3>
+					<p>Visit the <a href="http://68kb.com/download/">download page</a> on 68KB and download the latest version.  After downloading it you should extract all the files to your hard drive.</p>
+					
+					<h3>Step 2. Create a database</h3>
+					
+					<p>Before running the installation, a MySQL database will need to be created. Most hosting companies provide a control panel that contains all the tools necessary to create databases. Since different hosts offer different control panels, we won't be able to provide specific instructions on this task. Please read through your host's documentation or contact them directly to find the location of your host's control panel. </p>
+
+								<p>Some notes regarding database creation: </p>			
+
+								<ul>
+									<li>You will need to make up three things when creating your database - the database name, a database username and a password. Each of these three items can be pretty much anything you like - just remember to write them down! You will need them later.</li>
+
+									<li>Some hosts append your account name to your database name. For example, if you name your database 'classifieds' (without the quotes!), your host may refer to this database as 'youraccountname_classifieds'. The same thing may occur with the database username you create ('youraccountname_username'). Typically, the only thing that remains exactly the same is the password you assign.</li>
+									<li>Most control panels will review the values to use (such as 'youraccountname_classifieds') on the main database page after the database is created.</li>
+									<li>On a vast majority of hosts, the location of the database will be 'localhost'. You can verify this on the main database page after the database is created. If your host does not use 'localhost' for the location of their database, they will provide a location you should use instead. It may look like 'mysql723.yourhost.com'</li>
+								</ul>
+					
+					
+					<h3>Step 3. Insert your database details</h3>
+					<p>Once you have extracted the files you should open the folder <dfn>"system/68kb/config/"</dfn>.  In this you will find <dfn>database.php</dfn>. 
+						You should open it in a Text Editor.</p>
+
+					<p>Once you have the file open change the section that looks like the one below:</p>
+					
+					<code>
+						$db['default']['hostname'] = "localhost";	// Database Hostname<br />
+						$db['default']['username'] = "";		// Database Username<br />
+						$db['default']['password'] = "";			// Database Password<br />
+						$db['default']['database'] = "";	// Database Name<br />
+
+						$db['default']['dbprefix'] = "kb_";		// Database Prefix<br />
+					</code>
+					
+					<p>All of the values you need for these fields are given to you in step 2.</p>
+					
+					<h3>Step 4. Upload the files</h3>
+					
+					<p>We'll use a method called 'ftp' (FTP = File Transfer Protocol) to transfer files from your computer to your host's server. You'll need an FTP application in order to complete this process. Some popular FTP programs are: </p>
+					
+					<ul>
+						<li>Transmit (<a href="http://www.panic.com/transmit/" class="urlextern" title="http://panic.com">http://www.panic.com</a>)</li>
+						<li>SmartFTP (<a href="http://www.smartftp.com" class="urlextern" title="http://www.smartftp.com">http://www.smartftp.com</a>)</li>
+						<li>CuteFTP (<a href="http://www.cuteftp.com" class="urlextern" title="http://www.cuteftp.com">http://www.cuteftp.com</a>)</li>
+						<li>FileZilla (<a href="http://filezilla.sourceforge.net/" class="urlextern" title="http://filezilla.sourceforge.net/">http://filezilla.sourceforge.net/</a>)</li>
+					</ul>
+
+					<p class="important"><strong>Please note:</strong> It's very important that ALL your files are uploaded to the server in order for your site to work properly. Some people have had problems using Windows Explorer for FTP'ing their files. More advanced FTP programs will actually report which files were not successfully uploaded. Each of the FTP programs mentioned above should be fine.</p>
+					
+					
+					<h3 name="chmod_the_folders">CHMOD the folders</h3>
+
+					<p>CHMOD is a command that stands for 'CHange MODe' and is used on *nix computers (Linux, Unix, etc) to set the permissions of files and folders. We need to change the permissions on the following folders to read, write and execute or (777): </p>
+
+					<ul>
+						<li>uploads/</li>
+					</ul>
+
+					
+					<h3>Step 5. Run the install</h3>
+					<p>The final step is to actually run the install which will create the necessary tables.  You will do this by visiting yoursite.com/index.php/setup/ and following the directions.</p>
+					
+					<p class="important">After you run the install <strong>PLEASE DELETE</strong> THE <dfn>setup DIRECTORY</dfn>.</p>
+					
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

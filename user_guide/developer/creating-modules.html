@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Modules : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+		<style type="text/css" media="screen">
+		code {
+			white-space: pre;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Modules
+				</div>
+				
+				<h1>Modules</h1>
+					
+					<p>Modules allow to create extra functionality that does not touch the core files of 68KB. Thus enabling your module to not get overwritten during upgrades.</p>
+
+					
+					<h3>Module Requirements</h3>
+					
+					<ol>
+						<li>Each module must be contained in a single directory.</li>
+						<li>Each module must have an init.php file that includes needed information.</li>
+						<li>The users should be able to activate and use the module from the “Modules” menu in the administrative. Optimally, a module should not require users to modify the source code.</li>
+						<li>If the module is going to interact with 68KB hook system it must contain a file named events.php</li>
+						<li>index.php and admin.php and used if the module has a frontend area or an administration section. These are only required if the user needs to have some of interaction with the module.</li>
+						<li>You may include any other files that the module may need to interact with.</li>
+					</ol>
+					
+					<h3>Naming Your Module</h3>
+					
+					<p>The first step is to name your module. We will be building an example developer module that you can find in the <dfn>includes/extensions/modules</dfn> directory. We will name this module “developer”.</p>
+
+					<p>Once we have the name of our module, we need to create a folder for it in the modules folder. The name of this folder should be a lowercased and space-less version of the module's name. Instead of spaces, you should either use a single word for your module or underscores. For our example, we will create a folder called “developer” that would be located like so: /modules/developer/.</p>
+					
+					<h3>Create an config.php file</h3>
+
+					<p>We will need to create a new php file named config.php that will reside in the <dfn>/modules/developer/</dfn> folder.</p>
+
+					<p>The config.php file should look like this:</p>
+
+<code>&lt;?php
+$data['module']['name'] = "developer";
+$data['module']['displayname'] = "Developer Module";
+$data['module']['description'] = "This module is used to show developers how the module system works.";
+$data['module']['version'] = "v1.0";
+</code>
+					
+					<dl>
+						<dt>name:</dt>
+						<dd>- The name is the folder name of your module.</dd>
+					</dl>
+					<dl>
+						<dt>Display Name:</dt>
+
+						<dd>- This is the title shown in the administration -> settings -> modules page.</dd>
+					</dl>
+					<dl>
+						<dt>Description:</dt>
+						<dd>- This is the description shown in the administration -> settings -> modules page.</dd>
+					</dl>
+					<dl>
+
+						<dt>Version:</dt>
+						<dd>- This is the version of the module. The version is left up to you.</dd>
+					</dl>
+					
+					<h3>Create an init.php file</h3>
+					
+					<p>The init.php file can also have three functions and they are: </p>
+				
+<code>install()
+upgrade()
+uninstall()
+</code>
+					
+					<p>These functions are not required if you do not need to insert or alter the database. </p>
+					
+					<p>You can see an example of this file in modules/developer/init.php</p>
+					
+					<p class="important">Please note the upgrade is only ran if you upload new module files with a higher version number than the one stored in the database.</p>
+					
+					<h3>Create an events.php</h3>
+					
+					<p>The events.php file is responsible for integrating functionality in the core of the script. Here is an example file: </p>
+
+<code>&lt;?php
+class developer_events
+{
+	function __construct(&$core_events)
+	{
+		$core_events->register('settings/form', $this, 'test_settings');
+		$core_events->register('settings/validation', $this, 'test_validation');
+	}
+	function test_settings()
+	{
+		$output = '
+			&lt;tr&gt;
+				&lt;td class=&quot;row1&quot;&gt;&lt;label for=&quot;testing&quot;&gt;Testing:&lt;/label&gt;&lt;/td&gt;
+				&lt;td class=&quot;row1&quot;&gt;&lt;input type=&quot;text&quot; size=&quot;50&quot; name=&quot;testing&quot; id=&quot;testing&quot; value=&quot;&#x27;. set_value(&#x27;testing&#x27;) .&#x27;&quot; /&gt;&lt;/td&gt;
+
+			&lt;/tr&gt;
+		';
+		return $output;
+	}
+	function test_validation()
+	{
+		$CI =& get_instance();
+		return $CI->form_validation->set_rules('max_test', 'lang:kb_max_search', 'required|numeric');
+	}
+}
+</code>
+					<p>The events.php file needs a class named <dfn>name</dfn>_<var>events</var>. The name comes from the name of your module.</p>
+						
+					<p>This code basically does two things. First in the constructor it registers the event you want and then when that hook is called it runs your method. In the example 
+						above we register the <dfn>settings/form</dfn> hook to the <var>$this->test_settings</var> method. </p>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

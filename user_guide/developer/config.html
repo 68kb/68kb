@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Config : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Config
+				</div>
+				
+							
+			
+			<h1>Config File</h1>
+			
+			<p>The config file is located at <dfn>settings/config.php</dfn> and should be opened in a text editor to make changes. Below is a list of all settings included in this file. </p>
+			
+			<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+				<tr>
+					<th>URL Settings</th>
+					<th>Regional Settings</th>
+
+					<th>Advanced</th>
+				</tr>
+				<tr>
+					<td class="td" valign="top">
+						<ul>
+							<li><a href="#base_url">Base Url</a></li>
+							<li><a href="#index_file">Index File</a></li>
+							<li><a href="#url_suffix">URL Suffix</a></li>
+						</ul>
+					</td>
+					<td class="td" valign="top">
+						<ul>
+
+							<li><a href="#language">Language</a></li>
+							<li><a href="#date_formatting">Date Formatting</a></li>
+							<li><a href="#charset">Charset</a></li>
+							<li><a href="#time_reference">Master Time Reference</a></li>
+						</ul>
+
+					</td>
+					<td class="td" valign="top">
+						<ul>
+							<li><a href="#cache_path">Cache Path</a></li>
+							<li><a href="#encryption_key">Encryption Key</a></li>
+							<li><a href="#modules_on">Allow Modules</a></li>
+							<li><a href="#compress_output">Output Compression</a></li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+
+
+			<h3 id="base_url">Base Url</h3>
+			<p>URL to your 68KB root. Typically this will be your base URL, <strong>WITH</strong> a trailing slash. Please note that we have included code to try and auto guess this but is not 100% foil proof.</p>
+
+			<code>$config['base_url'] = 'http://yoursite.com/';</code>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="index_file">Index File</h3>
+			<p>Typically this will be your index.php file, unless you've renamed it to something else. If you are using <a href="../developer/urls.html">mod_rewrite</a> to remove the page set this variable so that it is blank.</p>
+			<code>$config['index_page'] = "index.php";</code>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+
+			
+			<h3 id="url_suffix">URL Suffix</h3>
+			<p>This option allows you to add a suffix to all URLs generated.</p>
+			<code>$config['url_suffix'] = "";</code>
+			<p>For example, if a URL is this: <dfn>example.com/index.php/category/my_cat</dfn> you could optionally add a suffix, like <kbd>.html</kbd>, making the page appear to be of a certain type: <dfn>example.com/index.php/category/my_cat<kbd>.html</kbd></dfn></p>
+
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="language">Language</h3>
+			<p>This determines which set of language files should be used. Make sure there is an available translation if you intend to use something other than english.</p>
+			<code>$config['language']	= "english";</code>
+			<p>Please see <a href="../advanced/translate.html">Translate</a> for more info.</p>
+
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+						
+			<h3 id="date_formatting">Date Formatting</h3>
+			<p>This is the default date formating. Check <a href="http://php.net/date">http://php.net/date</a> for options.</p>
+
+			<code>$config['long_date_format'] = 'F j, Y H:i:s';<br />
+$config['short_date_format'] = 'Y-m-d h:i a';</code>
+
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="charset">Charset</h3>
+			<p>This determines which character set is used by default in various methods that require a character set to be provided. It is not recommended to change this once you have data in your database.</p>
+			<code>$config['charset'] = "UTF-8";</code>
+
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="cache_path">Cache Path</h3>
+			<p>This is the location where 68KB will store cached files if you enable caching. Full server path including trailing slash.</p>
+			<code>$config['cache_path'] = ROOTPATH .'cache/';</code>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="encryption_key">Encryption Key</h3>
+
+			<p>If you use the Encryption class or the Sessions class with encryption enabled you MUST set an encryption key.</p>
+			<code>$config['encryption_key'] = "";</code>
+			<p class="important"><strong>Please Note:</strong> If you are going to use this you must set it before people register on your site.</p>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="modules_on">Allow Modules</h3>
+
+			<p>By setting this to FALSE you can prevent all modules from working. This is useful if you are experiencing a problem and think it is caused by a module.</p>
+			<code>$config['modules_on'] = TRUE;</code>
+			<p class="important"><strong>Please Note:</strong> Before reporting bugs please set this to FALSE to confirm the bug is part of the core.</p>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="compress_output">Output Compression</h3>
+
+			<p>Enables Gzip output compression for faster page loads.  When enabled, the output class will test whether your server supports Gzip. Even if it does, however, not all browsers support compression so enable only if you are reasonably sure your visitors can handle it.</p>
+			<code>$config['compress_output'] = FALSE;</code>
+			<p class="important"><strong>VERY IMPORTANT:</strong> If you are getting a blank page when compression is enabled it means you are prematurely outputting something to your browser. It could even be a line of whitespace at the end of one of your scripts.  For compression to work, nothing can be sent before the output buffer is called by the output class.  Do not "echo" any values with compression enabled.</p>
+			
+			<p class="top"><a href="#top">Back to Top</a></p>
+			
+			<h3 id="time_reference">Master Time Reference</h3>
+
+			<p>Options are "local" or "gmt".  This pref tells the system whether to use your server's local time as the master "now" reference, or convert it to GMT.</p>
+			<code>$config['time_reference'] = 'local';</code>
+					
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

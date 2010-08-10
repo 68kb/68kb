@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Articles : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Articles
+				</div>
+				
+				<h1>Articles</h1>
+					
+				<p>The articles allows you to add, edit, and delete articles.</p>
+
+					
+					<h3>Adding / Editing Articles</h3>
+					
+					<p>When you add or edit articles you are shown a form with all the <a href="#fields">article fields</a>. The only ones required are Title and Description.</p>
+					
+					<p>By default the uri field will be auto generated if you leave this field blank when adding or editing.</p>
+					
+					<p class="top"><a href="#top">Back to Top</a></p>
+					
+					<h3>Deleting Articles</h3>
+					
+					<p>You have two ways of deleting articles. You can delete each one individually or use the checkboxes on the left side to select multiple and then either delete or change the status.</p>
+
+					<p class="top"><a href="#top">Back to Top</a></p>
+					
+					<h3 id="rss">Article RSS Feeds</h3>
+					
+					<p>You can generate an rss feed from your articles with the following urls: </p>
+					<code>yoursite.com/index.php/rss/</code>
+					<p>Or:</p>
+					<code>yoursite.com/index.php/rss/category/<var>uri</var></code>
+
+					<p>Where uri is the category <dfn>uri</dfn> you want to show.</p>
+					
+					<p class="top"><a href="#top">Back to Top</a></p>
+
+					<h3 id="fields">Article Fields</h3>
+					<dl>
+						<dt>Title</dt>
+						<dd>- The article title. (Required)</dd>
+
+					</dl>
+					<dl>
+						<dt>URI</dt>
+						<dd>- The article uri. This is used in the query string when viewing an article. For example <dfn>yoursite.com/article/uri</dfn>. If you leave this field blank
+							the script will auto generate the uri based off the title. You can use letters, numbers, underscores, and dashes.
+						</dd>
+					</dl>
+					<dl>
+						<dt>Keywords</dt>
+
+						<dd>- The keywords are used in the meta keywords of the articles page.</dd>
+					</dl>
+					<dl>
+						<dt>Short Description:</dt>
+						<dd>- The short description can be used to show on the category page. This is also used for the meta description on the article page. Can be searched.</dd>
+					</dl>
+					<dl>
+
+						<dt>Description:</dt>
+						<dd>- The description is the main content of the article.</dd>
+					</dl>
+					<dl>
+						<dt>Category:</dt>
+						<dd>- Select which category or categories this article is associated with.</dd>
+					</dl>
+
+					<dl>
+						<dt>Weight:</dt>
+						<dd>- By default all articles are sorted alphabetically but this can be overridden using the weight. The higher the weight the closer to the top it is.</dd>
+					</dl>
+					<dl>
+						<dt>Display:</dt>
+						<dd>- Can site visitors see the article.</dd>
+
+					</dl>
+					<dl>
+						<dt>Attachments:</dt>
+						<dd>- You can add attachments. Only the file extensions defined in your includes/config.php can be uploaded.</dd>
+					</dl>
+
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

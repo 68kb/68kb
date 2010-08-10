@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Modules : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					<a href="../developer/modules.html">Modules &amp; Plugins</a> &rarr; 
+					Articles Plugins
+				</div>
+				
+
+				<h1>Articles Plugin</h1>
+
+				<p>The articles plugin is located in <dfn>includes/application/plugins/articles_pi.php</dfn> this plugin allows you to generate a list of articles based off the parameters you choose.</p>
+
+				<h2>Usage</h2>
+				<p>To use this plugin you can do so by using this code in any of your template files: </p>
+				<code>&lt;?php articles_plugin('sort=article_hits&order_by=desc&limit=10'); ?&gt;</code>
+
+
+				<p>That code would limit to 10 articles by the article_hits column descending.</p>
+
+				<p>If you wanted to show the newest articles you could use this: </p>
+				<code>&lt;?php listings_plugin('featured=yes&order_by=random'); ?&gt;</code>
+
+				<p>As the final example lets say you want to display 5 random listings from three categories in 2 columns using style 2:</p>
+				<code>&lt;?php articles_plugin('sort=article_date&limit=10'); ?&gt;</code>
+
+				<p>Notice we left out the order_by=desc that is because order by desc is the default action for order_by and doesn't have to be explicitly stated. You can see all the parameters below.</p>
+
+				<h2>Parameters</h2>
+
+				<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+					<tr>
+						<th>Preference</th>
+						<th>Default&nbsp;Value</th>
+
+						<th>Options</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td class="td"><strong>limit</strong></td>
+						<td class="td">10</td>
+						<td class="td">Integer</td>
+						<td class="td">The max number to return.</td>
+					</tr>
+					<tr>
+						<td class="td"><strong>author</strong></td>
+						<td class="td">None</td>
+						<td class="td">Integer</td>
+						<td class="td">If you want to limit to a specific author.</td>
+					</tr>
+					<tr>
+						<td class="td"><strong>category</strong></td>
+						<td class="td">None</td>
+						<td class="td">Integer</td>
+						<td class="td">Which category or categories it should look in. For one category use the category id. For multiple use commas to seperate. category=1,2,3,4</td>
+					</tr>
+					<tr>
+						<td class="td"><strong>keywords</strong></td>
+						<td class="td">None</td>
+						<td class="td">String</td>
+
+						<td class="td">Do you want to only show listings based off a keyword.</td>
+					</tr>
+					<tr>
+						<td class="td"><strong>sort</strong></td>
+						<td class="td">article_rating</td>
+						<td class="td">column name</td>
+						<td class="td">Do you want to sort off a column name.</td>
+					</tr>
+					<tr>
+						<td class="td"><strong>order_by</strong></td>
+						<td class="td">random</td>
+						<td class="td">random, asc, desc</td>
+						<td class="td">How do you want to order the results by.</td>
+					</tr>
+					
+					<tr>
+						<td class="td"><strong>return</strong></td>
+						<td class="td">FALSE</td>
+						<td class="td">Boolean</td>
+						<td class="td">Should the results be returned or echoed?</td>
+
+					</tr>
+				</table>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

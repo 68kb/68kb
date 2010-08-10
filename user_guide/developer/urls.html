@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>URLs : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					URLs
+				</div>
+				
+				<h1>68KB URLs</h1>
+					
+					<p>By default, URLs in 68KB are designed to be search-engine and human friendly.  Rather than using the standard "query string"
+					approach to URLs that is synonymous with dynamic systems, 68KB uses a <strong>segment-based</strong> approach:</p>
+
+					<code>example.com/<var>article</var>/<samp>my_article</samp></code>
+
+					<p class="important"><strong>Note:</strong> Query string URLs can be optionally enabled, as described below.</p>
+
+					<h3>URI Segments</h3>
+
+					<p>The segments in the URL, in following with the Model-View-Controller approach, usually represent:</p>
+
+					<code>example.com/<var>class</var>/<dfn>function</dfn>/<samp>ID</samp></code>
+
+					<ol>
+					<li>The first segment represents the controller <strong>class</strong> that should be invoked.</li>
+
+					<li>The second segment represents the class <strong>function</strong>, or method, that should be called.</li>
+					<li>The third, and any additional segments, represent the ID and any variables that will be passed to the controller.</li>
+					</ol>
+
+					<h3 id="removing_index">Removing the index.php file</h3>
+
+					<p>By default, the <strong>index.php</strong> file will be included in your URLs:</p>
+
+					<code>example.com/<var>index.php</var>/article/my_article</code>
+
+					<p>You can easily remove this file by using a .htaccess file with some simple rules. Here is an example
+					 of such a file, using the "negative" method in which everything is redirected except the specified items:</p>
+
+					<code>RewriteEngine on<br />
+					RewriteCond $1 !^(index\.php|images|robots\.txt)<br />
+
+					RewriteRule ^(.*)$ /index.php/$1 [L]</code>
+
+					<p>In the above example, any HTTP request other than those for index.php, images, and robots.txt is treated as
+					a request for your index.php file.</p>
+					
+					<p>Here is another method that may work if the above doesn't:</p>
+					
+					<code>
+						Options +FollowSymLinks<br />
+						Options -Indexes<br />
+
+						DirectoryIndex index.php<br />
+						RewriteEngine on<br />
+						RewriteCond $1 !^(index\.php|images|robots\.txt)<br />
+						RewriteCond %{REQUEST_FILENAME} !-f<br />
+						RewriteCond %{REQUEST_FILENAME} !-d<br />
+						RewriteRule ^(.*)$ index.php/$1 [L,QSA]<br />
+
+					</code>
+
+
+					<h3 id="suffix">Adding a URL Suffix</h3>
+
+					<p>In your <dfn>includes/config.php</dfn> file you can specify a suffix that will be added to all URLs generated
+					by 68KB.  For example, if a URL is this:</p>
+
+					<code>example.com/index.php/article/my_article</code>
+
+					<p>You can optionally add a suffix, like <kbd>.html</kbd>, making the page appear to be of a certain type:</p>
+
+					<code>example.com/index.php/article/my_article.html</code>
+
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

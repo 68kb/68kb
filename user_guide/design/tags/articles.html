@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Article Tags - 68KB User Guide</title>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/main.js"></script>
+		<script type="text/javascript" src="../../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../../index.html">User Guide Home</a>   &rarr; 
+					<a href="../tags.html">Theme Tags</a>   &rarr; 
+					Article Tags
+				</div>
+				
+				<h1>Article Tags</h1>
+
+					<p>The {kb:articles:get} tag is used to allow you to generate a list of articles any where on your site. </p>
+					
+					<p>Here is an example usage: </p>
+					
+<code>
+&lt;h3&gt;Recent Articles&lt;/h3&gt;<br />
+&lt;ol&gt;<br />
+{kb:articles:get sort_column=&quot;article_date&quot; sort_order=&quot;desc&quot;}<br />
+&nbsp;&nbsp; &lt;li&gt;&lt;a href=&quot;{kb:article_url}&quot;&gt;{kb:article_title}&lt;/a&gt;&lt;/li&gt;<br />
+{/kb:articles:get}<br />
+&lt;/ol&gt;
+</code>
+					
+					<p>Inside the block you can access any column from the db. {kb:article_hits}, {kb:article_date}, etc. </p>
+					<h2>Parameters</h2>
+					
+					<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+					<tr>
+						<th> Name </th>
+						<th> Type </th>
+						<th> Default </th>
+						<th> Description </th>
+
+					</tr>
+					<tr>
+						<td class="td">limit</td>
+						<td class="td"> int </td>
+						<td class="td"> 10 </td>
+						<td class="td"> The max number of listings. </td>
+					</tr>
+					<tr>
+						<td class="td">author</td>
+						<td class="td">int</td>
+						<td class="td"> - </td>
+						<td class="td"> Only show articles with this author. </td>
+					</tr>
+					<tr>
+						<td class="td"> category </td>
+						<td class="td"> int </td>
+						<td class="td"> - </td>
+						<td class="td"> Only show articles in this category. </td>
+					</tr>
+					<tr>
+						<td class="td"> sort_column </td>
+						<td class="td"> string </td>
+						<td class="td"> listing_title </td>
+						<td class="td"> The db column to sort </td>
+
+					</tr>
+					<tr>
+						<td class="td"> sort_order </td>
+						<td class="td"> string </td>
+						<td class="td"> random </td>
+						<td class="td"> The sorting order. (random, asc, or desc) </td>
+					</tr>
+					<tr>
+						<td class="td"> exclude </td>
+						<td class="td"> string </td>
+						<td class="td"> - </td>
+						<td class="td"> Allows you to add articles to be excluded. exclude=1 or exclude=1,2,3  </td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

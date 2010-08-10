@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Upgrading : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Installation
+				</div>
+				
+				<h1>Upgrading Instructions</h1>
+					
+					<p>These instructions will guide you go through the steps to install 68KB.</p>
+
+					
+					<h3>Step 1.  Download and extract the files</h3>
+					<p>Visit the <a href="http://68kb.com/download/">download page</a> on 68KB and download the latest version.  After downloading it you should extract all the files to your hard drive.</p>
+					
+					<h3>Step 2. Make a Backup</h3>
+					
+					<p>Make a backup of all your files and your database. You can backup your database through the administration -> settings -> utilities. After you have made the back up please test it to make sure it will work if something should go wrong. </p>
+					
+					<h3>Step 3. Upload the files</h3>
+
+					<p>You should now FTP into your site and upload all the contents of the <dfn>'upload'</dfn> folder.  After they finish uploading CHMOD the <dfn>'uploads'</dfn> directory to 777 or read, write, execute all. (notice it is plural)</p>
+					
+					<h3>Step 4. Run the upgrade</h3>
+					<p>The final step is to actually run the upgrade which will create the necessary tables. You will do this by visiting <dfn>http://yoursite.com/index.php/setup/</dfn> and following the upgrade steps.</p>
+
+					
+					<p class="important">After you run the install <strong>PLEASE DELETE</strong> THE <dfn>sources/controllers/setup DIRECTORY</dfn>.</p>
+					
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

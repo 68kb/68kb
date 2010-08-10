@@ -77,7 +77,15 @@ class Categories_parser
 	function cat_list($data = '')
 	{
 		// Set the default options
-		$defaults = array('cat_parent' => 0, 'sort_column' => '', 'sort_order' => 'desc', 'depth' => 0, 'show_image' => 0, 'show_total' => 0, 'exclude' => '', 'cache' => 0);
+		$defaults = array(
+			'cat_parent' => 0, 
+			'sort_column' => '', 
+			'sort_order' => 'desc', 
+			'depth' => 0, 
+			'show_total' => 'no', 
+			'exclude' => '', 
+			'cache' => 0
+		);
 		
 		$options = $this->_ci->settings->get_params($data['attributes'], $defaults);
 		
@@ -141,7 +149,7 @@ class Categories_parser
 		$i = 0;
 		foreach ($cats as $row)
 		{
-			if ($options['show_total'] == 1)
+			if ($options['show_total'] == 'yes')
 			{
 				$this->_ci->benchmark->mark('cat_pi_total_listings_start');
 				$total = $this->_ci->cache->model('categories_model', 'total_listings', array($row['cat_id']), $options['cache']);

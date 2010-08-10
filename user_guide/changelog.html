@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Change Log - 68KB User Guide</title>
+		<link href="./css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="./js/jquery.min.js"></script>
+		<script type="text/javascript" src="./js/main.js"></script>
+		<script type="text/javascript" src="./js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('null');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="./toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="./index.html">User Guide Home</a> &rarr; 
+					Change Log
+				</div>
+				
+				<h1>68KB Change Log</h1>
+					
+					<h2>Version 1.0.0 RC5</h2>
+					
+					<p>Release Date: Not Released Yet.</p>
+					
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed issue with admin redirect.</li>
+						</ul>
+						
+					<h3>Changes:</h3>
+						<ul>
+							<li>Moved two config settings from application/config/config.php to includes/config.php</li>
+						</ul>
+					<h2>Version 1.0.0 RC4</h2>
+					
+					<p>Release Date: April 3rd, 2010.</p>
+					
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed issue with searching</li>
+						</ul>
+						
+					<h2>Version 1.0.0 RC3</h2>
+					
+					<p>Release Date: This version was released on December 04, 2009. <br />
+					SVN Revision: 143</p>
+					
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed issue with user groups</li>
+							<li>Forced the db to change all users to user group of 1 or administrators. </li>
+						</ul>
+						
+					<h3>Changes:</h3>
+						<ul>
+							<li>New install / upgrade routine. Uses migrations</li>
+							<li>New frontend template.</li>
+							<li>Lots of code cleanup.</li>
+							<li>Moved modules and plugins to includes/extensions directory.</li>
+							<li>Added modules_on to config file.</li>
+						</ul>
+<pre>/*
+|--------------------------------------------------------------------------
+| Modules
+|--------------------------------------------------------------------------
+|
+| This allows you to enable/disable modules from the config file
+|
+*/
+$config['modules_on'] = TRUE;
+</pre>
+					
+					<h2>Version 1.0.0 RC2</h2>
+
+					<p>Release Date: This version was released on December 04, 2009. <br />
+					SVN Revision: 143</p>
+					
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>User guide changes. <a href="http://code.google.com/p/68kb/issues/detail?id=46">#46</a></li>
+							<li>Installer error. <a href="http://code.google.com/p/68kb/issues/detail?id=45">#45</a> and <a href="http://code.google.com/p/68kb/issues/detail?id=43">#43</a></li>
+							<li>Extra slashes in the config. <a href="http://code.google.com/p/68kb/issues/detail?id=44">#44</a>.</li>
+						</ul>
+						
+					<h2>Version 1.0.0 RC1</h2>
+
+					<p>Release Date: This version was released on December 01, 2009. <br />
+					SVN Revision: 137</p>
+					
+					<h3>Features Added</h3>
+						<ul>
+							<li>Added support for user groups. See <a href="overview/users.html">Users</a>.</li>
+						</ul>
+
+					
+					<h2>Version 1.0.0 Alpha 4</h2>
+					<p>Release Date: November 11, 2009<br />
+					SVN Revision: 121</p>
+					
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed bug in install</li>
+
+						</ul>
+					
+					<h2>Version 1.0.0 Alpha 3</h2>
+					<p>Release Date: November 09, 2009<br />
+					SVN Revision: 118</p>
+					<h3>Features Added</h3>
+						<ul>
+							<li>Added searching by categories.</li>
+
+							<li>Added html export.</li>
+							<li>Added Dutch Language File.</li>
+						</ul>
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed bugs with glossary</li>
+							<li>Added language strings</li>
+
+							<li>Fixed comment bug</li>
+							<li>Lots more bug fixes</li>
+						</ul>
+						
+					<h2>Version 1.0.0 Alpha 2</h2>
+					<p>Release Date: July 31, 2009<br />
+					SVN Revision: 79</p>
+
+					<h3>Features Added</h3>
+						<ul>
+							<li>Added article ratings, printer, and bookmarking.</li>
+							<li>Changed the way errors are displayed in admin.</li>
+							<li>Added 68KB rss feed to admin home page.</li>
+							<li>Added rss feed controller. <dfn>yoursite.com/index.php/rss</dfn></li>
+
+						</ul>
+					<h3>Bug Fixes</h3>
+						<ul>
+							<li>Fixed bugs with glossary</li>
+							<li>Fixed bugs when adding/editing/deleting users.</li>
+							<li>Fixed strings not translated</li>
+							<li>Fixed issue <a href="http://code.google.com/p/68kb/issues/detail?id=19">#19</a></li>
+
+							<li>Fix issue with extending the loader</li>
+							<li>Made the emporium theme the default when installed</li>
+							<li>Set profiler to false to prevent output by default.</li>
+						</ul>
+					
+					
+					<h2>Version 1.0.0 Alpha 1 </h2>
+					<p>Release Date: July 28, 2009</p>
+
+					<p>First publicly released version.</p>
+
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

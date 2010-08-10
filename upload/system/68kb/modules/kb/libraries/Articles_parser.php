@@ -48,7 +48,17 @@ class Articles_parser
 	function get($data = array())
 	{
 		// Set the default options
-		$defaults = array('limit' => '', 'owner' => '', 'category' => '', 'class' => '', 'extra_field' => '', 'sort_order' => 'asc', 'sort_column' => 'article_title', 'cache' => 0, 'exclude' => '');	
+		$defaults = array(
+			'limit' => '', 
+			'author' => '', 
+			'category' => '', 
+			'class' => '', 
+			'extra_field' => '', 
+			'sort_order' => 'asc', 
+			'sort_column' => 'article_title', 
+			'cache' => 0, 
+			'exclude' => ''
+		);	
 		
 		$options = $this->_ci->settings->get_params($data['attributes'], $defaults);
 
@@ -73,9 +83,9 @@ class Articles_parser
 		$this->_ci->db->where($where);
 		
 		// Searching for a single users listings
-		if ($options['owner'] != '' && is_numeric($options['owner']))
+		if ($options['author'] != '' && is_numeric($options['author']))
 		{
-			$this->_ci->db->where('article_author', (int) $options['owner']);
+			$this->_ci->db->where('article_author', (int) $options['author']);
 		}
 		
 		// Searching off a listings class

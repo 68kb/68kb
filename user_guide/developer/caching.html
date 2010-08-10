@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en-US">
+	<head profile="http://gmpg.org/xfn/11">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Caching : 68KB User Guide</title>
+		<link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/main.js"></script>
+		<script type="text/javascript" src="../js/nav.js"></script>
+		<meta http-equiv='expires' content='-1' />
+		<meta http-equiv='pragma' content='no-cache' />
+		<meta name='robots' content='all' />
+	</head>
+	<body>
+		<div id="panel">
+			<div id="panel_contents">
+				<script type="text/javascript">create_menu('../');</script>
+			</div>
+		</div>
+		<div id="header">
+			<div class="container_16">
+				<div id="logo">
+					<div class="grid_10 logo_img">
+						<img src="../images/logo-68kb.png" alt="logo" width="181" height="53" /> <a name="top" id="top"></a>
+					</div>
+					<div class="grid_6">
+						<div class="panel_button" style="visibility: visible;">
+							<a class="open" href="../toc.html">Table of Contents</a>
+						</div>
+						<div class="panel_button" id="hide_button" style="display: none;">
+							<a class="close" href="#">Close</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div id="title_area" class="grid_9">
+						<h4>User Guide v2.0.0</h4>
+					</div>
+					<div class="grid_7 search_area">
+						<form method="get" action="http://www.google.com/search">
+							<input type="hidden" name="as_sitesearch" id="as_sitesearch" value="68kb.com/user_guide/" /><input id="search" type="text" size="31" maxlength="255" name="s" value="Search the user guide" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" />
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<p>
+			<br class="clear" />
+		</p>
+		<div class="container_16 main">
+			<div id="content" class="grid_16">
+				<div id="breadcrumb">
+					<a href="http://68kb.com/">68KB Home</a>  &rarr; 
+					<a href="../index.html">User Guide Home</a>   &rarr; 
+					Caching
+				</div>
+				
+				<h1>68KB Caching</h1>
+					
+					<p>68KB lets you cache your pages in order to achieve maximum performance.</p>
+
+					
+					<p>Although 68KB is quite fast, the amount of dynamic information you display in your pages will correlate directly to the server resources, memory, and processing cycles utilized, which affect your page load speeds. By caching your pages, since they are saved in their fully rendered state, you can achieve performance that nears that of static web pages.</p>
+					
+					<h3>How Does Caching Work?</h3>
+
+					<p>Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
+					When a page is loaded for the first time, the cache file will be written to your <dfn>includes/application/cache</dfn> folder.  On subsequent page loads the cache file will be retrieved
+					and sent to the requesting user's browser.  If it has expired, it will be deleted and refreshed before being sent to the browser.</p>
+
+					<p>Note: The Benchmark tag is not cached so you can still view your page load speed when caching is enabled.</p>
+
+					<h3>Enabling Caching</h3>
+
+					<p>To enable caching, go to administration -> settings -> main settings and enter a value for the time.</p>
+
+					<p>Where <var>value</var> is the number of <strong>minutes</strong> you wish the page to remain cached between refreshes.</p>
+
+					<p class="important"><strong>Note:</strong> Before the cache files can be written you must set the file permissions on your
+					<dfn>includes/application/cache</dfn> folder such that it is writable.</p>
+					
+					<p class="important"><strong>Note:</strong> You can change the location the cached files are saved by editing the includes/config.php.</p>
+
+					<h3>Deleting Caches</h3>
+
+					<p>If you no longer wish to cache a file you can remove the caching tag and it will no longer be refreshed when it expires.  Note:
+					Removing the tag will not delete the cache immediately.  It will have to expire normally.  If you need to remove it earlier you
+					will need to manually delete it from your cache folder.</p>
+					
+					<h3>Database Caching</h3>
+					
+					<p>You can also cache the sql queries by editing the includes/config.php file and changing the following values:</p>
+
+<pre>
+$db['default']['cache_on'] = TRUE;
+$db['default']['cachedir'] = APPPATH .'cache/';
+</pre>
+					
+					<p class="note">The constact APPPATH points to includes/application folder.</p>
+
+					<p class="important">With this on any time you add, edit, or delete data the full db cache will be rebuilt.</p>
+
+
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<br class="clear" />
+		
+		<div class="container_16 footer">
+			<div class="grid_8">
+				<p class="copy">
+					&copy; 2010 68KB - All Rights Reserved.<br />
+					A division of <a href="http://68designs.com">68 Designs, LLC</a>
+				</p>
+			</div>
+			<div class="grid_8 top">
+				<p>
+					<a href="#top">Back to Top</a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
