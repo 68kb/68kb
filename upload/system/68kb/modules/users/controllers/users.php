@@ -1,15 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 68kb
+ * iClassEngine
  *
- * An open source knowledge base script
+ * THIS IS COPYRIGHTED SOFTWARE
+ * PLEASE READ THE LICENSE AGREEMENT
+ * http://iclassengine.com/user_guide/policies/license
  *
- * @package		68kb
- * @author		Eric Barnes (http://ericlbarnes.com)
- * @copyright	Copyright (c) 2010, 68kb
- * @license		http://68kb.com/user_guide/license.html
- * @link		http://68kb.com
- * @since		Version 2.0
+ * @package		iClassEngine
+ * @author		ICE Dev Team
+ * @copyright	Copyright (c) 2010, 68 Designs, LLC
+ * @license		http://iclassengine.com/user_guide/policies/license
+ * @link		http://iclassengine.com
+ * @since		Version 1.0
  */
 
 // ------------------------------------------------------------------------
@@ -19,7 +21,7 @@
  *
  *
  * @subpackage	Controllers
- * @link		http://68kb.com/user_guide/
+ * @link		http://iclassengine.com/user_guide/
  *
  */
 class Users extends Front_Controller 
@@ -29,7 +31,7 @@ class Users extends Front_Controller
 		parent::__construct();
 		log_message('debug', 'Users Controller Initialized');
 		$this->load->model('users_model');
-		$this->load->helper(array('cookie', 'form', 'date'));
+		$this->load->helper(array('cookie', 'form', 'date', 'html'));
 	}
 	
 	// ------------------------------------------------------------------------
@@ -44,7 +46,7 @@ class Users extends Front_Controller
 			redirect('users/login');
 		}
 		
-		redirect('users/account_modify');
+		redirect('users/account');
 	}
 	
 	// ------------------------------------------------------------------------
@@ -55,9 +57,6 @@ class Users extends Front_Controller
 		{
 			redirect('users/login');
 		}
-		
-		redirect('users/account_modify');
-		
 		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
 		
 		$this->template->title(lang('lang_my_account'));
@@ -103,7 +102,7 @@ class Users extends Front_Controller
 					$extra[$i]['name'] = $row['field_name'];
 					if ($row['field_type'] == 'date')
 					{
-						$extra[$i]['value'] = date($this->config->item('short_date_format'), $data['user'][$name]);
+						$extra[$i]['value'] = format_date($data['user'][$name]);
 					}
 					else
 					{
@@ -118,6 +117,90 @@ class Users extends Front_Controller
 		$data['extra'] = $extra;
 		
 		$this->template->build('profile', $data);
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	public function listings()
+	{
+		if ( ! $this->users_auth->logged_in())
+		{
+			redirect('users/login');
+		}
+		
+		$user_id = (int) $this->session->userdata('user_id');
+		
+		$this->load->model('listings/listings_model');
+		
+		$this->load->library('pagination');
+		
+		$config['per_page'] = $this->settings->get_setting('site_max_search');
+		$config['num_links'] = 5;
+		
+		$search_options['listing_owner_id'] = $user_id;
+		
+		$config['total_rows'] = $this->listings_model->get_search_results($search_options, 'listing_added', 'desc', 0, 0, TRUE, TRUE, FALSE);
+
+		$data['paging'] = $this->pagination->get_pagination($config['total_rows'], $config['per_page']);
+		$offset = $this->pagination->offset;
+		
+		$data['listings'] = $this->listings_model->get_search_results($search_options, 'listing_added', 'desc', $offset, $config['per_page'], FALSE, TRUE, FALSE);
+		
+		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
+		
+		$this->template->title(lang('lang_my_listings'));
+		
+		$this->template->set_breadcrumb(lang('lang_my_account'), 'users/account');
+		$this->template->set_breadcrumb(lang('lang_my_listings'), 'users/listings');
+		
+		$this->template->build('listings', $data);
+	}
+	
+	public function orders($order_id = '')
+	{
+		if ( ! $this->users_auth->logged_in())
+		{
+			redirect('users/login');
+		}
+		
+		$user_id = (int) $this->session->userdata('user_id');
+		
+		$this->load->model('orders/orders_model');
+		$this->load->model('cart/cart_model');
+		$this->load->model('listings/listings_model');
+		
+		$data['user'] = $this->users_model->get_user($this->session->userdata('user_id'));
+		
+		$this->template->title(lang('lang_order_history'));
+		
+		$this->template->set_breadcrumb(lang('lang_my_account'), 'users/account');
+		$this->template->set_breadcrumb(lang('lang_order_history'), 'users/orders');
+		
+		if (is_numeric($order_id))
+		{
+			$data['cart'] = $this->cart_model->get_completed_cart($order_id);
+
+			// Get a fresh order with new status
+			$data['order'] = $this->orders_model->get_order_by_id($order_id);
+		}
+		else
+		{
+			$this->load->library('pagination');
+
+			$config['per_page'] = $this->settings->get_setting('site_max_search');
+			$config['num_links'] = 5;
+
+			$search_options['listing_owner_id'] = $user_id;
+
+			$config['total_rows'] = $this->orders_model->get_users_orders($user_id, TRUE);
+
+			$data['paging'] = $this->pagination->get_pagination($config['total_rows'], $config['per_page']);
+			$offset = $this->pagination->offset;
+
+			$data['orders'] = $this->orders_model->get_users_orders($user_id);
+		}
+		
+		$this->template->build('orders', $data);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -587,5 +670,5 @@ class Users extends Front_Controller
 		$this->template->build('forgot', $data);
 	}
 }
-/* End of file users.php */
-/* Location: ./upload/includes/68kb/modules/users/controllers/users.php */ 
+/* End of file cart.php */
+/* Location: ./upload/includes/iclassengine/modules/cart/controllers/cart.php */

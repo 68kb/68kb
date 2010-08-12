@@ -1,15 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 68kb
+ * iClassEngine
  *
- * An open source knowledge base script
+ * THIS IS COPYRIGHTED SOFTWARE
+ * PLEASE READ THE LICENSE AGREEMENT
+ * http://iclassengine.com/user_guide/policies/license
  *
- * @package		68kb
- * @author		Eric Barnes (http://ericlbarnes.com)
- * @copyright	Copyright (c) 2010, 68kb
- * @license		http://68kb.com/user_guide/license.html
- * @link		http://68kb.com
- * @since		Version 2.0
+ * @package		iClassEngine
+ * @author		ICE Dev Team
+ * @copyright	Copyright (c) 2010, 68 Designs, LLC
+ * @license		http://iclassengine.com/user_guide/policies/license
+ * @link		http://iclassengine.com
+ * @since		Version 1.0
  */
 
 // ------------------------------------------------------------------------
@@ -18,7 +20,7 @@
  * Users Model
  *
  * @subpackage	Models
- * @link		http://68kb.com/user_guide/
+ * @link		http://iclassengine.com/user_guide/
  */
 class Users_model extends CI_Model {
 	
@@ -168,7 +170,7 @@ class Users_model extends CI_Model {
 		
 		$this->db->where('user_id', $user_id);
 		$this->db->update('users', $data);
-		
+
 		if ($this->db->affected_rows() == 0) 
 		{
 			return FALSE;
@@ -288,7 +290,7 @@ class Users_model extends CI_Model {
 		
 		$this->events->trigger('users_model/hash_pass', $password);
 		
-		$password = dohash($password, 'md5'); // MD5
+		$password = do_hash($password);
 		
 		return $password;
 	}
@@ -426,7 +428,9 @@ class Users_model extends CI_Model {
 		$user = $this->get_user($user['user_id']);
 		
 		// Get all the email settings
-		$email = $this->settings->get_settings_by_group('email');
+		$this->load->library('email');
+		
+		$mailtype = $this->email->mailtype;
 		
 		$site_email = $this->settings->get_setting('site_email');
 		
@@ -438,7 +442,7 @@ class Users_model extends CI_Model {
 		$user['login_url'] = site_url('users/login/');
 		
 		// Are we sending html or text? 
-		if ($email['mailtype'] == 'html')
+		if ($mailtype == 'html')
 		{
 			$this->template->set_layout('emails/html/layout');
 			$email_message = $this->template->build('emails/html/new_pass', $user, TRUE);
@@ -448,10 +452,6 @@ class Users_model extends CI_Model {
 			$this->template->set_layout('emails/text/layout');
 			$email_message = $this->template->build('emails/text/new_pass', $user, TRUE);
 		}
-		
-		$this->load->library('email');
-		
-		$this->email->initialize($email);
 		
 		$this->email->from($site_email, $site_name);
 		
@@ -486,7 +486,7 @@ class Users_model extends CI_Model {
 		$this->db->update('users', $data);
 		
 		// Get all the email settings
-		$email = $this->settings->get_settings_by_group('email');
+		$this->load->library('email');
 		
 		$site_email = $this->settings->get_setting('site_email');
 		
@@ -496,7 +496,7 @@ class Users_model extends CI_Model {
 		$user['validate_url'] = site_url('users/reset/'.$user_verify);
 		
 		// Are we sending html or text? 
-		if ($email['mailtype'] == 'html')
+		if ($this->email->mailtype == 'html')
 		{
 			$this->template->set_layout('emails/html/layout');
 			$email_message = $this->template->build('emails/html/forgot_pass_conf', $user, TRUE);
@@ -506,10 +506,6 @@ class Users_model extends CI_Model {
 			$this->template->set_layout('emails/text/layout');
 			$email_message = $this->template->build('emails/text/forgot_pass_conf', $user, TRUE);
 		}
-		
-		$this->load->library('email');
-		
-		$this->email->initialize($email);
 		
 		$this->email->from($site_email, $site_name);
 		
@@ -563,4 +559,4 @@ class Users_model extends CI_Model {
 }
 
 /* End of file users_model.php */
-/* Location: ./upload/includes/68kb/modules/users/models/users_model.php */ 
+/* Location: ./upload/includes/iclassengine/models/users_model.php */

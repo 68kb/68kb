@@ -1,15 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 68kb
+ * iClassEngine
  *
- * An open source knowledge base script
+ * THIS IS COPYRIGHTED SOFTWARE
+ * PLEASE READ THE LICENSE AGREEMENT
+ * http://iclassengine.com/user_guide/policies/license
  *
- * @package		68kb
- * @author		Eric Barnes (http://ericlbarnes.com)
- * @copyright	Copyright (c) 2010, 68kb
- * @license		http://68kb.com/user_guide/license.html
- * @link		http://68kb.com
- * @since		Version 2.0
+ * @package		iClassEngine
+ * @author		ICE Dev Team
+ * @copyright	Copyright (c) 2010, 68 Designs, LLC
+ * @license		http://iclassengine.com/user_guide/policies/license
+ * @link		http://iclassengine.com
+ * @since		Version 1.0
  */
 
 // ------------------------------------------------------------------------
@@ -18,7 +20,7 @@
  * Admin Users Controller
  *
  * @subpackage	Controllers
- * @link		http://68kb.com/user_guide/admin/users.html
+ * @link		http://iclassengine.com/user_guide/admin/users.html
  *
  */
 class Admin extends Admin_Controller {
@@ -28,11 +30,14 @@ class Admin extends Admin_Controller {
 		parent::__construct();
 		
 		$this->load->model('users_model');
+		$this->load->model('orders/orders_model');
 		
 		if ( ! $this->users_auth->check_role('can_manage_users'))
 		{
 			show_error(lang('not_authorized'));
 		}
+		
+		$this->security->csrf_set_cookie();
 	}
 	
 	// ------------------------------------------------------------------------
@@ -306,6 +311,9 @@ class Admin extends Admin_Controller {
 		$data['row'] = $this->users_model->get_user($data['id']);
 		$data['notes'] = $this->users_model->user_notes($data['id']);
 		$data['groups'] = $this->usergroups_model->get_groups();
+		$data['active_listings'] = $this->users_model->users_listings($data['id']);
+		$data['total_order_amount'] = $this->orders_model->user_total_spent($data['id']);
+		$data['total_orders'] = $this->orders_model->get_users_orders($data['id'], TRUE);
 		
 		$this->load->helper(array('form', 'url', 'html', 'date'));
 		
@@ -481,6 +489,22 @@ class Admin extends Admin_Controller {
 			redirect('admin/users/');
 		}
 		
+		$this->load->model('listings/listings_model');
+		$this->db->select('listing_id')->from('listings')->where('listing_owner_id', $user_id);
+		$query = $this->db->get();
+		
+		$rows = $query->num_rows();
+		
+		if ($rows > 0) 
+		{
+			$data = $query->result_array();
+			foreach ($data AS $row)
+			{
+				$this->listings_model->delete_listing($row['listing_id']);
+			}
+		}
+		
+		$query->free_result();
 		
 		$this->session->set_flashdata('msg', lang('lang_settings_saved'));
 		redirect('admin/users/edit/'.$user_id);
@@ -597,6 +621,10 @@ class Admin extends Admin_Controller {
 				$this->db->order_by($this->_column_to_field($this->input->post('iSortCol_'.$i)), $this->input->post('iSortDir_'.$i));
 			}
 		}
+		else
+		{
+			$this->db->order_by('user_last_login', 'desc');
+		}
 		
 		$this->db->stop_cache();
 		
@@ -616,8 +644,6 @@ class Admin extends Admin_Controller {
 		
 		$query = $this->db->get();
 		
-		
-		
 		$output = '{';
 		$output .= '"sEcho": '.$this->input->post('sEcho').', ';
 		$output .= '"iTotalRecords": '.$iTotal.', ';
@@ -632,8 +658,8 @@ class Admin extends Admin_Controller {
 			
 			$output .= "[";
 			$output .= '"'.addslashes($user_username).'",';
-			$output .= '"'.addslashes(date($this->config->item('short_date_format'), $row->user_join_date)).'",';
-			$output .= '"'.addslashes(date($this->config->item('short_date_format'), $row->user_last_login)).'",';
+			$output .= '"'.addslashes(format_date($row->user_join_date)).'",';
+			$output .= '"'.addslashes(format_date($row->user_last_login)).'",';
 			$output .= '"'.addslashes($row->group_name).'"';
 			$output .= "],";
 		}
@@ -685,4 +711,4 @@ class Admin extends Admin_Controller {
 }
 
 /* End of file admin.php */
-/* Location: ./upload/includes/68kb/modules/users/controllers/admin.php */ 
+/* Location: ./upload/includes/iclassengine/modules/users/controllers/admin.php */

@@ -1,15 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 68kb
+ * iClassEngine
  *
- * An open source knowledge base script
+ * THIS IS COPYRIGHTED SOFTWARE
+ * PLEASE READ THE LICENSE AGREEMENT
+ * http://iclassengine.com/user_guide/policies/license
  *
- * @package		68kb
- * @author		Eric Barnes (http://ericlbarnes.com)
- * @copyright	Copyright (c) 2010, 68kb
- * @license		http://68kb.com/user_guide/license.html
- * @link		http://68kb.com
- * @since		Version 2.0
+ * @package		iClassEngine
+ * @author		ICE Dev Team
+ * @copyright	Copyright (c) 2010, 68 Designs, LLC
+ * @license		http://iclassengine.com/user_guide/policies/license
+ * @link		http://iclassengine.com
+ * @since		Version 1.0
  */
 
 // ------------------------------------------------------------------------
@@ -76,9 +78,17 @@ class Users_auth
         
 		// Call pre login events
 		$this->_ci->events->trigger('auth/login/start', $this->user_data);
+		
+		// check and see if we are using an md5 and update it.
+		// added in v1.0.3
+		if ( ( ! $this->user_data OR function_exists('sha1') OR function_exists('mhash') ) && strlen($this->user_data['user_password']) == 32)
+		{
+			$update['user_password'] = $password;
+			$new_pass = $this->_ci->users_model->edit_user($this->user_data['user_id'], $update);
+		}
 
 		// See if we have user data and passwords match.
-		if( ! $this->user_data OR empty($this->user_data) OR $this->user_data['user_password'] != $this->_ci->users_model->hash_pass($password))
+		if( ! $this->user_data OR $this->user_data['user_password'] != $this->_ci->users_model->hash_pass($password))
 		{
 			$this->_check_failed_login($username);
 			return lang('lang_user_login_error');
@@ -468,4 +478,4 @@ class Users_auth
 }
 
 /* End of file Users_auth.php */
-/* Location: ./upload/includes/68kb/modules/users/libraries/Users_auth.php */ 
+/* Location: ./upload/includes/iclassengine/modules/users/libraries/Users_auth.php */ 

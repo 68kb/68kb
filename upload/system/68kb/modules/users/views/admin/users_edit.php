@@ -105,9 +105,18 @@ if($notes)
 			<img width="48" height="48" src="<?php echo gravatar($row['user_email'], 'PG', 48); ?>" class="user_gravatar" />
 			<h3><?php echo $row['user_username']; ?></h3>
 			<a href="mailto:<?php echo $row['user_email']; ?>"><?php echo $row['user_email']; ?></a><br />
-			<span class="date"><?php echo lang('lang_join_date'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_join_date']); ?></span>
-			<span class="date"><?php echo lang('lang_last_login'); ?>: <?php echo date($this->config->item('short_date_format'), $row['user_last_login']); ?></span><br />
+			<span class="date"><?php echo lang('lang_join_date'); ?>: <?php echo format_date($row['user_join_date']); ?></span>
+			<span class="date"><?php echo lang('lang_last_login'); ?>: <?php echo format_date($row['user_last_login']); ?></span><br />
 			</div>
+		</fieldset>
+		<fieldset>
+			<legend><?php echo lang('lang_stats'); ?></legend>
+			<ul id="stats">
+				<li>Total Spent: <?php echo format_money($total_order_amount); ?></li>
+				<li>Total Orders: <?php echo $total_orders; ?></li>
+				<li>Listings Placed: <?php echo $row['user_listings']; ?></li>
+				<li>Active Listings: <?php echo $active_listings; ?></li>
+			</ul>
 		</fieldset>
 		<fieldset>
 			<legend><?php echo lang('lang_xml_rpc_api'); ?></legend>
