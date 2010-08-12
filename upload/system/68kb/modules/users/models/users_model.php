@@ -1,17 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * iClassEngine
+ * 68kb
  *
- * THIS IS COPYRIGHTED SOFTWARE
- * PLEASE READ THE LICENSE AGREEMENT
- * http://iclassengine.com/user_guide/policies/license
+ * An open source knowledge base script
  *
- * @package		iClassEngine
- * @author		ICE Dev Team
- * @copyright	Copyright (c) 2010, 68 Designs, LLC
- * @license		http://iclassengine.com/user_guide/policies/license
- * @link		http://iclassengine.com
- * @since		Version 1.0
+ * @package		68kb
+ * @author		Eric Barnes (http://ericlbarnes.com)
+ * @copyright	Copyright (c) 2010, 68kb
+ * @license		http://68kb.com/user_guide/license.html
+ * @link		http://68kb.com
+ * @since		Version 2.0
  */
 
 // ------------------------------------------------------------------------
@@ -20,7 +18,7 @@
  * Users Model
  *
  * @subpackage	Models
- * @link		http://iclassengine.com/user_guide/
+ * @link		http://68kb.com/user_guide/
  */
 class Users_model extends CI_Model {
 	
@@ -559,4 +557,4 @@ class Users_model extends CI_Model {
 }
 
 /* End of file users_model.php */
-/* Location: ./upload/includes/iclassengine/models/users_model.php */
+/* Location: ./upload/system/68kb/modules/users/models/users_model.php */ 
