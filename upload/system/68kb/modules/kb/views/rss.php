@@ -16,7 +16,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
     <dc:language>en</dc:language>
 	<dc:rights>Copyright <?php echo date("Y"); ?></dc:rights>
     <dc:date><?php echo gmdate("Y-m-d\TH:i:s\Z", time()); ?></dc:date>
-    <admin:generatorAgent rdf:resource="http://iclassengine.com/" />
+    <admin:generatorAgent rdf:resource="http://68kb.com/" />
     
 		<?php foreach($items as $row): ?>
 

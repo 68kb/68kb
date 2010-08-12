@@ -5,7 +5,7 @@
  * An open source knowledge base script
  *
  * @package		68kb
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @copyright	Copyright (c) 2009, 68 Designs, LLC
  * @license		http://68kb.com/user_guide/license.html
  * @link		http://68kb.com

@@ -11,46 +11,57 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="left">uploads/</td>
+					<td class="left"><?php echo APPPATH.'config/config.php'; ?></td>
 					<td class="right">
-						<?php echo $uploads; ?>
+						<?php echo $config_path; ?>
+					</td>
+				</tr>
+				<tr>
+					<td class="left"><?php echo APPPATH.'config/database.php'; ?></td>
+					<td class="right">
+						<?php echo $db_path; ?>
 					</td>
 				</tr>
 			</table>
 			
 			<br />
 			
-			
 			<table width="90%" align="center" cellpadding="5" cellspacing="0" class="modules">
 				<tr>
-					<th colspan="2">Administrator Settings:</th>
+					<th colspan="2">Database Settings:</th>
 				</tr>
 				<?php if(validation_errors()) {
 					echo '<tr><td colspan="2"><div class="fail">'.validation_errors().'</div></td></tr>';
 				}
 				?>
 				<tr>
-					<td width="50%" class="row1">Admin Username</td>
+					<td width="50%" class="row1">Database Name</td>
 					<td width="50%" class="row1">
-						<?php echo form_input('username', set_value('username')); ?>
+						<?php echo form_input('db_name', set_value('db_name')); ?>
 					</td>
 				</tr>
 				<tr>
-					<td class="row2">Admin Password</td>
+					<td class="row2">Database Hostname</td>
 					<td class="row2">
-						<?php echo form_input('password', set_value('password')); ?>
+						<?php echo form_input('db_hostname', set_value('db_hostname', 'localhost')); ?>
 					</td>
 				</tr>
 				<tr>
-					<td width="50%" class="row1">Admin Email Address</td>
+					<td width="50%" class="row1">Database Username</td>
 					<td width="50%" class="row1">
-						<?php echo form_input('email', set_value('email')); ?>
+						<?php echo form_input('db_username', set_value('db_username')); ?>
 					</td>
 				</tr>
 				<tr>
-					<td width="50%" class="row1">Site Title</td>
+					<td width="50%" class="row1">Database Password</td>
 					<td width="50%" class="row1">
-						<?php echo form_input('site_name', set_value('site_name')); ?>
+						<?php echo form_input('db_password', set_value('db_password')); ?>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%" class="row1">Database Prefix</td>
+					<td width="50%" class="row1">
+						<?php echo form_input('db_prefix', set_value('db_prefix'), 'ice_'); ?>
 					</td>
 				</tr>
 			</table>

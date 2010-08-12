@@ -1,5 +1,18 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+// ------------------------------------------------------------------------
+
+/**
+ * Form Declaration
+ *
+ * Creates the opening portion of the form.
+ *
+ * @access	public
+ * @param	string	the URI segments of the form destination
+ * @param	array	a key/value pair of attributes
+ * @param	array	a key/value pair hidden data
+ * @return	string
+ */	
 if ( ! function_exists('form_open'))
 {
 	function form_open($action = '', $attributes = '', $hidden = array())
@@ -28,7 +41,13 @@ if ( ! function_exists('form_open'))
 		{
 			$form .= form_hidden($hidden);
 		}
-
+		
+		// CSRF
+		if ($CI->config->item('csrf_protection') === TRUE)
+		{
+			$form .= form_hidden($CI->security->csrf_token_name, $CI->security->csrf_hash);
+		}
+		
 		return $form;
 	}
 }
@@ -92,4 +111,4 @@ if ( ! function_exists('form_prep'))
 }
 
 /* End of file MY_form_helper.php */
-/* Location: ./upload/includes/68kb/helpers/MY_form_helper.php */ 
+/* Location: ./upload/system/68kb/helpers/MY_form_helper.php */ 

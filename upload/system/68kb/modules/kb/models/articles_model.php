@@ -5,7 +5,7 @@
  * An open source knowledge base script
  *
  * @package		68kb
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @copyright	Copyright (c) 2009, 68 Designs, LLC
  * @license		http://68kb.com/user_guide/license.html
  * @link		http://68kb.com
@@ -22,7 +22,7 @@
  * @package		68kb
  * @subpackage	Models
  * @category	Models
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @link		http://68kb.com/user_guide/overview/articles.html
  * @version 	$Id: article_model.php 89 2009-08-13 01:54:20Z suzkaw68 $
  */

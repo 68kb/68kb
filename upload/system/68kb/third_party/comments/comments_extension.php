@@ -5,7 +5,7 @@
  * An open source knowledge base script
  *
  * @package		68kb
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @copyright	Copyright (c) 2010, 68kb
  * @license		http://68kb.com/user_guide/license.html
  * @link		http://68kb.com
@@ -35,7 +35,7 @@ class Comments_extension
 	public function __construct($modules)
 	{
 		$this->_ci = CI_Base::get_instance();
-		$this->_ci->load->language('comments/comments');
+		//$this->_ci->load->language('comments/comments');
 		$modules->register('admin/home', $this, 'latest_comments');
 	}
 	

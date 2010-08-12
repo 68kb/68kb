@@ -5,7 +5,7 @@
  * An open source knowledge base script
  *
  * @package		68kb
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @copyright	Copyright (c) 2010, 68kb
  * @license		http://68kb.com/user_guide/license.html
  * @link		http://68kb.com
@@ -70,12 +70,6 @@ class Setup extends Controller
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		
-		// See if the db is already installed.
-		if ($this->db->table_exists('settings'))
-		{
-			$this->is_installed = TRUE;
-		}
-		
 		// Check we are running the min version of php.
 		if (is_php($this->min_php) == FALSE)
 		{
@@ -84,6 +78,15 @@ class Setup extends Controller
 		
 		// Set the version
 		$this->data['version'] = $this->script_version;
+		
+		// Guess the url
+		$url = "http://".@$_SERVER['HTTP_HOST'];
+		$url .= preg_replace('@/+$@','',dirname(@$_SERVER['SCRIPT_NAME'])).'/';
+		$this->config->set_item('base_url', $url);
+		$this->data['base_url'] = $url;
+		
+		// load the language
+		$this->lang->load('setup');
 	}
     
 	// ------------------------------------------------------------------------
@@ -93,14 +96,27 @@ class Setup extends Controller
 	 */
 	function index()
 	{
-		if ($this->is_installed)
+		$this->load->helper('typography');
+		$this->data['body'] = $this->load->view('setup/license', $this->data, TRUE);
+		$this->load_template();
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Validate the key entered is correct.
+	 *
+	 * @param	string - Key
+	 * @return 	bool
+	 */
+	function key_check($key)
+	{
+		if ($key != $this->config->item('license_key'))
 		{
-			redirect('setup/upgrade');
+			$this->form_validation->set_message('key_check', 'The license key you entered is not correct.');
+			return FALSE;
 		}
-		else
-		{
-			redirect('setup/install');
-		}
+		return TRUE;
 	}
 	
 	// ------------------------------------------------------------------------
@@ -113,12 +129,15 @@ class Setup extends Controller
 	function install()
 	{
 		$this->data['cache'] 				= $this->_writable(APPPATH.'cache');
-		$this->data['uploads'] 				= $this->_writable(ROOTPATH.'uploads');
+		$this->data['config_path']		 	= $this->_writable(APPPATH.'config/config.php');
+		$this->data['db_path']			 	= $this->_writable(APPPATH.'config/database.php');
 		
 		// Setup form validation
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('db_name', 'Database Name', 'required|callback__test_db');
+		$this->form_validation->set_rules('db_hostname', 'Database Hostname', 'required');
+		$this->form_validation->set_rules('db_username', 'Database Username', 'required');
+		$this->form_validation->set_rules('db_password', 'Database Password', '');
+		$this->form_validation->set_rules('db_prefix', 'Database Prefix', '');
 		
 		// Handle Validation
 		if ($this->form_validation->run() == FALSE)
@@ -129,13 +148,171 @@ class Setup extends Controller
 		else
 		{
 			// Assign out the posted data
+			$db['dbdriver'] = "mysql";
+			$db['hostname'] = $this->input->post('db_hostname', TRUE);
+			$db['username'] = $this->input->post('db_username', TRUE);
+			$db['password'] = $this->input->post('db_password', TRUE);
+			$db['dbprefix'] = $this->input->post('db_prefix', TRUE);
+			$db['database'] = $this->input->post('db_name', TRUE);
+			$db['db_debug'] = FALSE;
+			
+			$this->_write_db_file($db);
+
+			redirect('setup/install_final');
+		}
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Test the db settings
+	 */
+	public function _test_db()
+	{
+		$db['dbdriver'] = "mysql";
+		$db['hostname'] = $this->input->post('db_hostname', TRUE);
+		$db['username'] = $this->input->post('db_username', TRUE);
+		$db['password'] = $this->input->post('db_password', TRUE);
+		$db['database'] = $this->input->post('db_name', TRUE);
+		$db['db_debug'] = FALSE;
+		
+		$this->load->database($db);
+
+		if ($this->db->conn_id)
+		{
+			$this->load->dbutil();
+			
+			if ($this->dbutil->database_exists($db['database']))
+			{
+				return TRUE;
+			}
+			else
+			{
+				$this->load->dbforge();
+
+				if ( ! $this->dbforge->create_database($db['database']))
+				{
+					$this->form_validation->set_message('_test_db', 'Can not create the database. Please create it manually.');
+					return FALSE;
+				}
+				return TRUE;
+			}
+		}
+		else
+		{
+			$this->form_validation->set_message('_test_db', 'Can not connect to the database');
+			return FALSE;
+		}
+		die;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Writes the database file based on the provided database settings
+	 */
+	private function _write_db_file($db)
+	{
+		$this->load->helper('file');
+		
+		// Open the template file
+		$template = read_file(ROOTPATH.'setup/sample_data/database.php');
+		
+		$replace = array(
+			'__HOSTNAME__' 	=> $db['hostname'],
+			'__USERNAME__' 	=> $db['username'],
+			'__PASSWORD__' 	=> $db['password'],
+			'__DATABASE__' 	=> $db['database'],
+			'__DBPREFIX__' 	=> $db['dbprefix'],
+		);
+		
+		// Replace the __ variables with the data specified by the user
+		$new_file  	= str_replace(array_keys($replace), $replace, $template);
+		
+		$db_file = APPPATH.'config/database.php';
+		if ( ! write_file($db_file, $new_file, 'w+'))
+		{
+			// This shouldn't happen. But just to be safe.
+			show_error('Unable to write to the database file');
+		}
+		@chmod($db_file, FILE_READ_MODE);
+		return TRUE;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Writes the database file based on the provided database settings
+	 */
+	private function _write_config_file($config)
+	{
+		$this->load->helper('file');
+		$this->load->helper('string');
+		
+		// Open the template file
+		$template = read_file(ROOTPATH.'setup/sample_data/config.php');
+		
+		$replace = array(
+			'__ENCRYPTION__' 	=> random_string('alnum', 16),
+			'__URL__'			=> $config['url']
+		);
+		
+		// Replace the __ variables with the data specified by the user
+		$new_file  	= str_replace(array_keys($replace), $replace, $template);
+		$config_file = APPPATH.'config/config.php';
+		if ( ! write_file($config_file, $new_file, 'w+'))
+		{
+			// This shouldn't happen. But just to be safe.
+			show_error('Unable to write to the config file');
+		}
+		
+		@chmod($config_file, FILE_READ_MODE);
+		
+		return TRUE;
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * Final install routine
+	 */
+	public function install_final()
+	{
+		// Setup form validation
+		$this->form_validation->set_rules('url', 'Site Url', 'required');
+		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		
+		$this->data['guess_url'] = $this->data['base_url'];
+		
+		// Handle Validation
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->data['body'] = $this->load->view('setup/install_details', $this->data, TRUE);
+			$this->load_template();
+		}
+		else
+		{
+			// Assign out the posted data
 			$this->data['username'] = $this->input->post('username', TRUE);
 			$this->data['password'] = $this->input->post('password', TRUE);
 			$this->data['email'] = $this->input->post('email', TRUE);
+			$this->data['sample'] = $this->input->post('sample', TRUE);
+			
+			// Write the config file
+			$config['url'] = $this->input->post('url', TRUE);
+			$this->_write_config_file($config);
 			
 			// Now install the database.
 			$this->_install_db();
-
+			
+			// Do they want sample data?
+			if ($sample = $this->input->post('sample', TRUE))
+			{	
+				$this->_process_sql($sample);
+			}
+			
 			$data = array( 
 				'option_value' => $this->input->post('site_name')
 			);
@@ -204,6 +381,7 @@ class Setup extends Controller
 	*/
 	function upgrade()
 	{
+		$this->load->database();
 		$this->load->library('migrate');
 		$this->migrate->setverbose(TRUE);
 		$this->data['log'] = $this->migrate->version();
@@ -293,6 +471,33 @@ class Setup extends Controller
 	
 	// ------------------------------------------------------------------------
 	
+	private function _process_sql($sql_file)
+	{
+		$file = ROOTPATH .'setup/sample_data/'.$sql_file.'.sql';
+		
+		if ( ! file_exists($file))
+		{
+			echo 'file not found';
+			return FALSE;
+		}
+		
+		$schema = file_get_contents($file);
+		
+		$schema = str_replace('{prefix}', $this->db->dbprefix, $schema);
+		
+		$queries = explode('-- query --', $schema);
+		
+		foreach($queries as $query)
+		{
+			$query = rtrim( trim($query), "\n;");
+			$this->db->query($query);
+		}
+		
+		return TRUE;
+	}
+	
+	// ------------------------------------------------------------------------
+	
 	private function _drop_tables()
 	{
 		$this->load->dbforge();
@@ -336,6 +541,5 @@ class Setup extends Controller
 		}
 	}
 }
-
 /* End of file setup.php */
-/* Location: ./upload/includes/68kb/controllers/setup.php */ 
+/* Location: ./upload/system/68kb/controllers/setup.php */ 

@@ -5,7 +5,7 @@
  * An open source knowledge base script
  *
  * @package		68kb
- * @author		68kb Dev Team
+ * @author		Eric Barnes (http://ericlbarnes.com)
  * @copyright	Copyright (c) 2010, 68kb
  * @license		http://68kb.com/user_guide/license.html
  * @link		http://68kb.com
@@ -70,7 +70,7 @@ class Categories_parser
 	 *
 	 * Recursive format categories in a list
 	 *
-	 * @link 	http://iclassengine.com/user_guide/tags/ice_categories_cat_list
+	 * @link 	http://68kb.com/user_guide/tags/ice_categories_cat_list
 	 * @param	string
 	 * @return	string
 	 */
@@ -178,7 +178,7 @@ class Categories_parser
 	 *
 	 * @param	array
 	 * @return 	mixed
-	 * @link 	http://iclassengine.com/user_guide/tags/ice_categories_table
+	 * @link 	http://68kb.com/user_guide/tags/ice_categories_table
 	 */
 	function table($data = '')
 	{
