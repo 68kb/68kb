@@ -14,7 +14,7 @@
 <div class="container_12">
 	
 	<div class="grid_6" id="logo">
-		<h1><a href="http://68kb.com">Your Site</a></h1>
+		<h1><a href="http://68kb.com">{kb:settings:get name="site_title"}</a></h1>
 	</div>
 	<div class="grid_6" id="login">
 		<?php $this->load->view($site_theme.'/inc/user_nav'); ?>
@@ -51,7 +51,7 @@
 	
 	<div class="grid_12 footer">
 		<p>
-			&copy; <?php echo date("Y"); ?> 68kb - v<?php echo $settings['script_version']; ?> - Build <?php echo $settings['script_build']; ?><br />
+			&copy; <?php echo date("Y"); ?> {kb:settings:get name="site_title"} - Powered by <a href="http://68kb.com">68 Knowledge Base</a><br />
 			Time: <?php echo $this->benchmark->elapsed_time();?> - Memory: <?php echo $this->benchmark->memory_usage();?>
 		</p>
 	</div>

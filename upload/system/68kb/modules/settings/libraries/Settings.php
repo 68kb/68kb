@@ -115,25 +115,29 @@ class Settings
 	 */
 	public function get_setting($option_name)
 	{
+		// First check the auto loaded settings
 		if (isset($this->settings[$option_name]))
 		{
 			return $this->settings[$option_name];
 		}
 		
+		// Now lets try the settings table
 		$this->_ci->db->select('option_value')
-					->from('settings')
-					->where('option_name', $option_name);
-					
+						->from('settings')
+						->where('option_name', $option_name);
+
 		$query = $this->_ci->db->get();
-		
-		if ($query->num_rows() == 0)
+
+		if ($query->num_rows() > 0)
 		{
-			return FALSE;
+			$row = $query->row();
+
+			return $row->option_value;
 		}
-		
-		$row = $query->row();
-		
-		return $row->option_value;
+
+		// Still nothing. How about config?
+		// This will retun FALSE if not found.
+		return $this->_ci->config->item($option_name);
 	}
 	
 	// ------------------------------------------------------------------------
