@@ -28,8 +28,9 @@
 	<div class="clear"></div>
 
 	<div class="grid_8 body">
-		<?php echo $body; ?>
+		{kb:themes:body}
 	</div>
+
 	<div class="grid_4" id="sidebar">
 		<div class="item">
 			<h3>Search</h3>
@@ -46,11 +47,13 @@
 			{kb:categories:cat_list show_total="yes"}
 		</div>
 	</div>
+
 	<div class="clear"></div>
 
 	<div class="grid_12 footer">
 		<p>
-			&copy; <?php echo date("Y"); ?> {kb:settings:get name="site_title"} - Powered by <a href="http://68kb.com">68 Knowledge Base</a><br />
+			&copy; <?php echo date("Y"); ?> {kb:settings:get name="site_title"} -
+			Powered by <a href="http://68kb.com">68 Knowledge Base</a><br />
 			Time: {elapsed_time} - Memory: {memory_usage}
 		</p>
 	</div>
