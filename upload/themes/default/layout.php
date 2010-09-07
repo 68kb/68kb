@@ -6,28 +6,27 @@
 {kb:head_data}
 <meta name="keywords" content="{kb:site_keywords}" />
 <meta name="description" content="{kb:site_keywords}" />
-<base href="<?php echo base_url()?>" />
-<link href="{kb:site_theme}/css/style.css" rel="stylesheet" type="text/css" />
+{kb:themes:css file="css/style.css"}
 </head>
 <body>
-	
+
 <div class="container_12">
-	
+
 	<div class="grid_6" id="logo">
 		<h1><a href="http://68kb.com">{kb:settings:get name="site_title"}</a></h1>
 	</div>
 	<div class="grid_6" id="login">
-		<?php $this->load->view($site_theme.'/inc/user_nav'); ?>
+		{kb:themes:embed file="inc/user_nav"}
 	</div>
 	<div class="clear"></div>
-	
+
 	<div class="grid_12 blue">
 		<div id="slatenav">
-			<?php $this->load->view($site_theme.'/inc/top_nav'); ?>
+			{kb:themes:embed file="inc/top_nav"}
 		</div>
 	</div>
 	<div class="clear"></div>
-	
+
 	<div class="grid_8 body">
 		<?php echo $body; ?>
 	</div>
@@ -39,20 +38,20 @@
 				{kb:cats}
 				<input type="submit" name="submit" value="Seach!" />
 			{/kb:search:form}
-			<?php echo anchor('search', 'Advanced Search'); ?>
+			<a href="{kb:site:link}search">Advanced Search</a>
 		</div>
-		
+
 		<div class="item">
 			<h3>Categories</h3>
 			{kb:categories:cat_list show_total="yes"}
 		</div>
 	</div>
 	<div class="clear"></div>
-	
+
 	<div class="grid_12 footer">
 		<p>
 			&copy; <?php echo date("Y"); ?> {kb:settings:get name="site_title"} - Powered by <a href="http://68kb.com">68 Knowledge Base</a><br />
-			Time: <?php echo $this->benchmark->elapsed_time();?> - Memory: <?php echo $this->benchmark->memory_usage();?>
+			Time: {elapsed_time} - Memory: {memory_usage}
 		</p>
 	</div>
 </div>

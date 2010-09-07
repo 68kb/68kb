@@ -2,16 +2,16 @@
 
 <table border="0" class="glossary_terms" width="100%">
 	<tr>
-		<td><a href="<?php echo site_url('glossary/term/sym'); ?>">#</a></td>
-		<?php foreach($letter as $row): ?>
-			<td><a href="<?php echo site_url('glossary/term/'.$row); ?>"><?php echo strtoupper($row); ?></a></td>
-		<?php endforeach; ?>
+		<td><a href="{kb:site:link}glossary/term/sym">#</a></td>
+		{kb:letters}
+			<td><a href="{kb:site:link}glossary/term/{kb:letter}">{kb:letter}</a></td>
+		{/kb:letters}
 	</tr>
 </table>
 
-<?php foreach($glossary->result() as $row): ?>
-<dl>
-	<dt><a name="<?php echo $row->g_term; ?>"></a><?php echo $row->g_term; ?></dt>
-	<dd><?php echo $row->g_definition; ?></dd>
-</dl>	
-<?php endforeach; ?>
+{kb:glossary}
+	<dl>
+		<dt><a name="{kb:g_term}"></a>{kb:g_term}</dt>
+		<dd>{kb:g_definition}</dd>
+	</dl>
+{/kb:glossary}
