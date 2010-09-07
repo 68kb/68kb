@@ -26,9 +26,9 @@ class Glossary extends Front_Controller
 		parent::__construct();
 		log_message('debug', 'Glossary Controller Initialized');
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	* Index Controller
 	*
@@ -39,17 +39,24 @@ class Glossary extends Front_Controller
 	function index()
 	{
 		$this->template->title($this->lang->line('lang_glossary'));
-		
+
 		$this->db->from('glossary')->orderby('g_term', 'asc');
 		$query = $this->db->get();
-		$data['glossary'] = $query;
-		$data['letter'] = range('a', 'z');
-		
+		$data['glossary'] = $query->result();
+
+		// Get out all the letters
+		$letter = array();
+		foreach (range('a', 'z') as $key => $value)
+		{
+			$letter[$key]['letter'] = $value;
+		}
+		$data['letters'] = $letter;
+
 		$this->template->build('glossary', $data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	* Term
 	*
@@ -61,7 +68,7 @@ class Glossary extends Front_Controller
 	{
 		$term = $this->security->xss_clean($term);
 		$this->db->from('glossary');
-		if ($term == 'sym') 
+		if ($term == 'sym')
 		{
 			$this->db->where('g_term LIKE', '.%');
 			$this->db->orwhere('g_term LIKE', '0%');
@@ -74,17 +81,24 @@ class Glossary extends Front_Controller
 			$this->db->orwhere('g_term LIKE', '7%');
 			$this->db->orwhere('g_term LIKE', '8%');
 			$this->db->orwhere('g_term LIKE', '9%');
-		} 
-		else 
+		}
+		else
 		{
 			$this->db->where('g_term LIKE', $term.'%');
 		}
 		$query = $this->db->get();
-		$data['glossary'] = $query;
-		$data['letter'] = range('a', 'z');
-		
+		$data['glossary'] = $query->result();
+
+		// Get out all the letters
+		$letter = array();
+		foreach (range('a', 'z') as $key => $value)
+		{
+			$letter[$key]['letter'] = $value;
+		}
+		$data['letters'] = $letter;
+
 		$this->template->title($this->lang->line('lang_glossary'));
-		
+
 		$this->template->build('glossary', $data);
 	}
 }

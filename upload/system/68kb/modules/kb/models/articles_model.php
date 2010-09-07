@@ -133,7 +133,7 @@ class Articles_model extends CI_model
 	* @param	int $cat_id The id of the category to delete.
 	* @uses		delete_article_attachments
 	* @uses 	delete_article_tags
-	* @return	true on success.
+	* @return	TRUE on success.
 	*/
 	function delete_article($article_id)
 	{
@@ -145,11 +145,11 @@ class Articles_model extends CI_model
 		if ($this->db->affected_rows() > 0) 
 		{
 			$this->db->cache_delete_all();
-			return true;
+			return TRUE;
 		} 
 		else 
 		{
-			return false;
+			return FALSE;
 		}
 	}
 	
@@ -201,11 +201,12 @@ class Articles_model extends CI_model
  	* 
  	* @param	array 	$data An array of data.
 	* @uses 	format_uri
- 	* @return	bool	true on success.
+ 	* @return	bool	TRUE on success.
  	*/
 	function edit_article($article_id, $data)
 	{
-		$article_id = (int)$article_id;
+		$article_id = (int) $article_id;
+		
 		if (isset($data['article_uri']) && $data['article_uri'] != '') 
 		{
 			$data['article_uri'] = create_slug($data['article_uri']);
@@ -214,21 +215,24 @@ class Articles_model extends CI_model
 		{
 			$data['article_uri'] = create_slug($data['article_title']);
 		}
+		
 		if ( ! isset($data['article_modified']) ) 
 		{
 			$data['article_modified'] = time();
 		}
+		
 		$this->db->where('article_id', $article_id);
 		$this->db->update('articles', $data);
-		if($this->db->affected_rows() > 0) 
+		
+		if ($this->db->affected_rows() > 0) 
 		{
-			$this->db->cache_delete_all();
-			return true;
+			$this->events->trigger('articles/edit', $article_id);
+			return TRUE;
 		} 
 		else
 		{
 			log_message('info', 'Could not edit the post id '. $article_id);
-			return false;
+			return FALSE;
 		}
 	}
 	
@@ -262,11 +266,13 @@ class Articles_model extends CI_model
 		
 		if($this->db->affected_rows() > 0) 
 		{
-			return $this->db->insert_id();
+			$article_id = $this->db->insert_id();
+			$this->events->trigger('articles/add', $article_id);
+			return $article_id;
 		} 
 		else 
 		{
-			return false;
+			return FALSE;
 		}
 	}
 	
@@ -278,11 +284,11 @@ class Articles_model extends CI_model
 	* Checks other articles for the same uri.
 	* 
 	* @param	string $article_uri The uri name
-	* @return	boolean True if checks out ok, false otherwise
+	* @return	boolean True if checks out ok, FALSE otherwise
 	*/
-	function check_uri($article_uri, $article_id=false)
+	function check_uri($article_uri, $article_id=FALSE)
 	{
-		if ($article_id !== false) 
+		if ($article_id !== FALSE) 
 		{
 			$article_id=(int)$article_id;
 			$this->db->select('article_uri')->from('articles')->where('article_uri', $article_uri)->where('article_id !=', $article_id);
@@ -294,11 +300,11 @@ class Articles_model extends CI_model
 		$query = $this->db->get();
 		if ($query->num_rows() > 0) 
 		{
-			return false;
+			return FALSE;
 		} 
 		else 
 		{
-			return true;
+			return TRUE;
 		}
 	}
 	

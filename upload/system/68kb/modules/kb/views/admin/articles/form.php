@@ -44,7 +44,9 @@ else
 			<div class="toolbar"><script type="text/javascript">if(typeof edToolbar=='function') edToolbar('cat_description');</script></div>
 			<?php echo form_textarea('article_description', set_value('article_description', @$row['article_description']), 'id="article_description" class="inputtext"'); ?>
 		</div>
-
+		
+		<?php $this->events->trigger('article/fields', @$row); ?>
+		
 		<input type="hidden" name="article_id" value="<?php echo @$row['article_id']; ?>" />
 		
 	</div>

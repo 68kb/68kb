@@ -43,7 +43,7 @@ class Simpletags
 	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
-		
+
 		foreach ($config as $key => $val)
 		{
 			if (isset($this->_{$key}))
@@ -91,12 +91,12 @@ class Simpletags
 		$this->_trigger = $trigger;
 		return $this;
 	}
-	
+
 	/**
 	 * Parse any language strings
 	 *
 	 * This is used to parse tags like {lang:lang_key}
-	 * 
+	 *
 	 * @param	string	The content to parse
 	 * @return	mixed	Either the tags as array or callback results
 	 */
@@ -115,25 +115,25 @@ class Simpletags
 			{
 				break;
 			}
-			
+
 			// We use these later
 			$tag_len = strlen($tag[0]);
 			$full_tag = $tag[0];
 
 			// Trim off the left and right delimeters
 			$tag = trim($full_tag, $this->_l_delim.$this->_r_delim);
-			
+
 			// Get the segments of the tag
 			$segments = preg_replace('/(.*?)\s+.*/', '$1', $tag);
-			
+
 			// Lets start to create the parsed tag
 			$parsed['full_tag'] = $full_tag;
 			$parsed['full_segments'] = str_replace($trigger, '', $segments);
 			$parsed['segments'] = $this->_parse_segments($parsed['full_segments']);
-			
+
 			// Lets trim off the first part of the content
 			$content = substr($content, $start + $tag_len);
-			
+
 			$parsed['content'] = '';
 			$parsed['marker'] = 'marker_'.$this->_tag_count.$this->_mark;
 
@@ -146,7 +146,7 @@ class Simpletags
 		{
 			return $orig_content;
 		}
-		
+
 		// Lets replace all the lang tags
 		foreach ($parsed_tags as $key => $tag)
 		{
@@ -155,7 +155,7 @@ class Simpletags
 			{
 				$return_data = $this->_parse_lang_single($tag);
 			}
-			
+
 			// If the tag referenced data then put that data in the content
 			if ($return_data)
 			{
@@ -166,14 +166,14 @@ class Simpletags
 
 		return $orig_content;
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Parse the lang lines
 	 *
 	 * If the language term is not found it shows the original line.
-	 * 
+	 *
 	 * @param	string - The language segment
 	 * @return 	string - The translated segment
 	 */
@@ -182,14 +182,48 @@ class Simpletags
 		foreach ($tag['segments'] as $segment)
 		{
 			$orig = $segment;
-			if ( ! $segment = $this->_ci->lang->line($segment)) 
+			if ( ! $segment = $this->_ci->lang->line($segment))
 			{
 				$segment = $orig;
 			}
 		}
 		return $segment;
 	}
-	
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Parse Globals
+	 *
+	 * Parses global data tags.  These are tags that do not use a trigger
+	 * and have a variable in the $data array.  This enables you to use
+	 * globals inside of other tags:
+	 *
+	 * The Tag:
+	 * {tag:blog:posts offset="{offset}"}
+	 *
+	 * The data array:
+	 * array(
+	 *     'offset' => $this->uri->segment(3),
+	 * );
+	 *
+	 * @access	public
+	 * @param	string	The content to parse
+	 * @param	array	The globals
+	 * @return	string	The parsed content
+	 */
+	public function parse_globals($content, $data)
+	{
+		foreach ($data as $var => $value)
+		{
+			if ( ! is_array($value))
+			{
+				$content = str_replace('{'.$var.'}', $value, $content);
+			}
+		}
+		return $content;
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -205,10 +239,11 @@ class Simpletags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $this->_parse_lang($content, $data, $callback);
+		$orig_content = $this->_parse_lang($content);
+		$orig_content = $this->parse_globals($orig_content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
-		
+
 		while (($start = strpos($orig_content, $this->_l_delim.$this->_trigger)) !== FALSE)
 		{
 			$content = $orig_content;
@@ -293,25 +328,25 @@ class Simpletags
 				}
 			}
 		}
-		
+
 		// If there is a callback, call it for each tag
 		if ( ! empty($callback) AND is_callable($callback))
 		{
 			foreach ($parsed_tags as $tag)
 			{
 				$result = call_user_func($callback, $tag);
-				
+
 				if (is_array($result))
 				{
 					$temp = new Simpletags();
 					$result = $temp->parse($tag['content'], $result);
 					unset($temp);
 				}
-				
+
 				$orig_content = str_replace($tag['marker'], $result, $orig_content);
 			}
 		}
-		
+
 
 		// If there is no callback then lets loop through any remaining tags and just set them as ''
 		else
@@ -347,13 +382,24 @@ class Simpletags
 	 */
 	private function _parse_data_single($tag, $data)
 	{
+		if (isset($tag['attributes']['format']) && function_exists($tag['attributes']['format']))
+		{
+			$func = $tag['attributes']['format'];
+		}
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! isset($data[$segment]))
+			if ( ! is_array($data) OR ! isset($data[$segment]))
 			{
 				return FALSE;
 			}
-			$data = $data[$segment];
+			if (isset($func))
+			{
+				$data = $func($data[$segment]);
+			}
+			else
+			{
+				$data = $data[$segment];
+			}
 		}
 		return $data;
 	}
@@ -393,13 +439,12 @@ class Simpletags
 		$return_data = '';
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! isset($data[$segment]))
+			if ( ! is_array($data) OR ! isset($data[$segment]))
 			{
 				return FALSE;
 			}
 			$data = $data[$segment];
 		}
-
 		$temp = new Simpletags();
 		foreach ($data as $val)
 		{
