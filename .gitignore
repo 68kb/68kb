@@ -1,9 +1,9 @@
 .DS_Store
-upload/includes/68kb/cache/*
-!upload/includes/68kb/cache/index.html
+upload/system/68kb/cache/*
+!upload/system/68kb/cache/index.html
 upload/uploads/*
 !upload/uploads/index.html
-upload/includes/system/logs/*
-!upload/includes/system/logs/index.html
+upload/system/codeigniter/system/logs/*
+!upload/system/codeigniter/system/logs/index.html
 /*.buildpath
 /*.project
