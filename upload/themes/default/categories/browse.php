@@ -11,7 +11,7 @@
 
 		<ul class="articles">
 			{kb:articles:get category="{category_id}" per_page="2"}
-				<li><a href="{kb:article_url}">{kb:article_title}</a></li>
+				<li><a href="{kb:site:link}article/{kb:article_uri}">{kb:article_title}</a></li>
 			{/kb:articles:get}
 		</ul>
 

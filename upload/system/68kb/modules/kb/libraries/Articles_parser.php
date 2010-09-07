@@ -182,15 +182,6 @@ class Articles_parser
 
 		$data = $query->result_array();
 
-		// Get any other thing they may want.
-		$i = 0;
-		foreach ($data AS $row)
-		{
-			// Generate the URL
-			$data[$i]['article_url'] = site_url('article/'.$row['article_uri']);
-			$i++;
-		}
-
 		$query->free_result();
 
 		$this->_ci->db->stop_cache();
