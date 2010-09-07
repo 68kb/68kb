@@ -29,31 +29,31 @@ class Search_model extends CI_Model
 	 *
 	 * @return 	void
 	 */
-	public function __construct() 
+	public function __construct()
 	{
 		parent::__construct();
 		log_message('debug', 'Search_model Initialized');
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Store Search Results
 	 *
 	 * @param	string - The where clause
 	 * @param	int - The total results.
 	 */
-	public function store_search_results($keywords, $total) 
+	public function store_search_results($keywords, $total)
 	{
 		$this->load->helper('string');
-		
+
 		$hash = random_string('unique');
-		
+
 		// First delete any old searches by the user
 		$this->db->where('search_user_id', $this->session->userdata('user_id'));
 		$this->db->where('search_ip', $this->input->ip_address());
 		$this->db->delete('search');
-		
+
 		$data = array(
 			'search_id'			=> $hash,
 			'search_date'		=> time(),
@@ -62,14 +62,14 @@ class Search_model extends CI_Model
 			'search_total'		=> $total,
 			'search_ip'			=> $this->input->ip_address()
 		);
-		
+
 		$this->db->insert('search', $data);
-		
+
 		return $hash;
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	private function _save_keywords($keywords)
 	{
 		$data = array(
@@ -78,12 +78,12 @@ class Search_model extends CI_Model
 			'searchlog_term'		=> $keywords,
 			'searchlog_ip'			=> $this->input->ip_address()
 		);
-		
+
 		$this->db->insert('searchlog', $data);
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Delete old search data.
 	 *
@@ -93,13 +93,13 @@ class Search_model extends CI_Model
 	{
 		// Set the expiration to one hour
 		$expire = strtotime("-1 hour");
-		
+
 		$this->db->where('search_date <', $expire);
-		$this->db->delete('search'); 
+		$this->db->delete('search');
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Remove the search session data
 	 */
@@ -108,7 +108,7 @@ class Search_model extends CI_Model
 		if ($sess_data = get_cookie($this->config->item('sess_cookie_name'), TRUE))
 		{
 			$sess_data = unserialize($sess_data);
-			foreach ($sess_data as $key => $value) 
+			foreach ($sess_data as $key => $value)
 			{
 				if (strpos($key, 'extra_field_') !== FALSE)
 				{
@@ -117,19 +117,19 @@ class Search_model extends CI_Model
 			}
 		}
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Get any extra fields that can be searched
-	 * 
+	 *
 	 * @param	int Category id
 	 * @return 	array
 	 */
 	public function get_fields($cat_id)
 	{
 		$cat_id = (int) $cat_id;
-		
+
 		$this->db->select('field_id,field_type,field_internal,field_validation')
 					->distinct()
 					->from('fields')
@@ -137,9 +137,9 @@ class Search_model extends CI_Model
 					->where('rel_cat_id', $cat_id)
 					->where('field_table', 'listing_fields')
 					->where('field_search', 'yes');
-					
+
 		$query = $this->db->get();
-		
+
 		if ($query->num_rows() == 0)
 		{
 			return FALSE;
@@ -148,12 +148,12 @@ class Search_model extends CI_Model
 		$data = $query->result_array();
 
 		$query->free_result();
-		
+
 		return $data;
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Get a stored search
 	 *
@@ -164,21 +164,21 @@ class Search_model extends CI_Model
 		$this->db->from('search')
 				->where('search_id', $hash)
 				->where('search_ip', $this->input->ip_address());
-		
+
 		$query = $this->db->get();
-		
-		if ($query->num_rows() == 0) 
+
+		if ($query->num_rows() == 0)
 		{
 			return FALSE;
 		}
-		
+
 		$data = $query->row_array();
-		
+
 		return $data;
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Filter the listings by options
 	 *
@@ -195,23 +195,23 @@ class Search_model extends CI_Model
 				$fields = $this->get_fields($category);
 			}
 		}
-		
+
 		$this->db->from('articles')
 				->join('article_fields', 'article_id = article_field_id', 'inner');
-		
+
 		$where = 'article_display = "y"';
-		
+
 		if (isset($search_options['category']) OR isset($search_options['article_category']))
 		{
 			$this->db->join('article2cat', 'article_id = article_id_rel', 'right');
 		}
-		
+
 		// Call any hooks and add them to the where clause.
 		if ($this->events->active_hook('get_articles_where'))
 		{
 			$where .= $this->events->trigger('get_articles_where', $search_options);
 		}
-		
+
 		// Validate that the search_options can be searched.
 		if ( ! empty($search_options))
 		{
@@ -221,26 +221,26 @@ class Search_model extends CI_Model
 				{
 					$field_name = $extra['field_internal'];
 					$listing_field = 'extra_field_'.$field_name;
-					
+
 					// Check if it is a min/max field
 					if ($extra['field_type'] == 'price' OR $extra['field_type'] == 'range' OR strpos($extra['field_validation'], 'numeric') !== FALSE)
 					{
 						$min = 0;
-						
+
 						if (isset($search_options[$field_name.'_min']) && is_numeric($search_options[$field_name.'_min']))
 						{
 							$min = (int) $search_options[$field_name.'_min'];
 							$this->session->set_userdata($listing_field.'_min', $min);
 						}
-						
+
 						$max = 999999999;
-						
+
 						if (isset($search_options[$field_name.'_max']) && is_numeric($search_options[$field_name.'_max']))
 						{
 							$max = (int) $search_options[$field_name.'_max'];
 							$this->session->set_userdata($listing_field.'_max', $max);
 						}
-						
+
 						if ($min > $max OR $max == 0)
 						{
 							$max = 999999999;
@@ -251,23 +251,23 @@ class Search_model extends CI_Model
 					elseif ($extra['field_type'] == 'date') // Searching dates
 					{
 						$min = strtotime("-10 years");
-						
+
 						if (isset($search_options[$field_name.'_min']) && $search_options[$field_name.'_min'] != 'min')
 						{
 							$value = $search_options[$field_name.'_min'] .' 00:00:00';
 							$min = human_to_unix($value);
 							$this->session->set_userdata($listing_field.'_min', $search_options[$field_name.'_min']);
 						}
-						
+
 						$max = strtotime("+10 years");
-						
+
 						if (isset($search_options[$field_name.'_max']) && $search_options[$field_name.'_max'] != 'max')
 						{
 							$value = $search_options[$field_name.'_max'] .' 00:00:00';
 							$max = human_to_unix($value);
 							$this->session->set_userdata($listing_field.'_max', $search_options[$field_name.'_max']);
 						}
-						
+
 						if ($min > $max)
 						{
 							$max = strtotime("+10 years");
@@ -283,28 +283,28 @@ class Search_model extends CI_Model
 					}
 				}
 			}
-			
+
 			if (isset($search_options['keywords'])) // Keyword searching
 			{
 				$keywords = $this->security->xss_clean($search_options['keywords']);
 				$keywords = strip_tags(stripslashes($keywords));
 				$words_array = explode(" ", $keywords);
-	
+
 				foreach ($words_array as $trimm)
 				{
 					$where .= " AND (
-						article_title LIKE '%".$this->db->escape_like_str($trimm)."%' OR 
-						article_short_desc LIKE '%".$this->db->escape_like_str($trimm)."%' OR 
+						article_title LIKE '%".$this->db->escape_like_str($trimm)."%' OR
+						article_short_desc LIKE '%".$this->db->escape_like_str($trimm)."%' OR
 						article_description LIKE '%".$this->db->escape_like_str($trimm)."%'
 					)";
 				}
 			}
-			
+
 			if (isset($search_options['article_category']))
 			{
 				if (is_array($search_options['article_category']))
 				{
-					$this->db->where_in('category_id_rel', $search_options['article_category']);
+					$where .= ' AND category_id_rel IN('.implode($search_options['article_category'],',').')';
 				}
 			}
 			elseif (isset($category))
@@ -315,31 +315,31 @@ class Search_model extends CI_Model
 				}
 			}
 		}
-		
+
 		$this->db->where($where);
-		
+
 		$query = $this->db->get();
-		
-		if ($query->num_rows() == 0) 
+
+		if ($query->num_rows() == 0)
 		{
 			return FALSE;
 		}
-		
+
 		$data = $query->result_array();
-		
+
 		// Save the keywords
 		if (isset($search_options['keywords']))
 		{
 			$this->_save_keywords($search_options['keywords']);
 		}
-		
+
 		// Save the search
 		$hash = $this->store_search_results(base64_encode(serialize($where)), $query->num_rows());
-		
+
 		$query->free_result();
-		
+
 		return $hash;
 	}
 }
 /* End of file search_model.php */
-/* Location: ./upload/includes/68kb/modules/search/models/search_model.php */ 
+/* Location: ./upload/includes/68kb/modules/search/models/search_model.php */
